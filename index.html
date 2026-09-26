@@ -89,7 +89,13 @@
             gap: 14px;
         }
 
-        .now-playing > button {
+        .now-playing-controls {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .now-playing-controls button {
             font-size: 18px;
             width: 38px;
             height: 38px;
@@ -105,7 +111,7 @@
             cursor: pointer;
         }
 
-        .now-playing > button:hover {
+        .now-playing-controls button:hover {
             transform: scale(1.08);
             background: #292929;
         }
@@ -438,7 +444,10 @@
     </section>
 
     <div class="now-playing">
-        <button id="now-playing-play" type="button" aria-label="Reproduzir vídeo atual">▶</button>
+        <div class="now-playing-controls">
+            <button id="now-playing-play" type="button" aria-label="Reproduzir vídeo atual">▶</button>
+            <button id="now-playing-pause" type="button" aria-label="Pausar vídeo atual">⏸</button>
+        </div>
         <div>
             <small>🎵 Tocando agora</small>
             <strong id="now-playing-title">Slipknot — Psychosocial</strong>
@@ -450,6 +459,7 @@
         const videoCards = document.querySelectorAll('.video-card');
         const nowPlayingTitle = document.getElementById('now-playing-title');
         const playButton = document.getElementById('now-playing-play');
+        const pauseButton = document.getElementById('now-playing-pause');
         let currentPlayer = null;
 
         playButton.addEventListener('click', () => {
@@ -458,6 +468,12 @@
             } else if (videoCards.length) {
                 const firstIframe = videoCards[0].querySelector('iframe');
                 firstIframe.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+
+        pauseButton.addEventListener('click', () => {
+            if (currentPlayer) {
+                currentPlayer.pauseVideo();
             }
         });
 
