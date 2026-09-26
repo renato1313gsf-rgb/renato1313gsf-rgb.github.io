@@ -11,6 +11,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: #111;
             background-image: radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
@@ -20,6 +24,56 @@
             text-align: center;
             padding-top: 50px;
             margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           MENU
+        ========================= */
+
+        .top-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 14px 20px;
+            background: rgba(10, 10, 10, 0.94);
+            border-bottom: 1px solid #292929;
+            backdrop-filter: blur(10px);
+            z-index: 20;
+
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .top-menu a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .top-menu a:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 72vh;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding: 100px 20px 50px;
         }
 
         .logo {
@@ -37,73 +91,139 @@
         }
 
         @keyframes glitch {
-            0% { clip-path: inset(0 0 0 0); }
-            50% { clip-path: inset(2% 0 3% 0); }
-            100% { clip-path: inset(0 0 0 0); }
+            0% {
+                clip-path: inset(0 0 0 0);
+            }
+
+            50% {
+                clip-path: inset(2% 0 3% 0);
+            }
+
+            100% {
+                clip-path: inset(0 0 0 0);
+            }
         }
 
-        .now-playing {
-            position: fixed;
-            left: 50%;
-            bottom: 18px;
-            transform: translateX(-50%);
-            width: min(560px, calc(100% - 30px));
-            background: rgba(15, 15, 15, 0.97);
-            border: 1px solid #555;
-            border-radius: 14px;
-            padding: 12px 18px;
-            text-align: left;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.55);
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            gap: 14px;
+        .hero-tagline {
+            margin: 0 0 28px;
+            color: #aaa;
+            font-size: clamp(18px, 3vw, 27px);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+
+            animation: fadeUp 0.8s ease both;
         }
 
-        .now-playing-controls {
-            display: flex;
-            gap: 8px;
-            flex-shrink: 0;
-        }
+        .discover-button {
+            display: inline-block;
 
-        .now-playing-controls button {
-            font-size: 18px;
-            width: 38px;
-            height: 38px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #555;
-            border-radius: 50%;
-            flex-shrink: 0;
-            background: #1b1b1b;
+            padding: 14px 28px;
+
+            border: 1px solid #777;
+            border-radius: 999px;
+
             color: white;
-            cursor: pointer;
+            background: #171717;
+
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 1px;
+
+            transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+
+            animation: pulse 2.5s ease-in-out infinite;
         }
 
-        .now-playing-controls button:hover {
-            transform: scale(1.08);
-            background: #292929;
+        .discover-button:hover {
+            transform: scale(1.06);
+            background: #252525;
+            box-shadow: 0 0 25px rgba(255,255,255,0.12);
         }
 
-        .now-playing small {
-            color: #888;
-            display: block;
-            margin-bottom: 3px;
-            font-size: 12px;
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .now-playing strong {
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 rgba(255,255,255,0);
+            }
+
+            50% {
+                box-shadow: 0 0 22px rgba(255,255,255,0.1);
+            }
+        }
+
+        /* =========================
+           RÁDIO
+        ========================= */
+
+        .radio {
+            max-width: 900px;
+            margin: 10px auto 80px;
+            padding: 30px;
+
+            border: 1px solid #333;
+            border-radius: 18px;
+
+            background: linear-gradient(135deg, #151515, #202020);
+
+            box-shadow: 0 15px 45px rgba(0,0,0,0.35);
+        }
+
+        .radio h2 {
+            margin: 10px 0;
+            font-size: 30px;
+        }
+
+        .radio p {
+            color: #aaa;
+            margin: 8px 0 0;
             font-size: 15px;
         }
 
-        @media (max-width: 800px) {
-            .now-playing {
-                bottom: 10px;
-                padding: 10px 14px;
+        .radio-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #ddd;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .radio-dot {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            box-shadow: 0 0 12px rgba(255,255,255,0.8);
+
+            animation: radioBlink 1.2s infinite;
+        }
+
+        @keyframes radioBlink {
+            50% {
+                opacity: 0.25;
+                transform: scale(0.75);
             }
         }
+
+        /* =========================
+           ESTILOS
+        ========================= */
 
         p {
             font-size: 20px;
@@ -131,14 +251,22 @@
             background: #1b1b1b;
             border: 1px solid #333;
             border-radius: 14px;
+
             padding: 28px 20px;
-            transition: transform 0.2s, border-color 0.2s, background 0.2s;
+
+            transition:
+                transform 0.2s,
+                border-color 0.2s,
+                background 0.2s,
+                box-shadow 0.2s;
         }
 
         .style-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-7px);
             border-color: #777;
             background: #222;
+
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35);
         }
 
         .style-card .icon {
@@ -158,6 +286,10 @@
             margin: 0;
         }
 
+        /* =========================
+           VÍDEOS
+        ========================= */
+
         .videos {
             margin: 90px auto 60px;
             max-width: 1100px;
@@ -175,13 +307,20 @@
             border: 1px solid #333;
             border-radius: 14px;
             overflow: hidden;
+
             text-align: left;
-            transition: transform 0.2s, border-color 0.2s;
+
+            transition:
+                transform 0.2s,
+                border-color 0.2s,
+                box-shadow 0.2s;
         }
 
         .video-card:hover {
             transform: translateY(-5px);
             border-color: #777;
+
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35);
         }
 
         .video iframe {
@@ -206,7 +345,199 @@
             color: #aaa;
         }
 
+        /* =========================
+           NOW PLAYING
+        ========================= */
+
+        .now-playing {
+            position: fixed;
+            left: 50%;
+            bottom: 18px;
+
+            transform: translateX(-50%);
+
+            width: min(560px, calc(100% - 30px));
+
+            background: rgba(15, 15, 15, 0.97);
+
+            border: 1px solid #555;
+            border-radius: 14px;
+
+            padding: 12px 18px;
+
+            text-align: left;
+
+            box-shadow: 0 8px 30px rgba(0,0,0,0.55);
+
+            z-index: 10;
+
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .now-playing-controls {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .now-playing-controls button {
+            font-size: 18px;
+
+            width: 38px;
+            height: 38px;
+
+            padding: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #555;
+            border-radius: 50%;
+
+            flex-shrink: 0;
+
+            background: #1b1b1b;
+            color: white;
+
+            cursor: pointer;
+        }
+
+        .now-playing-controls button:hover {
+            transform: scale(1.08);
+            background: #292929;
+        }
+
+        .now-playing small {
+            color: #888;
+            display: block;
+            margin-bottom: 3px;
+            font-size: 12px;
+        }
+
+        .now-playing strong {
+            font-size: 15px;
+        }
+
+        /* =========================
+           EASTER EGG
+        ========================= */
+
+        .easter-message {
+            position: fixed;
+            inset: 0;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(0,0,0,0.94);
+
+            z-index: 100;
+
+            padding: 20px;
+        }
+
+        .easter-message.show {
+            display: flex;
+            animation: fadeUp 0.25s ease both;
+        }
+
+        .easter-box {
+            max-width: 560px;
+
+            padding: 35px;
+
+            border: 1px solid #666;
+
+            background: #111;
+
+            box-shadow: 0 0 50px rgba(255,255,255,0.08);
+        }
+
+        .easter-box h2 {
+            margin-top: 0;
+            font-size: 30px;
+        }
+
+        .easter-box p {
+            color: #aaa;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           SECRET MODE
+        ========================= */
+
+        .secret-mode {
+            animation: secretShake 0.08s linear infinite;
+        }
+
+        .secret-mode .logo {
+            animation: glitch 0.12s steps(2) infinite;
+            filter: invert(1) contrast(1.5);
+        }
+
+        @keyframes secretShake {
+            0% {
+                transform: translate(0);
+            }
+
+            25% {
+                transform: translate(1px, -1px);
+            }
+
+            50% {
+                transform: translate(-1px, 1px);
+            }
+
+            75% {
+                transform: translate(1px, 1px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        /* =========================
+           RODAPÉ
+        ========================= */
+
+        .site-footer {
+            border-top: 1px solid #292929;
+
+            padding: 45px 20px 110px;
+
+            color: #777;
+
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .site-footer strong {
+            color: #aaa;
+        }
+
+        /* =========================
+           CELULAR
+        ========================= */
+
         @media (max-width: 800px) {
+
+            .top-menu {
+                gap: 14px;
+                padding: 12px 10px;
+            }
+
+            .top-menu a {
+                font-size: 10px;
+                letter-spacing: 1px;
+            }
+
             .style-grid,
             .video-grid {
                 grid-template-columns: 1fr;
@@ -216,17 +547,68 @@
             .videos {
                 margin-top: 60px;
             }
+
+            .now-playing {
+                bottom: 10px;
+                padding: 10px 14px;
+            }
+
+            .radio {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <img src="rockwave-logo.png" alt="RockWave" class="logo">
+    <!-- MENU -->
 
-    <p>Bem-vindo ao site de rock</p>
+    <nav class="top-menu">
+        <a href="#inicio">INÍCIO</a>
+        <a href="#estilos">ESTILOS</a>
+        <a href="#radio">RÁDIO</a>
+        <a href="#videos">VÍDEOS</a>
+    </nav>
 
-    <section class="styles">
+    <!-- HERO -->
+
+    <header class="hero" id="inicio">
+
+        <img src="rockwave-logo.png" alt="RockWave" class="logo">
+
+        <p class="hero-tagline">
+            O som não morreu.
+        </p>
+
+        <a class="discover-button" href="#estilos">
+            🎸 DESCUBRA SEU ESTILO
+        </a>
+
+    </header>
+
+    <!-- RÁDIO -->
+
+    <section class="radio" id="radio">
+
+        <div class="radio-status">
+            <span class="radio-dot"></span>
+            RockWave Radio • no ar
+        </div>
+
+        <h2>📻 ROCKWAVE RADIO</h2>
+
+        <p>
+            Escolha um vídeo abaixo e ele assume o comando da rádio.
+        </p>
+
+    </section>
+
+    <!-- ESTILOS -->
+
+    <section class="styles" id="estilos">
+
         <h2>ESTILOS DE ROCK</h2>
 
         <div class="style-grid">
@@ -234,43 +616,58 @@
             <article class="style-card">
                 <div class="icon">🎤</div>
                 <h3>Grunge</h3>
-                <p>Guitarras pesadas, distorção e uma atitude crua e alternativa.</p>
+                <p>
+                    Guitarras pesadas, distorção e uma atitude crua e alternativa.
+                </p>
             </article>
 
             <article class="style-card">
                 <div class="icon">🔥</div>
                 <h3>Nu Metal</h3>
-                <p>Riffs pesados, rap, eletrônica e muita energia.</p>
+                <p>
+                    Riffs pesados, rap, eletrônica e muita energia.
+                </p>
             </article>
 
             <article class="style-card">
                 <div class="icon">🤘</div>
                 <h3>Heavy Metal</h3>
-                <p>Guitarras marcantes, solos e aquele som pesado clássico.</p>
+                <p>
+                    Guitarras marcantes, solos e aquele som pesado clássico.
+                </p>
             </article>
 
             <article class="style-card">
                 <div class="icon">Ⓐ</div>
                 <h3>Punk Rock</h3>
-                <p>Rápido, direto e rebelde, sem enrolação.</p>
+                <p>
+                    Rápido, direto e rebelde, sem enrolação.
+                </p>
             </article>
 
             <article class="style-card">
                 <div class="icon">🎶</div>
                 <h3>Alternative Rock</h3>
-                <p>Experimentação, criatividade e sons fora do padrão.</p>
+                <p>
+                    Experimentação, criatividade e sons fora do padrão.
+                </p>
             </article>
 
             <article class="style-card">
                 <div class="icon">🎵</div>
                 <h3>Hard Rock</h3>
-                <p>Grandes riffs, bateria forte e solos de guitarra.</p>
+                <p>
+                    Grandes riffs, bateria forte e solos de guitarra.
+                </p>
             </article>
 
         </div>
     </section>
 
-    <section class="videos">
+    <!-- VÍDEOS -->
+
+    <section class="videos" id="videos">
+
         <h2>🎥 VÍDEOS</h2>
 
         <div class="video-grid">
@@ -282,6 +679,7 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
                 </div>
+
                 <div class="video-info">
                     <h3>Linkin Park — In the End</h3>
                     <p>Nu Metal • Rock Alternativo</p>
@@ -295,6 +693,7 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
                 </div>
+
                 <div class="video-info">
                     <h3>AC/DC — Thunderstruck</h3>
                     <p>Hard Rock</p>
@@ -308,6 +707,7 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
                 </div>
+
                 <div class="video-info">
                     <h3>Nirvana — Smells Like Teen Spirit</h3>
                     <p>Grunge • Rock Alternativo</p>
@@ -321,6 +721,7 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
                 </div>
+
                 <div class="video-info">
                     <h3>System Of A Down — Toxicity</h3>
                     <p>Alternative Metal</p>
@@ -334,6 +735,7 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
                 </div>
+
                 <div class="video-info">
                     <h3>System Of A Down — Chop Suey!</h3>
                     <p>Alternative Metal</p>
@@ -347,6 +749,7 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
                 </div>
+
                 <div class="video-info">
                     <h3>Rage Against The Machine — Killing in the Name</h3>
                     <p>Alternative Rock • Rap Rock</p>
@@ -360,6 +763,7 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
                 </div>
+
                 <div class="video-info">
                     <h3>Slipknot — Psychosocial</h3>
                     <p>Nu Metal • Heavy Metal</p>
@@ -369,58 +773,256 @@
         </div>
     </section>
 
+    <!-- PLAYER -->
+
     <div class="now-playing">
+
         <div class="now-playing-controls">
-            <button id="now-playing-play" type="button" aria-label="Reproduzir vídeo atual">▶</button>
-            <button id="now-playing-pause" type="button" aria-label="Pausar vídeo atual">⏸</button>
+
+            <button id="now-playing-play"
+                type="button"
+                aria-label="Reproduzir vídeo atual">
+                ▶
+            </button>
+
+            <button id="now-playing-pause"
+                type="button"
+                aria-label="Pausar vídeo atual">
+                ⏸
+            </button>
+
         </div>
+
         <div>
-            <small>🎵 Tocando agora</small>
-            <strong id="now-playing-title">Slipknot — Psychosocial</strong>
+
+            <small>
+                🎵 Tocando agora
+            </small>
+
+            <strong id="now-playing-title">
+                Slipknot — Psychosocial
+            </strong>
+
         </div>
+
     </div>
 
+    <!-- EASTER EGG -->
+
+    <div class="easter-message" id="easter-message">
+
+        <div class="easter-box">
+
+            <h2>
+                ROCKWAVE.EXE
+            </h2>
+
+            <p>
+                Você encontrou um sinal escondido. 🤘
+                <br>
+                O rock estava aqui o tempo todo.
+            </p>
+
+            <p>
+                Pressione <strong>ESC</strong> para fechar.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- RODAPÉ -->
+
+    <footer class="site-footer">
+
+        <strong>ROCKWAVE</strong>
+
+        — O som não morreu. 🎸
+
+    </footer>
+
+    <!-- YOUTUBE -->
+
     <script src="https://www.youtube.com/iframe_api"></script>
+
     <script>
-        const videoCards = document.querySelectorAll('.video-card');
-        const nowPlayingTitle = document.getElementById('now-playing-title');
-        const playButton = document.getElementById('now-playing-play');
-        const pauseButton = document.getElementById('now-playing-pause');
+
+        const videoCards =
+            document.querySelectorAll('.video-card');
+
+        const nowPlayingTitle =
+            document.getElementById('now-playing-title');
+
+        const playButton =
+            document.getElementById('now-playing-play');
+
+        const pauseButton =
+            document.getElementById('now-playing-pause');
+
         let currentPlayer = null;
 
+        /* =========================
+           PLAYER
+        ========================= */
+
         playButton.addEventListener('click', () => {
+
             if (currentPlayer) {
+
                 currentPlayer.playVideo();
+
             } else if (videoCards.length) {
-                const firstIframe = videoCards[0].querySelector('iframe');
-                firstIframe.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                const firstIframe =
+                    videoCards[0].querySelector('iframe');
+
+                firstIframe.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+
             }
+
         });
 
         pauseButton.addEventListener('click', () => {
+
             if (currentPlayer) {
                 currentPlayer.pauseVideo();
             }
+
         });
 
+        /* =========================
+           EASTER EGG
+        ========================= */
+
+        let logoClicks = 0;
+
+        let secretCode = "";
+
+        const easterMessage =
+            document.getElementById('easter-message');
+
+        const logo =
+            document.querySelector('.logo');
+
+        /*
+           Clique 5 vezes no logo
+           para abrir o ROCKWAVE.EXE
+        */
+
+        logo.addEventListener('click', () => {
+
+            logoClicks++;
+
+            if (logoClicks >= 5) {
+
+                easterMessage.classList.add('show');
+
+                logoClicks = 0;
+
+            }
+
+        });
+
+        /*
+           ESC fecha o Easter Egg
+        */
+
+        document.addEventListener('keydown', event => {
+
+            if (event.key === 'Escape') {
+
+                easterMessage.classList.remove('show');
+
+            }
+
+        });
+
+        /*
+           Digite ROCKWAVE no teclado
+           para ativar o modo secreto
+        */
+
+        document.addEventListener('keydown', event => {
+
+            secretCode += event.key.toLowerCase();
+
+            if (secretCode.length > 12) {
+
+                secretCode =
+                    secretCode.slice(-12);
+
+            }
+
+            if (secretCode.includes('rockwave')) {
+
+                document.body.classList.add(
+                    'secret-mode'
+                );
+
+                setTimeout(() => {
+
+                    document.body.classList.remove(
+                        'secret-mode'
+                    );
+
+                }, 2500);
+
+                secretCode = "";
+
+            }
+
+        });
+
+        /* =========================
+           YOUTUBE API
+        ========================= */
+
         function onYouTubeIframeAPIReady() {
+
             videoCards.forEach(card => {
-                const iframe = card.querySelector('iframe');
-                const title = card.querySelector('.video-info h3').textContent;
+
+                const iframe =
+                    card.querySelector('iframe');
+
+                const title =
+                    card.querySelector(
+                        '.video-info h3'
+                    ).textContent;
 
                 new YT.Player(iframe, {
+
                     events: {
+
                         onStateChange: event => {
-                            if (event.data === YT.PlayerState.PLAYING) {
-                                nowPlayingTitle.textContent = title;
-                                currentPlayer = event.target;
+
+                            if (
+                                event.data ===
+                                YT.PlayerState.PLAYING
+                            ) {
+
+                                nowPlayingTitle.textContent =
+                                    title;
+
+                                currentPlayer =
+                                    event.target;
+
                             }
+
                         }
+
                     }
+
                 });
+
             });
+
         }
+
     </script>
 
 </body>
+
 </html>
