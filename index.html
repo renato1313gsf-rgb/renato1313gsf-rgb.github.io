@@ -22,71 +22,40 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding-top: 50px;
             margin: 0;
             overflow-x: hidden;
         }
 
         /* =========================
-           MENU
-        ========================= */
-
-        .top-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 14px 20px;
-            background: rgba(10, 10, 10, 0.94);
-            border-bottom: 1px solid #292929;
-            backdrop-filter: blur(10px);
-            z-index: 20;
-
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        .top-menu a {
-            color: #aaa;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-            transition: color 0.2s, transform 0.2s;
-        }
-
-        .top-menu a:hover {
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* =========================
-           HERO
+           PÁGINA INICIAL
         ========================= */
 
         .hero {
-            min-height: 72vh;
+            min-height: 100vh;
 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
 
-            padding: 100px 20px 50px;
+            padding: 50px 20px;
         }
 
         .logo {
             width: 500px;
             max-width: 90%;
             height: auto;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+
+            cursor: pointer;
+
             transition: transform 0.15s, filter 0.15s;
         }
 
         .logo:hover {
             transform: translate(2px, -1px) skewX(-1deg);
             filter: contrast(1.25);
+
             animation: glitch 0.18s steps(2) infinite;
         }
 
@@ -105,51 +74,72 @@
         }
 
         .hero-tagline {
-            margin: 0 0 28px;
-            color: #aaa;
-            font-size: clamp(18px, 3vw, 27px);
-            letter-spacing: 5px;
-            text-transform: uppercase;
+            margin: 0 0 35px;
 
-            animation: fadeUp 0.8s ease both;
+            color: #999;
+
+            font-size: clamp(17px, 3vw, 25px);
+
+            letter-spacing: 5px;
+
+            text-transform: uppercase;
         }
 
-        .discover-button {
-            display: inline-block;
+        /* =========================
+           BOTÕES PRINCIPAIS
+        ========================= */
 
-            padding: 14px 28px;
+        .home-buttons {
+            display: flex;
+            flex-direction: column;
 
-            border: 1px solid #777;
-            border-radius: 999px;
+            gap: 14px;
 
-            color: white;
+            width: min(440px, 90%);
+        }
+
+        .home-button {
+            display: block;
+
+            width: 100%;
+
+            padding: 17px 25px;
+
             background: #171717;
 
-            text-decoration: none;
-            font-weight: bold;
-            letter-spacing: 1px;
+            border: 1px solid #444;
+            border-radius: 8px;
 
-            transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            transition:
+                transform 0.2s,
+                background 0.2s,
+                border-color 0.2s,
+                box-shadow 0.2s;
+        }
+
+        .home-button:hover {
+            transform: scale(1.04);
+
+            background: #242424;
+
+            border-color: #888;
+
+            box-shadow: 0 0 25px rgba(255,255,255,0.09);
+        }
+
+        .home-button.primary {
+            border-color: #777;
 
             animation: pulse 2.5s ease-in-out infinite;
-        }
-
-        .discover-button:hover {
-            transform: scale(1.06);
-            background: #252525;
-            box-shadow: 0 0 25px rgba(255,255,255,0.12);
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(18px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         @keyframes pulse {
@@ -158,7 +148,7 @@
             }
 
             50% {
-                box-shadow: 0 0 22px rgba(255,255,255,0.1);
+                box-shadow: 0 0 22px rgba(255,255,255,0.10);
             }
         }
 
@@ -168,10 +158,13 @@
 
         .radio {
             max-width: 900px;
-            margin: 10px auto 80px;
-            padding: 30px;
+
+            margin: 100px auto 80px;
+
+            padding: 35px 25px;
 
             border: 1px solid #333;
+
             border-radius: 18px;
 
             background: linear-gradient(135deg, #151515, #202020);
@@ -180,24 +173,32 @@
         }
 
         .radio h2 {
-            margin: 10px 0;
+            margin: 12px 0;
+
             font-size: 30px;
         }
 
         .radio p {
             color: #aaa;
+
             margin: 8px 0 0;
+
             font-size: 15px;
         }
 
         .radio-status {
             display: inline-flex;
+
             align-items: center;
+
             gap: 8px;
 
             color: #ddd;
+
             font-size: 13px;
+
             letter-spacing: 1px;
+
             text-transform: uppercase;
         }
 
@@ -217,39 +218,48 @@
         @keyframes radioBlink {
             50% {
                 opacity: 0.25;
+
                 transform: scale(0.75);
             }
         }
 
         /* =========================
-           ESTILOS
+           SEÇÕES
         ========================= */
 
-        p {
-            font-size: 20px;
-        }
-
-        .styles {
+        .styles,
+        .videos {
             max-width: 1100px;
-            margin: 90px auto 0;
+
+            margin: 100px auto;
+
             padding: 20px;
         }
 
         .styles h2,
         .videos h2 {
             font-size: 32px;
+
             margin-bottom: 35px;
         }
 
+        /* =========================
+           ESTILOS
+        ========================= */
+
         .style-grid {
             display: grid;
+
             grid-template-columns: repeat(3, 1fr);
+
             gap: 20px;
         }
 
         .style-card {
             background: #1b1b1b;
+
             border: 1px solid #333;
+
             border-radius: 14px;
 
             padding: 28px 20px;
@@ -263,7 +273,9 @@
 
         .style-card:hover {
             transform: translateY(-7px);
+
             border-color: #777;
+
             background: #222;
 
             box-shadow: 0 12px 30px rgba(0,0,0,0.35);
@@ -271,18 +283,23 @@
 
         .style-card .icon {
             font-size: 42px;
+
             margin-bottom: 12px;
         }
 
         .style-card h3 {
             margin: 8px 0;
+
             font-size: 23px;
         }
 
         .style-card p {
             font-size: 16px;
+
             line-height: 1.5;
+
             color: #bbb;
+
             margin: 0;
         }
 
@@ -290,22 +307,21 @@
            VÍDEOS
         ========================= */
 
-        .videos {
-            margin: 90px auto 60px;
-            max-width: 1100px;
-            padding: 20px;
-        }
-
         .video-grid {
             display: grid;
+
             grid-template-columns: repeat(2, 1fr);
+
             gap: 25px;
         }
 
         .video-card {
             background: #1b1b1b;
+
             border: 1px solid #333;
+
             border-radius: 14px;
+
             overflow: hidden;
 
             text-align: left;
@@ -318,6 +334,7 @@
 
         .video-card:hover {
             transform: translateY(-5px);
+
             border-color: #777;
 
             box-shadow: 0 12px 30px rgba(0,0,0,0.35);
@@ -325,8 +342,11 @@
 
         .video iframe {
             width: 100%;
+
             aspect-ratio: 16 / 9;
+
             border: none;
+
             display: block;
         }
 
@@ -336,12 +356,15 @@
 
         .video-info h3 {
             margin: 0 0 7px;
+
             font-size: 20px;
         }
 
         .video-info p {
             margin: 0;
+
             font-size: 14px;
+
             color: #aaa;
         }
 
@@ -351,6 +374,7 @@
 
         .now-playing {
             position: fixed;
+
             left: 50%;
             bottom: 18px;
 
@@ -361,6 +385,7 @@
             background: rgba(15, 15, 15, 0.97);
 
             border: 1px solid #555;
+
             border-radius: 14px;
 
             padding: 12px 18px;
@@ -372,13 +397,17 @@
             z-index: 10;
 
             display: flex;
+
             align-items: center;
+
             gap: 14px;
         }
 
         .now-playing-controls {
             display: flex;
+
             gap: 8px;
+
             flex-shrink: 0;
         }
 
@@ -391,15 +420,16 @@
             padding: 0;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
             border: 1px solid #555;
+
             border-radius: 50%;
 
-            flex-shrink: 0;
-
             background: #1b1b1b;
+
             color: white;
 
             cursor: pointer;
@@ -407,13 +437,17 @@
 
         .now-playing-controls button:hover {
             transform: scale(1.08);
+
             background: #292929;
         }
 
         .now-playing small {
             color: #888;
+
             display: block;
+
             margin-bottom: 3px;
+
             font-size: 12px;
         }
 
@@ -427,9 +461,11 @@
 
         .easter-message {
             position: fixed;
+
             inset: 0;
 
             display: none;
+
             align-items: center;
             justify-content: center;
 
@@ -442,43 +478,88 @@
 
         .easter-message.show {
             display: flex;
-            animation: fadeUp 0.25s ease both;
+
+            animation: fadeIn 0.25s ease both;
         }
 
         .easter-box {
-            max-width: 560px;
+            max-width: 600px;
 
-            padding: 35px;
+            padding: 40px;
 
             border: 1px solid #666;
 
             background: #111;
 
-            box-shadow: 0 0 50px rgba(255,255,255,0.08);
+            box-shadow: 0 0 60px rgba(255,255,255,0.08);
         }
 
         .easter-box h2 {
             margin-top: 0;
-            font-size: 30px;
+
+            font-size: 32px;
+
+            letter-spacing: 4px;
         }
 
         .easter-box p {
             color: #aaa;
+
             font-size: 16px;
+
             line-height: 1.6;
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
         /* =========================
-           SECRET MODE
+           MODO SECRETO
         ========================= */
 
         .secret-mode {
             animation: secretShake 0.08s linear infinite;
         }
 
+        .secret-mode::before {
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: 90;
+
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(255,255,255,0.04) 4px
+                );
+
+            animation: scanlines 0.15s linear infinite;
+        }
+
         .secret-mode .logo {
-            animation: glitch 0.12s steps(2) infinite;
-            filter: invert(1) contrast(1.5);
+            animation: secretGlitch 0.09s steps(2) infinite;
+
+            filter:
+                contrast(1.8)
+                brightness(1.3);
+        }
+
+        .secret-mode .home-button {
+            animation: secretButton 0.12s steps(2) infinite;
         }
 
         @keyframes secretShake {
@@ -487,19 +568,65 @@
             }
 
             25% {
-                transform: translate(1px, -1px);
+                transform: translate(2px, -1px);
             }
 
             50% {
-                transform: translate(-1px, 1px);
+                transform: translate(-2px, 1px);
             }
 
             75% {
-                transform: translate(1px, 1px);
+                transform: translate(1px, 2px);
             }
 
             100% {
                 transform: translate(0);
+            }
+        }
+
+        @keyframes secretGlitch {
+            0% {
+                transform: translate(0);
+            }
+
+            25% {
+                transform: translate(-5px, 2px);
+            }
+
+            50% {
+                transform: translate(5px, -2px);
+            }
+
+            75% {
+                transform: translate(-2px, -3px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        @keyframes secretButton {
+            0% {
+                transform: translate(0);
+            }
+
+            50% {
+                transform: translate(4px, 0);
+            }
+
+            100% {
+                transform: translate(-4px, 0);
+            }
+        }
+
+        @keyframes scanlines {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(5px);
             }
         }
 
@@ -515,6 +642,7 @@
             color: #777;
 
             font-size: 13px;
+
             letter-spacing: 1px;
         }
 
@@ -528,14 +656,8 @@
 
         @media (max-width: 800px) {
 
-            .top-menu {
-                gap: 14px;
-                padding: 12px 10px;
-            }
-
-            .top-menu a {
-                font-size: 10px;
-                letter-spacing: 1px;
+            .hero {
+                padding-top: 30px;
             }
 
             .style-grid,
@@ -550,6 +672,7 @@
 
             .now-playing {
                 bottom: 10px;
+
                 padding: 10px 14px;
             }
 
@@ -557,237 +680,482 @@
                 margin-left: 20px;
                 margin-right: 20px;
             }
+
+            .home-button {
+                padding: 15px 20px;
+
+                font-size: 13px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- MENU -->
-
-    <nav class="top-menu">
-        <a href="#inicio">INÍCIO</a>
-        <a href="#estilos">ESTILOS</a>
-        <a href="#radio">RÁDIO</a>
-        <a href="#videos">VÍDEOS</a>
-    </nav>
-
-    <!-- HERO -->
+    <!-- =========================
+         PÁGINA INICIAL
+    ========================= -->
 
     <header class="hero" id="inicio">
 
-        <img src="rockwave-logo.png" alt="RockWave" class="logo">
+        <img
+            src="rockwave-logo.png"
+            alt="RockWave"
+            class="logo"
+            id="rockwave-logo"
+        >
 
         <p class="hero-tagline">
             O som não morreu.
         </p>
 
-        <a class="discover-button" href="#estilos">
-            🎸 DESCUBRA SEU ESTILO
-        </a>
+        <div class="home-buttons">
+
+            <a
+                class="home-button primary"
+                href="#estilos"
+            >
+                🎸 DESCUBRA SEU ESTILO
+            </a>
+
+            <a
+                class="home-button"
+                href="#videos"
+            >
+                🎬 VIDEOCLIPES
+            </a>
+
+            <a
+                class="home-button"
+                href="#estilos"
+            >
+                🤘 ESTILOS EXPLICADOS
+            </a>
+
+            <a
+                class="home-button"
+                href="#radio"
+            >
+                📻 ROCKWAVE RADIO
+            </a>
+
+            <a
+                class="home-button"
+                href="#extras"
+            >
+                🕵️ EXTRAS
+            </a>
+
+        </div>
 
     </header>
 
-    <!-- RÁDIO -->
+
+    <!-- =========================
+         RÁDIO
+    ========================= -->
 
     <section class="radio" id="radio">
 
         <div class="radio-status">
+
             <span class="radio-dot"></span>
+
             RockWave Radio • no ar
+
         </div>
 
-        <h2>📻 ROCKWAVE RADIO</h2>
+        <h2>
+            📻 ROCKWAVE RADIO
+        </h2>
 
         <p>
-            Escolha um vídeo abaixo e ele assume o comando da rádio.
+            Escolha um videoclipe abaixo e ele assume o comando da rádio.
         </p>
 
     </section>
 
-    <!-- ESTILOS -->
+
+    <!-- =========================
+         ESTILOS
+    ========================= -->
 
     <section class="styles" id="estilos">
 
-        <h2>ESTILOS DE ROCK</h2>
+        <h2>
+            🤘 ESTILOS DE ROCK
+        </h2>
 
         <div class="style-grid">
 
             <article class="style-card">
-                <div class="icon">🎤</div>
-                <h3>Grunge</h3>
+
+                <div class="icon">
+                    🎤
+                </div>
+
+                <h3>
+                    Grunge
+                </h3>
+
                 <p>
                     Guitarras pesadas, distorção e uma atitude crua e alternativa.
                 </p>
+
             </article>
 
+
             <article class="style-card">
-                <div class="icon">🔥</div>
-                <h3>Nu Metal</h3>
+
+                <div class="icon">
+                    🔥
+                </div>
+
+                <h3>
+                    Nu Metal
+                </h3>
+
                 <p>
                     Riffs pesados, rap, eletrônica e muita energia.
                 </p>
+
             </article>
 
+
             <article class="style-card">
-                <div class="icon">🤘</div>
-                <h3>Heavy Metal</h3>
+
+                <div class="icon">
+                    🤘
+                </div>
+
+                <h3>
+                    Heavy Metal
+                </h3>
+
                 <p>
                     Guitarras marcantes, solos e aquele som pesado clássico.
                 </p>
+
             </article>
 
+
             <article class="style-card">
-                <div class="icon">Ⓐ</div>
-                <h3>Punk Rock</h3>
+
+                <div class="icon">
+                    Ⓐ
+                </div>
+
+                <h3>
+                    Punk Rock
+                </h3>
+
                 <p>
                     Rápido, direto e rebelde, sem enrolação.
                 </p>
+
             </article>
 
+
             <article class="style-card">
-                <div class="icon">🎶</div>
-                <h3>Alternative Rock</h3>
+
+                <div class="icon">
+                    🎶
+                </div>
+
+                <h3>
+                    Alternative Rock
+                </h3>
+
                 <p>
                     Experimentação, criatividade e sons fora do padrão.
                 </p>
+
             </article>
 
+
             <article class="style-card">
-                <div class="icon">🎵</div>
-                <h3>Hard Rock</h3>
+
+                <div class="icon">
+                    🎵
+                </div>
+
+                <h3>
+                    Hard Rock
+                </h3>
+
                 <p>
                     Grandes riffs, bateria forte e solos de guitarra.
                 </p>
+
             </article>
 
         </div>
+
     </section>
 
-    <!-- VÍDEOS -->
+
+    <!-- =========================
+         VÍDEOS
+    ========================= -->
 
     <section class="videos" id="videos">
 
-        <h2>🎥 VÍDEOS</h2>
+        <h2>
+            🎬 VIDEOCLIPES
+        </h2>
 
         <div class="video-grid">
 
+
             <article class="video-card">
+
                 <div class="video">
-                    <iframe src="https://www.youtube.com/embed/eVTXPUF4Oz4?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
+
+                    <iframe
+                        src="https://www.youtube.com/embed/eVTXPUF4Oz4?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
                         title="Linkin Park - In the End"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
+                        allowfullscreen>
+                    </iframe>
+
                 </div>
 
                 <div class="video-info">
-                    <h3>Linkin Park — In the End</h3>
-                    <p>Nu Metal • Rock Alternativo</p>
+
+                    <h3>
+                        Linkin Park — In the End
+                    </h3>
+
+                    <p>
+                        Nu Metal • Rock Alternativo
+                    </p>
+
                 </div>
+
             </article>
 
+
             <article class="video-card">
+
                 <div class="video">
-                    <iframe src="https://www.youtube.com/embed/v2AC41dglnM?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
+
+                    <iframe
+                        src="https://www.youtube.com/embed/v2AC41dglnM?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
                         title="AC/DC - Thunderstruck"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
+                        allowfullscreen>
+                    </iframe>
+
                 </div>
 
                 <div class="video-info">
-                    <h3>AC/DC — Thunderstruck</h3>
-                    <p>Hard Rock</p>
+
+                    <h3>
+                        AC/DC — Thunderstruck
+                    </h3>
+
+                    <p>
+                        Hard Rock
+                    </p>
+
                 </div>
+
             </article>
 
+
             <article class="video-card">
+
                 <div class="video">
-                    <iframe src="https://www.youtube.com/embed/hTWKbfoikeg?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
+
+                    <iframe
+                        src="https://www.youtube.com/embed/hTWKbfoikeg?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
                         title="Nirvana - Smells Like Teen Spirit"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
+                        allowfullscreen>
+                    </iframe>
+
                 </div>
 
                 <div class="video-info">
-                    <h3>Nirvana — Smells Like Teen Spirit</h3>
-                    <p>Grunge • Rock Alternativo</p>
+
+                    <h3>
+                        Nirvana — Smells Like Teen Spirit
+                    </h3>
+
+                    <p>
+                        Grunge • Rock Alternativo
+                    </p>
+
                 </div>
+
             </article>
 
+
             <article class="video-card">
+
                 <div class="video">
-                    <iframe src="https://www.youtube.com/embed/iywaBOMvYLI?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
+
+                    <iframe
+                        src="https://www.youtube.com/embed/iywaBOMvYLI?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
                         title="System Of A Down - Toxicity"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
+                        allowfullscreen>
+                    </iframe>
+
                 </div>
 
                 <div class="video-info">
-                    <h3>System Of A Down — Toxicity</h3>
-                    <p>Alternative Metal</p>
+
+                    <h3>
+                        System Of A Down — Toxicity
+                    </h3>
+
+                    <p>
+                        Alternative Metal
+                    </p>
+
                 </div>
+
             </article>
 
+
             <article class="video-card">
+
                 <div class="video">
-                    <iframe src="https://www.youtube.com/embed/CSvFpBOe8eY?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
+
+                    <iframe
+                        src="https://www.youtube.com/embed/CSvFpBOe8eY?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
                         title="System Of A Down - Chop Suey"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
+                        allowfullscreen>
+                    </iframe>
+
                 </div>
 
                 <div class="video-info">
-                    <h3>System Of A Down — Chop Suey!</h3>
-                    <p>Alternative Metal</p>
+
+                    <h3>
+                        System Of A Down — Chop Suey!
+                    </h3>
+
+                    <p>
+                        Alternative Metal
+                    </p>
+
                 </div>
+
             </article>
 
+
             <article class="video-card">
+
                 <div class="video">
-                    <iframe src="https://www.youtube.com/embed/bWXazVhlyxQ?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
+
+                    <iframe
+                        src="https://www.youtube.com/embed/bWXazVhlyxQ?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
                         title="Rage Against The Machine - Killing In The Name"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
+                        allowfullscreen>
+                    </iframe>
+
                 </div>
 
                 <div class="video-info">
-                    <h3>Rage Against The Machine — Killing in the Name</h3>
-                    <p>Alternative Rock • Rap Rock</p>
+
+                    <h3>
+                        Rage Against The Machine — Killing in the Name
+                    </h3>
+
+                    <p>
+                        Alternative Rock • Rap Rock
+                    </p>
+
                 </div>
+
             </article>
 
+
             <article class="video-card">
+
                 <div class="video">
-                    <iframe src="https://www.youtube.com/embed/5abamRO41fE?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
+
+                    <iframe
+                        id="slipknot-video"
+                        src="https://www.youtube.com/embed/5abamRO41fE?enablejsapi=1&origin=https%3A%2F%2Frockwave.rockbr.workers.dev"
                         title="Slipknot - Psychosocial"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
+                        allowfullscreen>
+                    </iframe>
+
                 </div>
 
                 <div class="video-info">
-                    <h3>Slipknot — Psychosocial</h3>
-                    <p>Nu Metal • Heavy Metal</p>
+
+                    <h3>
+                        Slipknot — Psychosocial
+                    </h3>
+
+                    <p>
+                        Nu Metal • Heavy Metal
+                    </p>
+
                 </div>
+
             </article>
 
         </div>
+
     </section>
 
-    <!-- PLAYER -->
+
+    <!-- =========================
+         EXTRAS
+    ========================= -->
+
+    <section
+        id="extras"
+        style="
+            max-width:900px;
+            margin:100px auto;
+            padding:20px;
+        "
+    >
+
+        <h2>
+            🕵️ EXTRAS
+        </h2>
+
+        <p style="
+            color:#888;
+            font-size:16px;
+        ">
+            Talvez exista alguma coisa escondida por aqui...
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         PLAYER
+    ========================= -->
 
     <div class="now-playing">
 
         <div class="now-playing-controls">
 
-            <button id="now-playing-play"
+            <button
+                id="now-playing-play"
                 type="button"
-                aria-label="Reproduzir vídeo atual">
+                aria-label="Reproduzir vídeo atual"
+            >
                 ▶
             </button>
 
-            <button id="now-playing-pause"
+            <button
+                id="now-playing-pause"
                 type="button"
-                aria-label="Pausar vídeo atual">
+                aria-label="Pausar vídeo atual"
+            >
                 ⏸
             </button>
 
@@ -800,16 +1168,22 @@
             </small>
 
             <strong id="now-playing-title">
-                Slipknot — Psychosocial
+                Nenhum vídeo tocando
             </strong>
 
         </div>
 
     </div>
 
-    <!-- EASTER EGG -->
 
-    <div class="easter-message" id="easter-message">
+    <!-- =========================
+         EASTER EGG
+    ========================= -->
+
+    <div
+        class="easter-message"
+        id="easter-message"
+    >
 
         <div class="easter-box">
 
@@ -818,30 +1192,41 @@
             </h2>
 
             <p>
-                Você encontrou um sinal escondido. 🤘
-                <br>
-                O rock estava aqui o tempo todo.
+                SIGNAL FOUND
             </p>
 
             <p>
-                Pressione <strong>ESC</strong> para fechar.
+                Você encontrou o sinal escondido.
+                🤘
+            </p>
+
+            <p>
+                Pressione <strong>ESC</strong> para sair.
             </p>
 
         </div>
 
     </div>
 
-    <!-- RODAPÉ -->
+
+    <!-- =========================
+         RODAPÉ
+    ========================= -->
 
     <footer class="site-footer">
 
-        <strong>ROCKWAVE</strong>
+        <strong>
+            ROCKWAVE
+        </strong>
 
         — O som não morreu. 🎸
 
     </footer>
 
-    <!-- YOUTUBE -->
+
+    <!-- =========================
+         YOUTUBE
+    ========================= -->
 
     <script src="https://www.youtube.com/iframe_api"></script>
 
@@ -859,10 +1244,23 @@
         const pauseButton =
             document.getElementById('now-playing-pause');
 
+        const easterMessage =
+            document.getElementById('easter-message');
+
+        const logo =
+            document.getElementById('rockwave-logo');
+
         let currentPlayer = null;
 
+        let slipknotPlayer = null;
+
+        let secretCode = "";
+
+        let secretMode = false;
+
+
         /* =========================
-           PLAYER
+           PLAYER NORMAL
         ========================= */
 
         playButton.addEventListener('click', () => {
@@ -871,110 +1269,21 @@
 
                 currentPlayer.playVideo();
 
-            } else if (videoCards.length) {
-
-                const firstIframe =
-                    videoCards[0].querySelector('iframe');
-
-                firstIframe.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-
             }
 
         });
+
 
         pauseButton.addEventListener('click', () => {
 
             if (currentPlayer) {
+
                 currentPlayer.pauseVideo();
-            }
-
-        });
-
-        /* =========================
-           EASTER EGG
-        ========================= */
-
-        let logoClicks = 0;
-
-        let secretCode = "";
-
-        const easterMessage =
-            document.getElementById('easter-message');
-
-        const logo =
-            document.querySelector('.logo');
-
-        /*
-           Clique 5 vezes no logo
-           para abrir o ROCKWAVE.EXE
-        */
-
-        logo.addEventListener('click', () => {
-
-            logoClicks++;
-
-            if (logoClicks >= 5) {
-
-                easterMessage.classList.add('show');
-
-                logoClicks = 0;
 
             }
 
         });
 
-        /*
-           ESC fecha o Easter Egg
-        */
-
-        document.addEventListener('keydown', event => {
-
-            if (event.key === 'Escape') {
-
-                easterMessage.classList.remove('show');
-
-            }
-
-        });
-
-        /*
-           Digite ROCKWAVE no teclado
-           para ativar o modo secreto
-        */
-
-        document.addEventListener('keydown', event => {
-
-            secretCode += event.key.toLowerCase();
-
-            if (secretCode.length > 12) {
-
-                secretCode =
-                    secretCode.slice(-12);
-
-            }
-
-            if (secretCode.includes('rockwave')) {
-
-                document.body.classList.add(
-                    'secret-mode'
-                );
-
-                setTimeout(() => {
-
-                    document.body.classList.remove(
-                        'secret-mode'
-                    );
-
-                }, 2500);
-
-                secretCode = "";
-
-            }
-
-        });
 
         /* =========================
            YOUTUBE API
@@ -992,34 +1301,233 @@
                         '.video-info h3'
                     ).textContent;
 
-                new YT.Player(iframe, {
+                const player =
+                    new YT.Player(
+                        iframe,
+                        {
+                            events: {
 
-                    events: {
+                                onReady: event => {
 
-                        onStateChange: event => {
+                                    if (
+                                        iframe.id ===
+                                        'slipknot-video'
+                                    ) {
 
-                            if (
-                                event.data ===
-                                YT.PlayerState.PLAYING
-                            ) {
+                                        slipknotPlayer =
+                                            event.target;
 
-                                nowPlayingTitle.textContent =
-                                    title;
+                                    }
 
-                                currentPlayer =
-                                    event.target;
+                                },
+
+                                onStateChange: event => {
+
+                                    if (
+                                        event.data ===
+                                        YT.PlayerState.PLAYING
+                                    ) {
+
+                                        currentPlayer =
+                                            event.target;
+
+                                        nowPlayingTitle.textContent =
+                                            title;
+
+                                    }
+
+                                }
 
                             }
 
                         }
-
-                    }
-
-                });
+                    );
 
             });
 
         }
+
+
+        /* =========================
+           EASTER EGG:
+           DIGITAR ROCKWAVE
+        ========================= */
+
+        document.addEventListener(
+            'keydown',
+            event => {
+
+                if (
+                    event.key === 'Escape'
+                ) {
+
+                    stopSecretMode();
+
+                    return;
+
+                }
+
+
+                if (
+                    event.key.length !== 1
+                ) {
+
+                    return;
+
+                }
+
+
+                secretCode +=
+                    event.key.toLowerCase();
+
+
+                if (
+                    secretCode.length > 20
+                ) {
+
+                    secretCode =
+                        secretCode.slice(-20);
+
+                }
+
+
+                if (
+                    secretCode.includes(
+                        'rockwave'
+                    )
+                ) {
+
+                    activateSecretMode();
+
+                    secretCode = "";
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           ATIVAR MODO SECRETO
+        ========================= */
+
+        function activateSecretMode() {
+
+            if (secretMode) {
+                return;
+            }
+
+            secretMode = true;
+
+            document.body.classList.add(
+                'secret-mode'
+            );
+
+            easterMessage.classList.add(
+                'show'
+            );
+
+
+            if (slipknotPlayer) {
+
+                slipknotPlayer.seekTo(
+                    0,
+                    true
+                );
+
+                slipknotPlayer.playVideo();
+
+                nowPlayingTitle.textContent =
+                    'Slipknot — Psychosocial';
+
+                currentPlayer =
+                    slipknotPlayer;
+
+            }
+
+
+            /*
+               O modo fica ativo
+               indefinidamente até ESC.
+            */
+
+        }
+
+
+        /* =========================
+           SAIR DO MODO SECRETO
+        ========================= */
+
+        function stopSecretMode() {
+
+            if (!secretMode) {
+
+                easterMessage.classList.remove(
+                    'show'
+                );
+
+                return;
+
+            }
+
+
+            secretMode = false;
+
+            document.body.classList.remove(
+                'secret-mode'
+            );
+
+            easterMessage.classList.remove(
+                'show'
+            );
+
+
+            if (slipknotPlayer) {
+
+                slipknotPlayer.pauseVideo();
+
+            }
+
+        }
+
+
+        /* =========================
+           EASTER EGG DO LOGO
+        ========================= */
+
+        let logoClicks = 0;
+
+        logo.addEventListener(
+            'click',
+            () => {
+
+                logoClicks++;
+
+
+                if (
+                    logoClicks >= 5
+                ) {
+
+                    easterMessage.classList.add(
+                        'show'
+                    );
+
+                    logoClicks = 0;
+
+                }
+
+
+                setTimeout(
+                    () => {
+
+                        logoClicks = 0;
+
+                    },
+                    1500
+                );
+
+            }
+        );
 
     </script>
 
