@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>RockWave — O som não morreu.</title>
 
 <style>
+
+/* =========================
+   RESET
+========================= */
 
 * {
     margin: 0;
@@ -21,10 +26,11 @@ html {
 body {
     background:
         radial-gradient(circle at top, #241414 0%, #090909 45%, #000 100%);
-    color: #fff;
+    color: white;
     font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
 }
+
 
 /* =========================
    HERO
@@ -32,126 +38,213 @@ body {
 
 .hero {
     min-height: 100vh;
+
     display: flex;
     flex-direction: column;
+
     justify-content: center;
     align-items: center;
+
     text-align: center;
+
     padding: 40px 20px;
 }
 
 .logo {
     width: min(520px, 85vw);
-    max-width: 100%;
+
     cursor: pointer;
-    filter: drop-shadow(0 0 15px rgba(255, 50, 50, 0.25));
+
+    filter:
+        drop-shadow(
+            0 0 15px
+            rgba(255, 50, 50, 0.25)
+        );
+
     transition: 0.3s;
 }
 
 .logo:hover {
-    transform: scale(1.04) rotate(-1deg);
+    transform:
+        scale(1.04)
+        rotate(-1deg);
 }
 
 .tagline {
     margin-top: 15px;
+
     font-size: 1.2rem;
+
     color: #aaa;
+
     letter-spacing: 4px;
 }
+
 
 /* =========================
    HOME BUTTONS
 ========================= */
 
 .home-buttons {
+
     width: min(700px, 95%);
+
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
     gap: 15px;
+
     margin-top: 45px;
 }
 
 .home-button {
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     min-height: 70px;
+
     padding: 18px;
-    border: 1px solid #444;
+
+    border:
+        1px solid #444;
+
     border-radius: 12px;
-    background: linear-gradient(135deg, #151515, #080808);
+
+    background:
+        linear-gradient(
+            135deg,
+            #151515,
+            #080808
+        );
+
     color: white;
+
     text-decoration: none;
+
     font-size: 1rem;
+
     font-weight: bold;
+
     letter-spacing: 1px;
+
     cursor: pointer;
+
     transition: 0.25s;
 }
 
 .home-button:hover {
-    transform: translateY(-4px);
-    border-color: #ff3030;
-    box-shadow: 0 0 25px rgba(255, 30, 30, 0.25);
-    background: linear-gradient(135deg, #251010, #0a0a0a);
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        #ff3030;
+
+    box-shadow:
+        0 0 25px
+        rgba(255, 30, 30, 0.25);
 }
 
 .home-button.primary {
-    border-color: #8b2222;
+
+    border-color:
+        #8b2222;
 }
+
 
 /* =========================
    SECTIONS
 ========================= */
 
 section {
+
     width: min(1150px, 92%);
+
     margin: auto;
+
     padding: 100px 0;
 }
 
 section h2 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+
+    font-size:
+        clamp(2rem, 5vw, 3.5rem);
+
     margin-bottom: 15px;
-    text-transform: uppercase;
+
+    text-transform:
+        uppercase;
 }
 
 section > p {
+
     color: #aaa;
+
     line-height: 1.7;
 }
+
 
 /* =========================
    RADIO
 ========================= */
 
 .radio {
+
     text-align: center;
 }
 
 .radio-status {
+
     display: inline-flex;
+
     align-items: center;
+
     gap: 10px;
-    padding: 8px 16px;
-    border: 1px solid #333;
-    border-radius: 50px;
+
+    padding:
+        8px 16px;
+
+    border:
+        1px solid #333;
+
+    border-radius:
+        50px;
+
     color: #aaa;
+
     margin-bottom: 25px;
 }
 
 .radio-dot {
+
     width: 10px;
     height: 10px;
-    background: #777;
-    border-radius: 50%;
-    display: inline-block;
+
+    background:
+        #777;
+
+    border-radius:
+        50%;
+
+    display:
+        inline-block;
 }
 
 .radio-dot.active {
-    background: #ff2020;
-    box-shadow: 0 0 15px #ff2020;
-    animation: radioPulse 1s infinite;
+
+    background:
+        #ff2020;
+
+    box-shadow:
+        0 0 15px #ff2020;
+
+    animation:
+        radioPulse 1s infinite;
 }
 
 @keyframes radioPulse {
@@ -165,343 +258,641 @@ section > p {
         transform: scale(1.5);
         opacity: 0.5;
     }
-
 }
 
+
+/* PLAYER */
+
 .radio-player {
-    width: min(700px, 100%);
-    margin: 35px auto 0;
-    border: 1px solid #292929;
-    border-radius: 15px;
-    overflow: hidden;
-    background: #080808;
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+
+    width:
+        min(750px, 100%);
+
+    margin:
+        35px auto 0;
+
+    border:
+        1px solid #292929;
+
+    border-radius:
+        15px;
+
+    overflow:
+        hidden;
+
+    background:
+        #080808;
+
+    box-shadow:
+        0 0 30px
+        rgba(0,0,0,0.5);
 }
 
 .radio-player iframe {
+
     width: 100%;
-    aspect-ratio: 16 / 9;
-    display: block;
+
+    aspect-ratio:
+        16 / 9;
+
+    display:
+        block;
+
     border: 0;
 }
 
 .radio-info {
+
     padding: 18px;
+
     text-align: left;
-    border-top: 1px solid #222;
+
+    border-top:
+        1px solid #222;
 }
 
 .radio-now {
-    color: #ff4a4a;
-    font-size: 0.8rem;
-    font-weight: bold;
-    letter-spacing: 2px;
+
+    color:
+        #ff4a4a;
+
+    font-size:
+        0.8rem;
+
+    font-weight:
+        bold;
+
+    letter-spacing:
+        2px;
 }
 
 .radio-track {
+
     margin-top: 7px;
-    font-size: 1.1rem;
-    font-weight: bold;
+
+    font-size:
+        1.1rem;
+
+    font-weight:
+        bold;
 }
 
 .radio-controls {
-    display: flex;
-    justify-content: center;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
     gap: 12px;
+
     padding: 15px;
-    border-top: 1px solid #222;
+
+    border-top:
+        1px solid #222;
 }
 
 .radio-controls button {
-    border: 1px solid #444;
-    background: #111;
-    color: white;
-    border-radius: 8px;
-    padding: 12px 18px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: 0.2s;
+
+    border:
+        1px solid #444;
+
+    background:
+        #111;
+
+    color:
+        white;
+
+    border-radius:
+        8px;
+
+    padding:
+        12px 18px;
+
+    cursor:
+        pointer;
+
+    font-size:
+        1rem;
+
+    transition:
+        0.2s;
 }
 
 .radio-controls button:hover {
-    border-color: #ff3030;
-    background: #1d0909;
+
+    border-color:
+        #ff3030;
+
+    background:
+        #1d0909;
 }
+
 
 /* =========================
    ESTILOS
 ========================= */
 
 .styles-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin-top: 35px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        18px;
+
+    margin-top:
+        35px;
 }
 
 .style-card {
-    padding: 30px 20px;
-    min-height: 170px;
-    border: 1px solid #292929;
-    border-radius: 14px;
-    background: linear-gradient(145deg, #141414, #080808);
-    transition: 0.25s;
+
+    padding:
+        30px 20px;
+
+    min-height:
+        170px;
+
+    border:
+        1px solid #292929;
+
+    border-radius:
+        14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #141414,
+            #080808
+        );
+
+    transition:
+        0.25s;
 }
 
 .style-card:hover {
-    transform: translateY(-6px);
-    border-color: #8d2929;
+
+    transform:
+        translateY(-6px);
+
+    border-color:
+        #8d2929;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.35);
 }
 
 .style-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
+
+    font-size:
+        1.3rem;
+
+    margin-bottom:
+        12px;
 }
 
 .style-card p {
-    color: #999;
-    line-height: 1.6;
+
+    color:
+        #999;
+
+    line-height:
+        1.6;
 }
 
-/* =========================
-   VIDEOS
-========================= */
-
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 35px;
-}
-
-.video-card {
-    background: #0b0b0b;
-    border: 1px solid #252525;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: 0.25s;
-}
-
-.video-card:hover {
-    transform: translateY(-5px);
-    border-color: #8d2929;
-}
-
-.video-card iframe {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    display: block;
-    border: 0;
-}
-
-.video-info {
-    padding: 15px;
-}
-
-.video-info h3 {
-    font-size: 1rem;
-}
-
-/* =========================
-   NOW PLAYING
-========================= */
-
-.now-playing {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    min-height: 65px;
-    background: rgba(5,5,5,0.96);
-    border-top: 1px solid #292929;
-    backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 10px 20px;
-    z-index: 100;
-}
-
-.now-playing-text {
-    overflow: hidden;
-}
-
-.now-playing-label {
-    color: #ff3939;
-    font-size: 0.7rem;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-
-#now-playing-title {
-    margin-top: 4px;
-    font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.now-playing-controls {
-    display: flex;
-    gap: 8px;
-}
-
-.now-playing-controls button {
-    width: 38px;
-    height: 38px;
-    border: 1px solid #444;
-    background: #111;
-    color: white;
-    border-radius: 7px;
-    cursor: pointer;
-}
-
-.now-playing-controls button:hover {
-    border-color: #ff3030;
-}
 
 /* =========================
    EXTRAS
 ========================= */
 
 .extras {
-    text-align: center;
-    min-height: 50vh;
+
+    text-align:
+        center;
+
+    min-height:
+        50vh;
 }
 
 .extra-box {
-    margin: 35px auto 0;
-    max-width: 700px;
-    padding: 45px 25px;
-    border: 1px solid #292929;
-    border-radius: 15px;
-    background: #080808;
-    color: #777;
+
+    margin:
+        35px auto 0;
+
+    max-width:
+        700px;
+
+    padding:
+        45px 25px;
+
+    border:
+        1px solid #292929;
+
+    border-radius:
+        15px;
+
+    background:
+        #080808;
+
+    color:
+        #777;
 }
+
+
+/* =========================
+   NOW PLAYING
+========================= */
+
+.now-playing {
+
+    position:
+        fixed;
+
+    bottom:
+        0;
+
+    left:
+        0;
+
+    width:
+        100%;
+
+    min-height:
+        65px;
+
+    background:
+        rgba(5,5,5,0.96);
+
+    border-top:
+        1px solid #292929;
+
+    backdrop-filter:
+        blur(10px);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    padding:
+        10px 20px;
+
+    z-index:
+        100;
+}
+
+.now-playing-text {
+
+    overflow:
+        hidden;
+}
+
+.now-playing-label {
+
+    color:
+        #ff3939;
+
+    font-size:
+        0.7rem;
+
+    font-weight:
+        bold;
+
+    letter-spacing:
+        2px;
+}
+
+#now-playing-title {
+
+    margin-top:
+        4px;
+
+    font-weight:
+        bold;
+
+    white-space:
+        nowrap;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+}
+
+.now-playing-controls {
+
+    display:
+        flex;
+
+    gap:
+        8px;
+}
+
+.now-playing-controls button {
+
+    width:
+        38px;
+
+    height:
+        38px;
+
+    border:
+        1px solid #444;
+
+    background:
+        #111;
+
+    color:
+        white;
+
+    border-radius:
+        7px;
+
+    cursor:
+        pointer;
+}
+
+.now-playing-controls button:hover {
+
+    border-color:
+        #ff3030;
+}
+
 
 /* =========================
    EASTER EGG
 ========================= */
 
 .easter-message {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0,0,0,0.9);
-    z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.2s;
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    background:
+        rgba(0,0,0,0.9);
+
+    z-index:
+        999;
+
+    opacity:
+        0;
+
+    visibility:
+        hidden;
+
+    transition:
+        0.2s;
 }
 
 .easter-message.show {
-    opacity: 1;
-    visibility: visible;
+
+    opacity:
+        1;
+
+    visibility:
+        visible;
 }
 
 .easter-box {
-    padding: 50px;
-    text-align: center;
-    border: 2px solid #ff2222;
-    background: #080808;
+
+    padding:
+        50px;
+
+    text-align:
+        center;
+
+    border:
+        2px solid #ff2222;
+
+    background:
+        #080808;
+
     box-shadow:
-        0 0 30px rgba(255,0,0,0.4),
-        inset 0 0 30px rgba(255,0,0,0.05);
+        0 0 30px
+        rgba(255,0,0,0.4);
 }
 
 .easter-box h2 {
-    color: #ff2222;
-    font-size: 3rem;
-    margin-bottom: 15px;
+
+    color:
+        #ff2222;
+
+    font-size:
+        3rem;
+
+    margin-bottom:
+        15px;
 }
 
 .easter-box p {
-    color: #aaa;
-    margin: 8px;
+
+    color:
+        #aaa;
+
+    margin:
+        8px;
 }
 
+
+/* =========================
+   EASTER EGG NIRVANA
+========================= */
+
+.nirvana-mode {
+
+    background:
+        radial-gradient(
+            circle at center,
+            #252525,
+            #050505 70%
+        );
+}
+
+.nirvana-mode::after {
+
+    content:
+        "";
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    pointer-events:
+        none;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,0.03),
+            rgba(255,255,255,0.03) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+
+    z-index:
+        998;
+
+    animation:
+        scanlines 0.15s infinite;
+}
+
+@keyframes scanlines {
+
+    0% {
+        transform:
+            translateY(0);
+    }
+
+    100% {
+        transform:
+            translateY(4px);
+    }
+}
+
+
+/* =========================
+   ROCKWAVE SECRET
+========================= */
+
 .secret-mode {
-    animation: glitchScreen 0.15s infinite;
+
+    animation:
+        glitchScreen 0.15s infinite;
 }
 
 @keyframes glitchScreen {
 
     0% {
-        transform: translate(0);
+        transform:
+            translate(0);
     }
 
     25% {
-        transform: translate(2px, -1px);
+        transform:
+            translate(2px,-1px);
     }
 
     50% {
-        transform: translate(-2px, 1px);
+        transform:
+            translate(-2px,1px);
     }
 
     75% {
-        transform: translate(1px, 2px);
+        transform:
+            translate(1px,2px);
     }
 
     100% {
-        transform: translate(0);
+        transform:
+            translate(0);
     }
-
 }
+
 
 /* =========================
    FOOTER
 ========================= */
 
 footer {
-    text-align: center;
-    padding: 80px 20px 110px;
-    color: #555;
-    border-top: 1px solid #161616;
+
+    text-align:
+        center;
+
+    padding:
+        80px 20px 110px;
+
+    color:
+        #555;
+
+    border-top:
+        1px solid #161616;
 }
 
+
 /* =========================
-   RESPONSIVO
+   MOBILE
 ========================= */
 
 @media (max-width: 800px) {
 
     .home-buttons {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+            1fr;
     }
 
-    .styles-grid,
-    .video-grid {
-        grid-template-columns: 1fr;
+    .styles-grid {
+
+        grid-template-columns:
+            1fr;
     }
 
     .now-playing {
-        padding: 8px 12px;
+
+        padding:
+            8px 12px;
     }
 
     .easter-box {
-        width: 90%;
-        padding: 35px 20px;
+
+        width:
+            90%;
+
+        padding:
+            35px 20px;
     }
 
     .easter-box h2 {
-        font-size: 2rem;
+
+        font-size:
+            2rem;
     }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <!-- =========================
-     INÍCIO
+     HERO
 ========================= -->
 
-<header class="hero" id="inicio">
+<header
+    class="hero"
+    id="inicio"
+>
 
     <img
         src="rockwave-logo.png"
@@ -514,6 +905,7 @@ footer {
         O som não morreu.
     </p>
 
+
     <div class="home-buttons">
 
         <a
@@ -523,12 +915,14 @@ footer {
             🎸 DESCUBRA SEU ESTILO
         </a>
 
+
         <a
-            href="#videos"
-            class="home-button"
+            href="#radio"
+            class="home-button primary"
         >
-            🎬 VIDEOCLIPES
+            📻 ROCKWAVE RADIO
         </a>
+
 
         <a
             href="#estilos"
@@ -537,12 +931,6 @@ footer {
             🤘 ESTILOS EXPLICADOS
         </a>
 
-        <a
-            href="#radio"
-            class="home-button primary"
-        >
-            📻 ROCKWAVE RADIO
-        </a>
 
         <a
             href="#extras"
@@ -560,9 +948,13 @@ footer {
      RADIO
 ========================= -->
 
-<section class="radio" id="radio">
+<section
+    class="radio"
+    id="radio"
+>
 
     <div class="radio-status">
+
         <span
             class="radio-dot"
             id="radio-dot"
@@ -571,14 +963,20 @@ footer {
         <span id="radio-status-text">
             RockWave Radio • desligada
         </span>
+
     </div>
 
-    <h2>📻 ROCKWAVE RADIO</h2>
+
+    <h2>
+        📻 ROCKWAVE RADIO
+    </h2>
+
 
     <p>
-        Uma sequência de rock direto do RockWave.
-        Aperte o botão e deixe a rádio tocar.
+        A rádio oficial da RockWave.
+        Deixe o som rolar.
     </p>
+
 
     <div class="radio-player">
 
@@ -590,11 +988,13 @@ footer {
             allowfullscreen>
         </iframe>
 
+
         <div class="radio-info">
 
             <div class="radio-now">
                 TOCANDO AGORA
             </div>
+
 
             <div
                 class="radio-track"
@@ -605,6 +1005,7 @@ footer {
 
         </div>
 
+
         <div class="radio-controls">
 
             <button
@@ -614,12 +1015,14 @@ footer {
                 ▶ LIGAR RÁDIO
             </button>
 
+
             <button
                 id="radio-pause"
                 type="button"
             >
                 ⏸ PAUSAR
             </button>
+
 
             <button
                 id="radio-next"
@@ -639,194 +1042,272 @@ footer {
      ESTILOS
 ========================= -->
 
-<section id="estilos">
+<section
+    id="estilos"
+>
 
-    <h2>🤘 ESTILOS</h2>
+    <h2>
+        🤘 ESTILOS
+    </h2>
+
 
     <p>
-        O rock tem milhares de formas.
-        Aqui estão algumas das mais conhecidas.
+        O rock nunca foi apenas um som.
+        É uma porrada de estilos diferentes.
     </p>
+
 
     <div class="styles-grid">
 
+
         <div class="style-card">
-            <h3>🎸 Grunge</h3>
+
+            <h3>
+                🎸 Grunge
+            </h3>
+
             <p>
-                Som pesado, distorcido e melancólico.
+                Distorção, melancolia e atitude.
                 Nirvana, Pearl Jam e Alice in Chains.
             </p>
+
         </div>
+
 
         <div class="style-card">
-            <h3>🔥 Nu Metal</h3>
+
+            <h3>
+                🔥 Nu Metal
+            </h3>
+
             <p>
-                Mistura de metal, hip-hop e elementos
-                eletrônicos. Linkin Park, Korn e Slipknot.
+                Metal misturado com hip-hop,
+                eletrônica e muita agressividade.
             </p>
+
         </div>
+
 
         <div class="style-card">
-            <h3>⚡ Heavy Metal</h3>
+
+            <h3>
+                ⚡ Heavy Metal
+            </h3>
+
             <p>
-                Guitarras pesadas, riffs marcantes
-                e muita potência.
+                Riffs pesados, solos de guitarra
+                e vocais marcantes.
             </p>
+
         </div>
+
 
         <div class="style-card">
-            <h3>💀 Punk Rock</h3>
+
+            <h3>
+                Ⓐ Punk Rock
+            </h3>
+
             <p>
-                Rápido, direto e rebelde.
-                Ramones, The Clash e Sex Pistols.
+                Velocidade, atitude e espírito
+                de rebeldia.
             </p>
+
         </div>
+
 
         <div class="style-card">
-            <h3>🌑 Alternative Rock</h3>
+
+            <h3>
+                🌑 Alternative Rock
+            </h3>
+
             <p>
-                Um universo enorme de sons diferentes
-                fora do rock tradicional.
+                Um universo enorme de experiências
+                sonoras dentro do rock.
             </p>
+
         </div>
+
 
         <div class="style-card">
-            <h3>🤘 Hard Rock</h3>
+
+            <h3>
+                🤘 Hard Rock
+            </h3>
+
             <p>
-                Grandes riffs, solos de guitarra
-                e bateria pesada.
+                Grandes riffs, solos e baterias
+                que fazem o chão tremer.
             </p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     VIDEOS
-========================= -->
-
-<section id="videos">
-
-    <h2>🎬 VIDEOCLIPES</h2>
-
-    <p>
-        Alguns clássicos e pedradas do RockWave.
-    </p>
-
-    <div class="video-grid">
-
-
-        <div class="video-card">
-
-            <iframe
-                src="https://www.youtube.com/embed/eVTXPUF4Oz4?enablejsapi=1&rel=0"
-                title="Linkin Park - In The End"
-                allow="autoplay; encrypted-media"
-                allowfullscreen>
-            </iframe>
-
-            <div class="video-info">
-                <h3>Linkin Park — In the End</h3>
-            </div>
 
         </div>
 
 
-        <div class="video-card">
+        <div class="style-card">
 
-            <iframe
-                src="https://www.youtube.com/embed/v2AC41dglnM?enablejsapi=1&rel=0"
-                title="AC/DC - Thunderstruck"
-                allow="autoplay; encrypted-media"
-                allowfullscreen>
-            </iframe>
+            <h3>
+                🖤 Gothic Rock
+            </h3>
 
-            <div class="video-info">
-                <h3>AC/DC — Thunderstruck</h3>
-            </div>
+            <p>
+                Atmosfera sombria, guitarras
+                melancólicas e estética gótica.
+            </p>
 
         </div>
 
 
-        <div class="video-card">
+        <div class="style-card">
 
-            <iframe
-                src="https://www.youtube.com/embed/hTWKbfoikeg?enablejsapi=1&rel=0"
-                title="Nirvana - Smells Like Teen Spirit"
-                allow="autoplay; encrypted-media"
-                allowfullscreen>
-            </iframe>
+            <h3>
+                🧨 Thrash Metal
+            </h3>
 
-            <div class="video-info">
-                <h3>Nirvana — Smells Like Teen Spirit</h3>
-            </div>
+            <p>
+                Velocidade extrema e riffs
+                agressivos. Metallica e Slayer.
+            </p>
 
         </div>
 
 
-        <div class="video-card">
+        <div class="style-card">
 
-            <iframe
-                src="https://www.youtube.com/embed/iywaBOMvYLI?enablejsapi=1&rel=0"
-                title="System Of A Down - Toxicity"
-                allow="autoplay; encrypted-media"
-                allowfullscreen>
-            </iframe>
+            <h3>
+                🩸 Death Metal
+            </h3>
 
-            <div class="video-info">
-                <h3>System Of A Down — Toxicity</h3>
-            </div>
+            <p>
+                Um dos lados mais extremos
+                e pesados do metal.
+            </p>
 
         </div>
 
 
-        <div class="video-card">
+        <div class="style-card">
 
-            <iframe
-                src="https://www.youtube.com/embed/CSvFpBOe8eY?enablejsapi=1&rel=0"
-                title="System Of A Down - Chop Suey"
-                allow="autoplay; encrypted-media"
-                allowfullscreen>
-            </iframe>
+            <h3>
+                🚀 Progressive Rock
+            </h3>
 
-            <div class="video-info">
-                <h3>System Of A Down — Chop Suey!</h3>
-            </div>
+            <p>
+                Músicas longas, mudanças de ritmo
+                e muita experimentação.
+            </p>
 
         </div>
 
 
-        <div class="video-card">
+        <div class="style-card">
 
-            <iframe
-                src="https://www.youtube.com/embed/bWXazVhlyxQ?enablejsapi=1&rel=0"
-                title="Rage Against The Machine - Killing in the Name"
-                allow="autoplay; encrypted-media"
-                allowfullscreen>
-            </iframe>
+            <h3>
+                🌈 Psychedelic Rock
+            </h3>
 
-            <div class="video-info">
-                <h3>Rage Against The Machine — Killing in the Name</h3>
-            </div>
+            <p>
+                Efeitos, viagens sonoras e
+                experimentação psicodélica.
+            </p>
 
         </div>
 
 
-        <div class="video-card">
+        <div class="style-card">
 
-            <iframe
-                id="slipknot-video"
-                src="https://www.youtube.com/embed/5abamRO41fE?enablejsapi=1&rel=0"
-                title="Slipknot - Psychosocial"
-                allow="autoplay; encrypted-media"
-                allowfullscreen>
-            </iframe>
+            <h3>
+                🏍️ Rockabilly
+            </h3>
 
-            <div class="video-info">
-                <h3>Slipknot — Psychosocial</h3>
-            </div>
+            <p>
+                Uma das raízes do rock,
+                misturando country, blues e rock.
+            </p>
+
+        </div>
+
+
+        <div class="style-card">
+
+            <h3>
+                🎤 Pop Rock
+            </h3>
+
+            <p>
+                Melodias fáceis de lembrar
+                misturadas com elementos do rock.
+            </p>
+
+        </div>
+
+
+        <div class="style-card">
+
+            <h3>
+                🧱 Post-Grunge
+            </h3>
+
+            <p>
+                Influência do grunge com uma
+                produção mais moderna.
+            </p>
+
+        </div>
+
+
+        <div class="style-card">
+
+            <h3>
+                💥 Metalcore
+            </h3>
+
+            <p>
+                Metal extremo misturado com
+                elementos do hardcore.
+            </p>
+
+        </div>
+
+
+        <div class="style-card">
+
+            <h3>
+                🕶️ Industrial Rock
+            </h3>
+
+            <p>
+                Guitarras, sintetizadores,
+                ruídos e sons industriais.
+            </p>
+
+        </div>
+
+
+        <div class="style-card">
+
+            <h3>
+                🎷 Blues Rock
+            </h3>
+
+            <p>
+                O blues encontra guitarras
+                elétricas e peso.
+            </p>
+
+        </div>
+
+
+        <div class="style-card">
+
+            <h3>
+                🥁 Post-Rock
+            </h3>
+
+            <p>
+                Construções instrumentais,
+                atmosferas e grandes explosões sonoras.
+            </p>
 
         </div>
 
@@ -844,11 +1325,15 @@ footer {
     id="extras"
 >
 
-    <h2>🕵️ EXTRAS</h2>
+    <h2>
+        🕵️ EXTRAS
+    </h2>
+
 
     <p>
         Talvez exista alguma coisa escondida por aqui...
     </p>
+
 
     <div class="extra-box">
 
@@ -859,7 +1344,7 @@ footer {
         <br>
 
         <p>
-            Tente explorar o site.
+            Existem segredos espalhados pelo RockWave.
         </p>
 
     </div>
@@ -885,28 +1370,28 @@ footer {
 
     </div>
 
+
     <div class="now-playing-controls">
 
         <button
             id="now-playing-play"
             type="button"
-            aria-label="Tocar"
         >
             ▶
         </button>
 
+
         <button
             id="now-playing-pause"
             type="button"
-            aria-label="Pausar"
         >
             ⏸
         </button>
 
+
         <button
             id="now-playing-next"
             type="button"
-            aria-label="Próxima"
         >
             ⏭
         </button>
@@ -927,11 +1412,15 @@ footer {
 
     <div class="easter-box">
 
-        <h2>ROCKWAVE.EXE</h2>
+        <h2 id="easter-title">
+            ROCKWAVE.EXE
+        </h2>
 
-        <p>SIGNAL FOUND</p>
+        <p id="easter-signal">
+            SIGNAL FOUND
+        </p>
 
-        <p>
+        <p id="easter-text">
             Você encontrou o sinal escondido. 🤘
         </p>
 
@@ -955,43 +1444,99 @@ footer {
 </footer>
 
 
-<!-- =========================
-     YOUTUBE API
-========================= -->
-
 <script src="https://www.youtube.com/iframe_api"></script>
+
 
 <script>
 
-const videoCards =
-    document.querySelectorAll('.video-card');
+/* =========================
+   ELEMENTOS
+========================= */
 
 const nowPlayingTitle =
-    document.getElementById('now-playing-title');
+    document.getElementById(
+        'now-playing-title'
+    );
 
 const playButton =
-    document.getElementById('now-playing-play');
+    document.getElementById(
+        'now-playing-play'
+    );
 
 const pauseButton =
-    document.getElementById('now-playing-pause');
+    document.getElementById(
+        'now-playing-pause'
+    );
 
 const nextButton =
-    document.getElementById('now-playing-next');
+    document.getElementById(
+        'now-playing-next'
+    );
 
 const logo =
-    document.getElementById('rockwave-logo');
+    document.getElementById(
+        'rockwave-logo'
+    );
 
 const easterMessage =
-    document.getElementById('easter-message');
+    document.getElementById(
+        'easter-message'
+    );
+
+const easterTitle =
+    document.getElementById(
+        'easter-title'
+    );
+
+const easterSignal =
+    document.getElementById(
+        'easter-signal'
+    );
+
+const easterText =
+    document.getElementById(
+        'easter-text'
+    );
+
+
+/* =========================
+   RADIO
+========================= */
+
+const radioStart =
+    document.getElementById(
+        'radio-start'
+    );
+
+const radioPause =
+    document.getElementById(
+        'radio-pause'
+    );
+
+const radioNext =
+    document.getElementById(
+        'radio-next'
+    );
+
+const radioTrack =
+    document.getElementById(
+        'radio-track'
+    );
+
+const radioDot =
+    document.getElementById(
+        'radio-dot'
+    );
+
+const radioStatusText =
+    document.getElementById(
+        'radio-status-text'
+    );
 
 
 /* =========================
    PLAYERS
 ========================= */
-
-let currentPlayer = null;
-
-let slipknotPlayer = null;
 
 let radioPlayer = null;
 
@@ -999,9 +1544,11 @@ let radioLigada = false;
 
 let radioIndex = 0;
 
+let currentPlayer = null;
+
 
 /* =========================
-   MÚSICAS DA RÁDIO
+   MÚSICAS
 ========================= */
 
 const radioVideos = [
@@ -1045,30 +1592,7 @@ const radioVideos = [
 
 
 /* =========================
-   ELEMENTOS DA RÁDIO
-========================= */
-
-const radioStart =
-    document.getElementById('radio-start');
-
-const radioPause =
-    document.getElementById('radio-pause');
-
-const radioNext =
-    document.getElementById('radio-next');
-
-const radioTrack =
-    document.getElementById('radio-track');
-
-const radioDot =
-    document.getElementById('radio-dot');
-
-const radioStatusText =
-    document.getElementById('radio-status-text');
-
-
-/* =========================
-   CONTROLES DA RÁDIO
+   LIGAR RADIO
 ========================= */
 
 radioStart.addEventListener(
@@ -1093,6 +1617,10 @@ radioStart.addEventListener(
 );
 
 
+/* =========================
+   PAUSAR RADIO
+========================= */
+
 radioPause.addEventListener(
     'click',
     () => {
@@ -1105,25 +1633,24 @@ radioPause.addEventListener(
 
         radioLigada = false;
 
-        radioDot.classList.remove('active');
+        radioDot.classList.remove(
+            'active'
+        );
 
         radioStatusText.textContent =
             'RockWave Radio • pausada';
-
-        radioTrack.textContent =
-            radioVideos[radioIndex].title;
 
     }
 );
 
 
+/* =========================
+   PROXIMA
+========================= */
+
 radioNext.addEventListener(
     'click',
     () => {
-
-        if (!radioPlayer) {
-            return;
-        }
 
         proximaMusica();
 
@@ -1139,20 +1666,21 @@ nextButton.addEventListener(
 
             proximaMusica();
 
-        } else if (currentPlayer) {
-
-            currentPlayer.seekTo(0, true);
-            currentPlayer.playVideo();
-
         }
 
     }
 );
 
 
+/* =========================
+   ATUALIZAR RADIO
+========================= */
+
 function atualizarRadio() {
 
-    radioDot.classList.add('active');
+    radioDot.classList.add(
+        'active'
+    );
 
     radioStatusText.textContent =
         'RockWave Radio • no ar';
@@ -1161,19 +1689,34 @@ function atualizarRadio() {
         radioVideos[radioIndex].title;
 
     nowPlayingTitle.textContent =
-        '📻 ' + radioVideos[radioIndex].title;
+        '📻 ' +
+        radioVideos[radioIndex].title;
 
-    currentPlayer = radioPlayer;
+    currentPlayer =
+        radioPlayer;
 
 }
 
 
+/* =========================
+   PROXIMA MUSICA
+========================= */
+
 function proximaMusica() {
+
+    if (!radioPlayer) {
+        return;
+    }
 
     radioIndex++;
 
-    if (radioIndex >= radioVideos.length) {
+    if (
+        radioIndex >=
+        radioVideos.length
+    ) {
+
         radioIndex = 0;
+
     }
 
     radioLigada = true;
@@ -1190,13 +1733,10 @@ function proximaMusica() {
 
 
 /* =========================
-   YOUTUBE API
+   YOUTUBE
 ========================= */
 
 function onYouTubeIframeAPIReady() {
-
-
-    /* PLAYER DA RÁDIO */
 
     radioPlayer =
         new YT.Player(
@@ -1205,144 +1745,56 @@ function onYouTubeIframeAPIReady() {
 
                 events: {
 
-                    onReady: function() {
+                    onReady:
+                        function() {
 
-                        console.log(
-                            'RockWave Radio pronta.'
-                        );
+                            console.log(
+                                'RockWave Radio pronta!'
+                            );
 
-                    },
-
-                    onStateChange: function(event) {
-
-                        if (
-                            event.data ===
-                            YT.PlayerState.PLAYING
-                        ) {
-
-                            atualizarRadio();
-
-                        }
+                        },
 
 
-                        if (
-                            event.data ===
-                            YT.PlayerState.ENDED
-                        ) {
+                    onStateChange:
+                        function(event) {
 
-                            if (radioLigada) {
+                            if (
+                                event.data ===
+                                YT.PlayerState.PLAYING
+                            ) {
 
-                                proximaMusica();
+                                atualizarRadio();
+
+                            }
+
+
+                            if (
+                                event.data ===
+                                YT.PlayerState.ENDED
+                            ) {
+
+                                if (
+                                    radioLigada
+                                ) {
+
+                                    proximaMusica();
+
+                                }
 
                             }
 
                         }
-
-                    }
 
                 }
 
             }
         );
 
-
-    /* PLAYERS DOS VIDEOCLIPES */
-
-    videoCards.forEach(
-        card => {
-
-            const iframe =
-                card.querySelector('iframe');
-
-            const title =
-                card
-                .querySelector(
-                    '.video-info h3'
-                )
-                .textContent;
-
-
-            const player =
-                new YT.Player(
-                    iframe,
-                    {
-
-                        events: {
-
-                            onReady:
-                                event => {
-
-                                    if (
-                                        iframe.id ===
-                                        'slipknot-video'
-                                    ) {
-
-                                        slipknotPlayer =
-                                            event.target;
-
-                                    }
-
-                                },
-
-
-                            onStateChange:
-                                event => {
-
-                                    if (
-                                        event.data ===
-                                        YT.PlayerState.PLAYING
-                                    ) {
-
-                                        currentPlayer =
-                                            event.target;
-
-                                        nowPlayingTitle.textContent =
-                                            title;
-
-                                        /*
-
-                                        Se um videoclipe
-                                        começar manualmente,
-                                        a rádio deixa de
-                                        controlar o player.
-
-                                        */
-
-                                        if (
-                                            event.target !==
-                                            radioPlayer
-                                        ) {
-
-                                            radioLigada =
-                                                false;
-
-                                            radioDot.classList
-                                                .remove(
-                                                    'active'
-                                                );
-
-                                            radioStatusText.textContent =
-                                                'RockWave Radio • desligada';
-
-                                        }
-
-                                    }
-
-                                }
-
-                        }
-
-                    }
-                );
-
-        }
-    );
-
 }
 
 
 /* =========================
-   NOW PLAYING
+   PLAYER
 ========================= */
 
 playButton.addEventListener(
@@ -1350,7 +1802,9 @@ playButton.addEventListener(
     () => {
 
         if (currentPlayer) {
+
             currentPlayer.playVideo();
+
         }
 
     }
@@ -1362,7 +1816,9 @@ pauseButton.addEventListener(
     () => {
 
         if (currentPlayer) {
+
             currentPlayer.pauseVideo();
+
         }
 
     }
@@ -1370,14 +1826,19 @@ pauseButton.addEventListener(
 
 
 /* =========================
-   EASTER EGG
-   DIGITE "ROCKWAVE"
+   EASTER EGGS
 ========================= */
 
 let secretCode = "";
 
 let secretMode = false;
 
+let nirvanaMode = false;
+
+
+/* =========================
+   TECLADO
+========================= */
 
 document.addEventListener(
     'keydown',
@@ -1388,7 +1849,7 @@ document.addEventListener(
             'Escape'
         ) {
 
-            stopSecretMode();
+            sairDosSegredos();
 
             return;
 
@@ -1410,14 +1871,19 @@ document.addEventListener(
 
         if (
             secretCode.length >
-            20
+            30
         ) {
 
             secretCode =
-                secretCode.slice(-20);
+                secretCode.slice(-30);
 
         }
 
+
+        /* =====================
+           EASTER EGG 1
+           ROCKWAVE
+        ===================== */
 
         if (
             secretCode.includes(
@@ -1425,7 +1891,27 @@ document.addEventListener(
             )
         ) {
 
-            activateSecretMode();
+            ativarRockwaveEgg();
+
+            secretCode = "";
+
+            return;
+
+        }
+
+
+        /* =====================
+           EASTER EGG 2
+           NIRVANA
+        ===================== */
+
+        if (
+            secretCode.includes(
+                'nirvana'
+            )
+        ) {
+
+            ativarNirvanaEgg();
 
             secretCode = "";
 
@@ -1436,16 +1922,18 @@ document.addEventListener(
 
 
 /* =========================
-   ATIVAR MODO SECRETO
+   ROCKWAVE EGG
 ========================= */
 
-function activateSecretMode() {
-
-    if (secretMode) {
-        return;
-    }
+function ativarRockwaveEgg() {
 
     secretMode = true;
+
+    nirvanaMode = false;
+
+    document.body.classList.remove(
+        'nirvana-mode'
+    );
 
     document.body.classList.add(
         'secret-mode'
@@ -1455,21 +1943,35 @@ function activateSecretMode() {
         'show'
     );
 
+    easterTitle.textContent =
+        'ROCKWAVE.EXE';
 
-    if (slipknotPlayer) {
+    easterSignal.textContent =
+        'SIGNAL FOUND';
 
-        slipknotPlayer.seekTo(
-            0,
-            true
+    easterText.textContent =
+        'Você encontrou o sinal escondido. 🤘';
+
+
+    /*
+       A rádio toca Psychosocial
+    */
+
+    if (radioPlayer) {
+
+        radioLigada = false;
+
+        radioPlayer.loadVideoById(
+            '5abamRO41fE'
         );
 
-        slipknotPlayer.playVideo();
+        radioPlayer.playVideo();
 
         nowPlayingTitle.textContent =
             'Slipknot — Psychosocial';
 
-        currentPlayer =
-            slipknotPlayer;
+        radioTrack.textContent =
+            'Slipknot — Psychosocial';
 
     }
 
@@ -1477,10 +1979,12 @@ function activateSecretMode() {
 
 
 /* =========================
-   SAIR DO MODO SECRETO
+   NIRVANA EGG
 ========================= */
 
-function stopSecretMode() {
+function ativarNirvanaEgg() {
+
+    nirvanaMode = true;
 
     secretMode = false;
 
@@ -1488,14 +1992,45 @@ function stopSecretMode() {
         'secret-mode'
     );
 
-    easterMessage.classList.remove(
+    document.body.classList.add(
+        'nirvana-mode'
+    );
+
+    easterMessage.classList.add(
         'show'
     );
 
+    easterTitle.textContent =
+        'NEVERMIND.EXE';
 
-    if (slipknotPlayer) {
+    easterSignal.textContent =
+        'SIGNAL: 1991';
 
-        slipknotPlayer.pauseVideo();
+    easterText.textContent =
+        'Você encontrou outro sinal. 🎸';
+
+
+    /*
+       A rádio muda para Nirvana
+    */
+
+    if (radioPlayer) {
+
+        radioLigada = false;
+
+        radioIndex = 2;
+
+        radioPlayer.loadVideoById(
+            'hTWKbfoikeg'
+        );
+
+        radioPlayer.playVideo();
+
+        nowPlayingTitle.textContent =
+            'Nirvana — Smells Like Teen Spirit';
+
+        radioTrack.textContent =
+            'Nirvana — Smells Like Teen Spirit';
 
     }
 
@@ -1503,7 +2038,32 @@ function stopSecretMode() {
 
 
 /* =========================
-   CLICAR 5 VEZES NO LOGO
+   SAIR
+========================= */
+
+function sairDosSegredos() {
+
+    secretMode = false;
+
+    nirvanaMode = false;
+
+    document.body.classList.remove(
+        'secret-mode'
+    );
+
+    document.body.classList.remove(
+        'nirvana-mode'
+    );
+
+    easterMessage.classList.remove(
+        'show'
+    );
+
+}
+
+
+/* =========================
+   LOGO 5X
 ========================= */
 
 let logoClicks = 0;
@@ -1520,9 +2080,7 @@ logo.addEventListener(
             logoClicks >= 5
         ) {
 
-            easterMessage.classList.add(
-                'show'
-            );
+            ativarRockwaveEgg();
 
             logoClicks = 0;
 
