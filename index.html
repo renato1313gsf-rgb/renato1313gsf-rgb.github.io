@@ -263,6 +263,51 @@
             border-top: 1px solid #151515;
         }
 
+
+        /* EASTER EGG: janela centralizada */
+        #easterMessage {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(7px);
+            text-align: center;
+        }
+
+        #easterMessage.show {
+            display: flex;
+        }
+
+        .easter-card {
+            width: min(560px, 100%);
+            padding: 42px 28px;
+            background: #090909;
+            border: 1px solid #b00000;
+            box-shadow: 0 0 50px rgba(190, 0, 0, 0.3);
+        }
+
+        .easter-card h2 {
+            color: #ff3030;
+            font-size: clamp(28px, 6vw, 48px);
+            margin-bottom: 14px;
+        }
+
+        .easter-card p {
+            color: #ddd;
+            line-height: 1.6;
+        }
+
+        .easter-hint {
+            margin-top: 24px;
+            color: #777 !important;
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+
         @media (max-width: 650px) {
             .menu {
                 grid-template-columns: 1fr;
@@ -548,6 +593,15 @@
     </section>
 
 
+
+    <div id="easterMessage" role="dialog" aria-modal="true" aria-labelledby="easterTitle">
+        <div class="easter-card">
+            <h2 id="easterTitle">SINAL ENCONTRADO</h2>
+            <p id="easterText">Você encontrou um Easter egg da RockWave! 🤘</p>
+            <p class="easter-hint">APERTE ESC PARA FECHAR</p>
+        </div>
+    </div>
+
     <footer>
         ROCKWAVE — O som não morreu. 🎸
     </footer>
@@ -697,6 +751,57 @@
 
         }
 
+
+
+        /* =========================
+           EASTER EGGS
+        ========================== */
+
+        let codigoSecreto = "";
+        const easterMessage = document.getElementById("easterMessage");
+        const easterTitle = document.getElementById("easterTitle");
+        const easterText = document.getElementById("easterText");
+
+        function mostrarEasterEgg(tipo) {
+            if (tipo === "nirvana") {
+                easterTitle.textContent = "NEVERMIND.EXE";
+                easterText.textContent = "Você encontrou o sinal de 1991. 🎸";
+                musicaAtual = 2;
+            } else {
+                easterTitle.textContent = "ROCKWAVE.EXE";
+                easterText.textContent = "SINAL ENCONTRADO — você desbloqueou um segredo da RockWave. 🤘";
+                musicaAtual = 6;
+            }
+
+            easterMessage.classList.add("show");
+            ligarRadio();
+        }
+
+        function fecharEasterEgg() {
+            easterMessage.classList.remove("show");
+            pausarRadio();
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                if (easterMessage.classList.contains("show")) {
+                    fecharEasterEgg();
+                }
+                codigoSecreto = "";
+                return;
+            }
+
+            if (event.key.length !== 1) return;
+            codigoSecreto = (codigoSecreto + event.key.toLowerCase()).slice(-30);
+
+            if (codigoSecreto.includes("nirvana")) {
+                codigoSecreto = "";
+                mostrarEasterEgg("nirvana");
+            } else if (codigoSecreto.includes("rockwave")) {
+                codigoSecreto = "";
+                mostrarEasterEgg("rockwave");
+            }
+        });
 
     </script>
 
