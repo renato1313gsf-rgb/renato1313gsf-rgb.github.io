@@ -39,38 +39,6 @@
             100% { clip-path: inset(0 0 0 0); }
         }
 
-        .bands {
-            max-width: 1100px;
-            margin: 90px auto 0;
-            padding: 20px;
-        }
-
-        .bands h2 {
-            font-size: 32px;
-            margin-bottom: 35px;
-        }
-
-        .band-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
-
-        .band-card {
-            background: #1b1b1b;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 22px 12px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .band-card:hover {
-            transform: translateY(-5px);
-            border-color: #777;
-        }
-
         .now-playing {
             position: fixed;
             left: 50%;
@@ -134,29 +102,16 @@
             }
         }
 
-
+        .logo {
+            width: 500px;
             max-width: 90%;
             height: auto;
             margin-bottom: 20px;
+            transition: transform 0.15s, filter 0.15s;
         }
 
         p {
             font-size: 20px;
-        }
-
-        button {
-            padding: 12px 25px;
-            font-size: 18px;
-            cursor: pointer;
-            background: white;
-            color: #111;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-
-        button:hover {
-            transform: scale(1.04);
         }
 
         /* ESTILOS DE ROCK */
@@ -265,10 +220,8 @@
             }
 
             .style-grid { grid-template-columns: 1fr; }
-            .band-grid { grid-template-columns: repeat(2, 1fr); }
 
             .styles,
-            .bands,
             .videos {
                 margin-top: 60px;
             }
@@ -281,24 +234,6 @@
     <img src="rockwave-logo.png" alt="RockWave" class="logo">
 
     <p>Bem-vindo ao site de rock</p>
-
-    <section class="bands">
-        <h2>🤘 BANDAS</h2>
-        <div class="band-grid">
-            <div class="band-card">Nirvana</div>
-            <div class="band-card">Linkin Park</div>
-            <div class="band-card">System of a Down</div>
-            <div class="band-card">Metallica</div>
-            <div class="band-card">Charlie Brown Jr.</div>
-            <div class="band-card">Legião Urbana</div>
-            <div class="band-card">Cássia Eller</div>
-            <div class="band-card">Cazuza</div>
-        </div>
-    </section>
-
-    <button onclick="alert('NU METAL, HEAVY METAL')">
-        ESTILOS DE ROCK
-    </button>
 
     <section class="styles">
         <h2>ESTILOS DE ROCK</h2>
