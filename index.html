@@ -431,8 +431,19 @@
 
     <div class="now-playing">
         <small>🎵 Tocando agora</small>
-        <strong>Slipknot — Psychosocial</strong>
+        <strong id="now-playing-title">Slipknot — Psychosocial</strong>
     </div>
+
+    <script>
+        const videos = document.querySelectorAll('.video-card');
+
+        videos.forEach(video => {
+            video.addEventListener('click', () => {
+                const title = video.querySelector('.video-info h3').textContent;
+                document.getElementById('now-playing-title').textContent = title;
+            });
+        });
+    </script>
 
 </body>
 </html>
