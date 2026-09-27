@@ -922,7 +922,36 @@
         .rock-region-note{font-size:12px;margin-top:18px;color:#666!important}
         @media(max-width:650px){.rock-region-detail{padding:20px}.rock-region-picker{grid-template-columns:1fr 1fr}.rock-globe{width:min(300px,75vw)}}
 
-</style>
+
+        /* CORREÇÃO DO FUNDO SOBRE O RÁDIO */
+        body {
+            position: relative;
+            isolation: isolate;
+        }
+
+        body::before,
+        body::after {
+            z-index: -1 !important;
+        }
+
+        .radio-box,
+        .radio-screen,
+        .radio-screen iframe {
+            position: relative;
+            z-index: 5;
+        }
+
+        .radio-screen {
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .radio-screen iframe {
+            display: block;
+            background: #000;
+        }
+
+    </style>
 </head>
 
 <body>
