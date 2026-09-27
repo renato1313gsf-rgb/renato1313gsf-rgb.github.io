@@ -776,7 +776,7 @@
                     <div id="signupMessage" class="account-message"></div>
                 </form>
 
-                <p class="account-note">Nesta primeira etapa, a tela está pronta. O cadastro real por e-mail será conectado ao sistema de autenticação na próxima etapa.</p>
+                <p class="account-note">Seu cadastro e login são protegidos pelo Supabase Auth. Se a confirmação por e-mail estiver ativada, você receberá um link para confirmar sua conta.</p>
             </div>
 
             <div id="accountWelcome" class="account-welcome">
@@ -1358,6 +1358,8 @@
     </footer>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
 
         /* =========================
@@ -1400,8 +1402,17 @@
 
 
         /* =========================
-           CONTA ROCKWAVE — INTERFACE
+           CONTA ROCKWAVE — SUPABASE AUTH
         ========================== */
+
+        const SUPABASE_URL = "https://ehhzjsunispjlallbjat.supabase.co";
+        const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_745Mn1RXZegh_r2XeBU55A_HUglUV5E";
+
+        const rockwaveSupabase = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
         function mostrarContaForm(tipo) {
             const login = tipo === "login";
             document.getElementById("loginForm").classList.toggle("active", login);
@@ -1412,32 +1423,104 @@
             document.getElementById("signupMessage").textContent = "";
         }
 
-        function criarConta(event) {
+        function mostrarContaLogada(user) {
+            document.getElementById("accountForms").style.display = "none";
+            document.getElementById("accountWelcome").classList.add("show");
+            document.getElementById("accountWelcomeText").textContent =
+                "Conta conectada como " + (user.email || "usuário RockWave") + ". Seu login está salvo neste navegador.";
+        }
+
+        function mostrarContaDeslogada() {
+            document.getElementById("accountWelcome").classList.remove("show");
+            document.getElementById("accountForms").style.display = "block";
+        }
+
+        async function criarConta(event) {
             event.preventDefault();
+
             const email = document.getElementById("signupEmail").value.trim();
             const senha = document.getElementById("signupPassword").value;
             const confirmar = document.getElementById("signupPassword2").value;
             const msg = document.getElementById("signupMessage");
+
+            msg.textContent = "";
 
             if (senha !== confirmar) {
                 msg.textContent = "As senhas não são iguais.";
                 return;
             }
 
-            msg.textContent = "A interface está pronta — o cadastro real será conectado na próxima etapa.";
+            if (senha.length < 6) {
+                msg.textContent = "A senha precisa ter pelo menos 6 caracteres.";
+                return;
+            }
+
+            msg.textContent = "Criando sua conta...";
+
+            const { data, error } = await rockwaveSupabase.auth.signUp({
+                email,
+                password: senha,
+                options: {
+                    emailRedirectTo: window.location.origin
+                }
+            });
+
+            if (error) {
+                msg.textContent = "Erro: " + error.message;
+                return;
+            }
+
+            if (data.session) {
+                msg.textContent = "Conta criada! Você já está conectado. 🤘";
+                mostrarContaLogada(data.user);
+            } else {
+                msg.textContent = "Conta criada! Confira seu e-mail para confirmar a conta. 📧";
+            }
         }
 
-        function entrarConta(event) {
+        async function entrarConta(event) {
             event.preventDefault();
-            document.getElementById("loginMessage").textContent =
-                "O login por e-mail será ativado na próxima etapa.";
+
+            const email = document.getElementById("loginEmail").value.trim();
+            const senha = document.getElementById("loginPassword").value;
+            const msg = document.getElementById("loginMessage");
+
+            msg.textContent = "Entrando...";
+
+            const { data, error } = await rockwaveSupabase.auth.signInWithPassword({
+                email,
+                password: senha
+            });
+
+            if (error) {
+                msg.textContent = "Não foi possível entrar: " + error.message;
+                return;
+            }
+
+            msg.textContent = "";
+            mostrarContaLogada(data.user);
         }
 
-        function sairConta() {
-            document.getElementById("accountWelcome").classList.remove("show");
-            document.getElementById("accountForms").style.display = "block";
+        async function sairConta() {
+            const { error } = await rockwaveSupabase.auth.signOut();
+
+            if (error) {
+                document.getElementById("loginMessage").textContent =
+                    "Não foi possível sair: " + error.message;
+                return;
+            }
+
+            mostrarContaDeslogada();
             mostrarContaForm("login");
         }
+
+        rockwaveSupabase.auth.onAuthStateChange((event, session) => {
+            if (session?.user) {
+                mostrarContaLogada(session.user);
+            } else {
+                mostrarContaDeslogada();
+            }
+        });
         
         /* =========================
            QUIZ — 50 RESULTADOS
