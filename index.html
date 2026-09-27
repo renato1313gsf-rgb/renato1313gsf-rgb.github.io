@@ -900,6 +900,26 @@
 .band-result h2{font-size:clamp(30px,6vw,58px);margin-bottom:12px;}
 .band-members{color:#aaa;line-height:1.8;}
 @media(max-width:650px){.band-builder-form{grid-template-columns:1fr;}}
+
+        .rock-globe-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;margin:0 auto 28px}
+        .rock-globe{width:min(390px,78vw);aspect-ratio:1;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 30% 25%,#3b9bd4 0%,#15527e 32%,#061626 72%,#02070d 100%);box-shadow:inset -28px -18px 45px #000b,inset 12px 8px 25px #a6e5ff44,0 0 55px #0d5d9933;animation:globeFloat 5s ease-in-out infinite}
+        .globe-grid{position:absolute;inset:-12%;border-radius:50%;background:repeating-linear-gradient(0deg,transparent 0 27px,#a7e8ff44 28px 29px),repeating-linear-gradient(90deg,transparent 0 35px,#a7e8ff35 36px 37px);transform:rotate(-13deg) scaleX(.78);border:1px solid #a7e8ff55}
+        .globe-land{position:absolute;width:100%;height:100%;inset:0;color:#65bd72;filter:drop-shadow(0 0 5px #092d1b);animation:globeSpin 22s linear infinite;transform-origin:center}
+        .globe-glow{position:absolute;inset:0;border-radius:50%;background:linear-gradient(115deg,transparent 40%,#fff2 52%,transparent 66%);pointer-events:none}
+        .globe-caption{font:900 10px/1 Arial,sans-serif;letter-spacing:4px;color:#777;text-align:center}
+        @keyframes globeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+        @keyframes globeSpin{from{transform:rotate(0deg) scale(1.02)}to{transform:rotate(360deg) scale(1.02)}}
+        .rock-region-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:24px 0}
+        .rock-region{background:#101010;color:#ddd;border:1px solid #333;padding:14px 12px;cursor:pointer;font:700 14px Arial,sans-serif;transition:.2s}
+        .rock-region:hover,.rock-region.active{background:#300000;border-color:#b00000;color:#fff;transform:translateY(-2px)}
+        .rock-region-detail{background:#0a0a0a;border:1px solid #333;border-left:4px solid #a00000;padding:28px}
+        .rock-region-detail h2{font-size:clamp(24px,4vw,38px);margin:8px 0 14px}
+        .rock-region-detail p{color:#aaa;line-height:1.65}
+        .rock-region-styles,.rock-region-bands{margin-top:20px;padding:17px;background:#111;border:1px solid #252525}
+        .rock-region-styles strong,.rock-region-bands strong{display:block;margin-bottom:8px}
+        .rock-region-note{font-size:12px;margin-top:18px;color:#666!important}
+        @media(max-width:650px){.rock-region-detail{padding:20px}.rock-region-picker{grid-template-columns:1fr 1fr}.rock-globe{width:min(300px,75vw)}}
+
 </style>
 </head>
 
@@ -970,25 +990,18 @@
                 CONQUISTAS
             </button>
 
-            <button onclick="abrir('perfil')">
-                <span>🤘</span>
-                PERFIL ROCKWAVE
-            </button>
-
             <button onclick="abrir('maquina')">
                 <span>🕰️</span>
                 MÁQUINA DO TEMPO
             </button>
 
             
-            <button onclick="abrir('nivel')"><span>⭐</span>XP & NÍVEIS</button>
             <button onclick="abrir('bandas')"><span>🎸</span>BANDAS ROCKWAVE</button>
             <button onclick="abrir('quizbandas')"><span>🧠</span>QUIZ DE BANDAS</button>
             <button onclick="abrir('adivinhe')"><span>🎵</span>ADIVINHE A MÚSICA</button>
             <button onclick="abrir('guitarra')"><span>🎮</span>MINIGAME DE GUITARRA</button>
             <button onclick="abrir('riffguess')"><span>🎶</span>ADIVINHE O RIFF</button>
             <button onclick="abrir('mapa')"><span>🗺️</span>MAPA ROCKWAVE</button>
-            <button onclick="abrir('lore')"><span>📜</span>LORE ROCKWAVE</button>
             <button onclick="alternarNoiteExtrema()"><span>🌑</span>NOITE EXTREMA</button>
 
 <button onclick="abrir('galeria')">
@@ -1152,18 +1165,6 @@
     ========================== -->
 
 
-    <section id="nivel">
-        <div class="back" onclick="voltar()">← VOLTAR</div>
-        <h1 class="section-title">XP & NÍVEIS</h1>
-        <p class="section-subtitle">Cada descoberta deixa sua marca no arquivo RockWave.</p>
-        <div class="xp-panel">
-            <div class="xp-row"><div><div class="level-label">NÍVEL ROCKWAVE</div><div id="xpLevel" class="xp-number">1</div></div><div class="game-score"><span id="xpValue">0</span> XP</div></div>
-            <div class="xp-bar"><div id="xpFill"></div></div>
-            <div id="xpText" class="xp-note">0 / 100 XP para o próximo nível.</div>
-        </div>
-        <div class="xp-panel"><h2>Como ganhar XP</h2><p class="xp-note">Explore áreas, complete quizzes, descubra segredos e interaja com a RockWave.</p></div>
-    </section>
-
     <section id="bandas">
         <div class="back" onclick="voltar()">← VOLTAR</div>
         <h1 class="section-title">BANDAS ROCKWAVE</h1>
@@ -1247,23 +1248,10 @@
                 <button class="map-node" type="button" onclick="abrirMapa('curiosidades')"><small>03</small>Curiosidades</button>
                 <button class="map-node" type="button" onclick="abrirMapa('maquina')"><small>04</small>Máquina do Tempo</button>
                 <button class="map-node" type="button" onclick="abrirMapa('galeria')"><small>05</small>Galeria</button>
-                <button class="map-node" type="button" onclick="abrirMapa('lore')"><small>07</small>Lore</button>
                 <button class="map-node" type="button" onclick="abrirMapa('guitarra')"><small>08</small>Minigame</button>
                 <button class="map-node" type="button" onclick="abrirMapa('quizbandas')"><small>09</small>Quiz de Bandas</button>
                 <button class="map-node" type="button" onclick="abrirMapa('adivinhe')"><small>10</small>Adivinhe a Música</button>
             </div>
-        </div>
-    </section>
-
-    <section id="lore">
-        <div class="back" onclick="voltar()">← VOLTAR</div>
-        <h1 class="section-title">LORE ROCKWAVE</h1>
-        <p class="section-subtitle">A história do sinal que mantém o rock vivo.</p>
-        <div class="lore-box">
-            <div class="lore-chapter"><h2>CAPÍTULO I — O SINAL</h2><p>Em algum ponto entre uma guitarra ligada e um amplificador antigo, surgiu um sinal. Ninguém sabe exatamente quando ele começou.</p></div>
-            <div class="lore-chapter"><h2>CAPÍTULO II — A FREQUÊNCIA</h2><p>O sinal atravessou décadas: do rock'n'roll ao metal, do punk ao grunge, das fitas ao streaming.</p></div>
-            <div class="lore-chapter"><h2>CAPÍTULO III — ROCKWAVE</h2><p>A RockWave nasceu para arquivar esse sinal. Cada música, descoberta e segredo aumenta sua frequência.</p></div>
-            <div class="lore-chapter"><h2>CAPÍTULO IV — O UNDERGROUND</h2><p>Mas existe uma frequência abaixo de todas as outras. Quem encontrar os códigos certos pode descobrir o que está escondido.</p></div>
         </div>
     </section>
 
@@ -1427,214 +1415,65 @@
     ========================== -->
 
     <section id="explicados">
-
-        <button class="back" onclick="voltar()">← VOLTAR</button>
-
-        <h1 class="section-title">Estilos explicados</h1>
-
-        <p class="section-subtitle">
-            O que realmente diferencia cada vertente do rock?
-        </p>
-
-        <div class="styles-grid">
-
-            <div class="style-card">
-                <h3>🎸 Rock and Roll</h3>
-                                <p><strong>Surgimento:</strong> Década de 1950</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Chuck Berry, Little Richard, Elvis Presley.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🕺 Rockabilly</h3>
-                                <p><strong>Surgimento:</strong> Década de 1950</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Elvis Presley, Carl Perkins, Buddy Holly.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🌊 Surf Rock</h3>
-                                <p><strong>Surgimento:</strong> Final dos anos 1950 / 1960</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Dick Dale, The Ventures, The Beach Boys.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🎶 Blues Rock</h3>
-                                <p><strong>Surgimento:</strong> Meados dos anos 1960</p>
-                <p><strong>Nomes ligados ao estilo:</strong> The Yardbirds, Cream, Jimi Hendrix.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🌈 Psychedelic Rock</h3>
-                                <p><strong>Surgimento:</strong> Meados dos anos 1960</p>
-                <p><strong>Nomes ligados ao estilo:</strong> The Beatles, Jefferson Airplane, Jimi Hendrix.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🤘 Hard Rock</h3>
-                                <p><strong>Surgimento:</strong> Meados/final dos anos 1960</p>
-                <p><strong>Nomes ligados ao estilo:</strong> The Kinks, The Who, Led Zeppelin, Deep Purple.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🚀 Progressive Rock</h3>
-                                <p><strong>Surgimento:</strong> Final dos anos 1960</p>
-                <p><strong>Nomes ligados ao estilo:</strong> King Crimson, Yes, Genesis, Pink Floyd.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>✨ Glam Rock</h3>
-                                <p><strong>Surgimento:</strong> Início dos anos 1970</p>
-                <p><strong>Nomes ligados ao estilo:</strong> David Bowie, T. Rex, Sweet.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>⚡ Heavy Metal</h3>
-                                <p><strong>Surgimento:</strong> Final dos anos 1960 / início dos 1970</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Black Sabbath, Led Zeppelin, Judas Priest.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>Ⓐ Punk Rock</h3>
-                                <p><strong>Surgimento:</strong> Meados dos anos 1970</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Ramones, Sex Pistols, The Clash.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🖤 Gothic Rock</h3>
-                                <p><strong>Surgimento:</strong> Final dos anos 1970 / início dos 1980</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Bauhaus, Siouxsie and the Banshees, The Sisters of Mercy.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>📡 New Wave</h3>
-                                <p><strong>Surgimento:</strong> Final dos anos 1970 / anos 1980</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Talking Heads, Blondie, The Police.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🌑 Post-Punk</h3>
-                                <p><strong>Surgimento:</strong> Final dos anos 1970</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Joy Division, Siouxsie and the Banshees, Gang of Four.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🧨 Thrash Metal</h3>
-                                <p><strong>Surgimento:</strong> Início dos anos 1980</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Metallica, Slayer, Megadeth, Anthrax.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🏴 Alternative Rock</h3>
-                                <p><strong>Surgimento:</strong> Final dos anos 1970 / anos 1980</p>
-                <p><strong>Nomes ligados ao estilo:</strong> R.E.M., Pixies, Sonic Youth.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🎤 Pop Rock</h3>
-                                <p><strong>Surgimento:</strong> Anos 1970–1980</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Elton John, Queen, The Cars.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🩸 Death Metal</h3>
-                                <p><strong>Surgimento:</strong> Meados/final dos anos 1980</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Death, Possessed, Morbid Angel.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🌲 Grunge</h3>
-                                <p><strong>Surgimento:</strong> Final dos anos 1980 / auge nos anos 1990</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Nirvana, Pearl Jam, Soundgarden, Alice in Chains.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>💿 Industrial Rock</h3>
-                                <p><strong>Surgimento:</strong> Final dos anos 1970 / anos 1980</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Throbbing Gristle, Nine Inch Nails, Ministry.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🎧 Shoegaze</h3>
-                                <p><strong>Surgimento:</strong> Final dos anos 1980</p>
-                <p><strong>Nomes ligados ao estilo:</strong> My Bloody Valentine, Slowdive, Ride.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🔥 Nu Metal</h3>
-                                <p><strong>Surgimento:</strong> Meados dos anos 1990</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Korn, Deftones, Limp Bizkit.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🧱 Post-Grunge</h3>
-                                <p><strong>Surgimento:</strong> Meados dos anos 1990</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Foo Fighters, Bush, Creed.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>💥 Metalcore</h3>
-                                <p><strong>Surgimento:</strong> Final dos anos 1990 / anos 2000</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Killswitch Engage, Converge, Unearth.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🎙️ Emo Rock</h3>
-                                <p><strong>Surgimento:</strong> Meados dos anos 1990 / anos 2000</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Jimmy Eat World, My Chemical Romance, Fall Out Boy.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🕶️ Indie Rock</h3>
-                                <p><strong>Surgimento:</strong> Anos 1980; expansão nos 1990–2000</p>
-                <p><strong>Nomes ligados ao estilo:</strong> The Smiths, Pavement, Arctic Monkeys.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🥁 Post-Rock</h3>
-                                <p><strong>Surgimento:</strong> Início dos anos 1990</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Talk Talk, Slint, Tortoise.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🏍️ Stoner Rock</h3>
-                                <p><strong>Surgimento:</strong> Início dos anos 1990</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Kyuss, Sleep, Monster Magnet.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🌎 Britpop</h3>
-                                <p><strong>Surgimento:</strong> Início dos anos 1990</p>
-                <p><strong>Nomes ligados ao estilo:</strong> Oasis, Blur, Pulp.</p>
-            </div>
-
-        </div>
-
-            <div class="style-card">
-                <h3>🔥 Nu Metal</h3>
-                <p>
-                    Mistura metal com elementos de hip-hop,
-                    eletrônica e outros estilos.
-                </p>
-            </div>
-
-            <div class="style-card">
-                <h3>⚡ Heavy Metal</h3>
-                <p>
-                    Caracterizado por guitarras distorcidas,
-                    bateria forte e vocais intensos.
-                </p>
-            </div>
-
-            <div class="style-card">
-                <h3>Ⓐ Punk Rock</h3>
-                <p>
-                    Conhecido pela simplicidade, velocidade
-                    e atitude contestadora.
-                </p>
-            </div>
-
-        </div>
-
-    </section>
+    <button class="back" onclick="voltar()">← VOLTAR</button>
+    <h1 class="section-title">Estilos explicados</h1>
+    <p class="section-subtitle">Um guia rápido de sonoridades, épocas e bandas que ajudaram a defini-las. 🤘</p>
+    <div class="styles-grid">
+        <div class="style-card"><h3>🎸 Rock and Roll</h3><p><strong>Surgimento:</strong> anos 1950</p><p><strong>Bandas/artistas:</strong> Chuck Berry, Little Richard, Elvis Presley.</p></div>
+        <div class="style-card"><h3>🕺 Rockabilly</h3><p><strong>Surgimento:</strong> anos 1950</p><p><strong>Bandas/artistas:</strong> Elvis Presley, Carl Perkins, Buddy Holly.</p></div>
+        <div class="style-card"><h3>🌊 Surf Rock</h3><p><strong>Surgimento:</strong> fim dos anos 1950–1960</p><p><strong>Bandas:</strong> Dick Dale, The Ventures, The Beach Boys.</p></div>
+        <div class="style-card"><h3>🎶 Blues Rock</h3><p><strong>Surgimento:</strong> anos 1960</p><p><strong>Bandas/artistas:</strong> Cream, The Yardbirds, Jimi Hendrix.</p></div>
+        <div class="style-card"><h3>🌈 Psychedelic Rock</h3><p><strong>Surgimento:</strong> meados dos anos 1960</p><p><strong>Bandas:</strong> The Beatles, Jefferson Airplane, Pink Floyd.</p></div>
+        <div class="style-card"><h3>🤘 Hard Rock</h3><p><strong>Surgimento:</strong> anos 1960</p><p><strong>Bandas:</strong> Led Zeppelin, Deep Purple, AC/DC, Aerosmith.</p></div>
+        <div class="style-card"><h3>🚀 Rock Progressivo</h3><p><strong>Surgimento:</strong> fim dos anos 1960</p><p><strong>Bandas:</strong> King Crimson, Yes, Genesis, Rush.</p></div>
+        <div class="style-card"><h3>✨ Glam Rock</h3><p><strong>Surgimento:</strong> início dos anos 1970</p><p><strong>Artistas/bandas:</strong> David Bowie, T. Rex, Sweet, Roxy Music.</p></div>
+        <div class="style-card"><h3>⚡ Heavy Metal</h3><p><strong>Surgimento:</strong> fim dos anos 1960–1970</p><p><strong>Bandas:</strong> Black Sabbath, Judas Priest, Motörhead.</p></div>
+        <div class="style-card"><h3>Ⓐ Punk Rock</h3><p><strong>Surgimento:</strong> meados dos anos 1970</p><p><strong>Bandas:</strong> Ramones, Sex Pistols, The Clash, Dead Kennedys.</p></div>
+        <div class="style-card"><h3>🖤 Gothic Rock</h3><p><strong>Surgimento:</strong> fim dos anos 1970–1980</p><p><strong>Bandas:</strong> Bauhaus, The Cure, The Sisters of Mercy.</p></div>
+        <div class="style-card"><h3>📡 New Wave</h3><p><strong>Surgimento:</strong> fim dos anos 1970–1980</p><p><strong>Bandas:</strong> Talking Heads, Blondie, The Police, Devo.</p></div>
+        <div class="style-card"><h3>🌑 Post-Punk</h3><p><strong>Surgimento:</strong> fim dos anos 1970</p><p><strong>Bandas:</strong> Joy Division, Siouxsie and the Banshees, Gang of Four.</p></div>
+        <div class="style-card"><h3>🧨 Thrash Metal</h3><p><strong>Surgimento:</strong> início dos anos 1980</p><p><strong>Bandas:</strong> Metallica, Slayer, Megadeth, Anthrax.</p></div>
+        <div class="style-card"><h3>🏴 Rock Alternativo</h3><p><strong>Surgimento:</strong> fim dos anos 1970–1980</p><p><strong>Bandas:</strong> R.E.M., Pixies, Sonic Youth, The Replacements.</p></div>
+        <div class="style-card"><h3>🎤 Pop Rock</h3><p><strong>Surgimento:</strong> anos 1970–1980</p><p><strong>Bandas/artistas:</strong> Queen, The Cars, Elton John, Fleetwood Mac.</p></div>
+        <div class="style-card"><h3>🩸 Death Metal</h3><p><strong>Surgimento:</strong> meados dos anos 1980</p><p><strong>Bandas:</strong> Death, Possessed, Morbid Angel, Cannibal Corpse.</p></div>
+        <div class="style-card"><h3>🌲 Grunge</h3><p><strong>Surgimento:</strong> fim dos anos 1980; auge nos 1990</p><p><strong>Bandas:</strong> Nirvana, Pearl Jam, Soundgarden, Alice in Chains.</p></div>
+        <div class="style-card"><h3>💿 Industrial Rock</h3><p><strong>Surgimento:</strong> fim dos anos 1970–1980</p><p><strong>Bandas:</strong> Nine Inch Nails, Ministry, KMFDM.</p></div>
+        <div class="style-card"><h3>🎧 Shoegaze</h3><p><strong>Surgimento:</strong> fim dos anos 1980</p><p><strong>Bandas:</strong> My Bloody Valentine, Slowdive, Ride.</p></div>
+        <div class="style-card"><h3>🔥 Nu Metal</h3><p><strong>Surgimento:</strong> meados dos anos 1990</p><p><strong>Bandas:</strong> Korn, Deftones, Limp Bizkit, Linkin Park.</p></div>
+        <div class="style-card"><h3>🧱 Post-Grunge</h3><p><strong>Surgimento:</strong> meados dos anos 1990</p><p><strong>Bandas:</strong> Foo Fighters, Bush, Creed, Silverchair.</p></div>
+        <div class="style-card"><h3>💥 Metalcore</h3><p><strong>Surgimento:</strong> anos 1990–2000</p><p><strong>Bandas:</strong> Converge, Killswitch Engage, As I Lay Dying.</p></div>
+        <div class="style-card"><h3>🎙️ Emo / Emo Rock</h3><p><strong>Surgimento:</strong> 1980s; novas ondas nos 1990–2000</p><p><strong>Bandas:</strong> Rites of Spring, Jimmy Eat World, My Chemical Romance.</p></div>
+        <div class="style-card"><h3>🕶️ Indie Rock</h3><p><strong>Surgimento:</strong> anos 1980; expansão nos 1990–2000</p><p><strong>Bandas:</strong> The Smiths, Pavement, Arctic Monkeys, The Strokes.</p></div>
+        <div class="style-card"><h3>🥁 Post-Rock</h3><p><strong>Surgimento:</strong> início dos anos 1990</p><p><strong>Bandas:</strong> Talk Talk, Slint, Tortoise, Mogwai.</p></div>
+        <div class="style-card"><h3>🏍️ Stoner Rock</h3><p><strong>Surgimento:</strong> início dos anos 1990</p><p><strong>Bandas:</strong> Kyuss, Sleep, Monster Magnet, Queens of the Stone Age.</p></div>
+        <div class="style-card"><h3>🌎 Britpop</h3><p><strong>Surgimento:</strong> início dos anos 1990</p><p><strong>Bandas:</strong> Oasis, Blur, Pulp, Suede.</p></div>
+        <div class="style-card"><h3>📻 Garage Rock Revival</h3><p><strong>Surgimento:</strong> fim dos anos 1990–2000</p><p><strong>Bandas:</strong> The White Stripes, The Strokes, Yeah Yeah Yeahs.</p></div>
+        <div class="style-card"><h3>🌾 Folk Rock</h3><p><strong>Surgimento:</strong> anos 1960</p><p><strong>Artistas/bandas:</strong> Bob Dylan, The Byrds, Crosby, Stills & Nash.</p></div>
+        <div class="style-card"><h3>🤠 Country Rock</h3><p><strong>Surgimento:</strong> anos 1960–1970</p><p><strong>Bandas:</strong> The Byrds, Eagles, Creedence Clearwater Revival.</p></div>
+        <div class="style-card"><h3>🌵 Southern Rock</h3><p><strong>Surgimento:</strong> fim dos anos 1960–1970</p><p><strong>Bandas:</strong> Lynyrd Skynyrd, The Allman Brothers Band, .38 Special.</p></div>
+        <div class="style-card"><h3>🏟️ Arena Rock</h3><p><strong>Surgimento:</strong> anos 1970–1980</p><p><strong>Bandas:</strong> Journey, Foreigner, Bon Jovi, REO Speedwagon.</p></div>
+        <div class="style-card"><h3>🎨 Art Rock</h3><p><strong>Surgimento:</strong> anos 1960–1970</p><p><strong>Artistas/bandas:</strong> Roxy Music, David Bowie, Talking Heads.</p></div>
+        <div class="style-card"><h3>🧪 Acid Rock</h3><p><strong>Surgimento:</strong> meados dos anos 1960</p><p><strong>Bandas:</strong> Jefferson Airplane, Blue Cheer, The 13th Floor Elevators.</p></div>
+        <div class="style-card"><h3>🕺 Funk Rock</h3><p><strong>Surgimento:</strong> anos 1960–1970</p><p><strong>Bandas:</strong> Funkadelic, Red Hot Chili Peppers, Living Colour.</p></div>
+        <div class="style-card"><h3>🎙️ Rap Rock</h3><p><strong>Surgimento:</strong> fim dos anos 1980–1990</p><p><strong>Bandas:</strong> Rage Against the Machine, Faith No More, Linkin Park.</p></div>
+        <div class="style-card"><h3>🌴 Reggae Rock</h3><p><strong>Surgimento:</strong> anos 1970 em diante</p><p><strong>Bandas:</strong> The Police, Sublime, 311.</p></div>
+        <div class="style-card"><h3>🌎 Latin Rock</h3><p><strong>Surgimento:</strong> anos 1960–1970</p><p><strong>Artistas/bandas:</strong> Santana, Maná, Los Fabulosos Cadillacs.</p></div>
+        <div class="style-card"><h3>🇧🇷 Samba Rock</h3><p><strong>Surgimento:</strong> anos 1960</p><p><strong>Artistas:</strong> Jorge Ben Jor, Trio Mocotó, Bebeto.</p></div>
+        <div class="style-card"><h3>💣 Hardcore Punk</h3><p><strong>Surgimento:</strong> início dos anos 1980</p><p><strong>Bandas:</strong> Black Flag, Bad Brains, Minor Threat, Dead Kennedys.</p></div>
+        <div class="style-card"><h3>⚔️ Post-Hardcore</h3><p><strong>Surgimento:</strong> anos 1980; novas ondas depois</p><p><strong>Bandas:</strong> Fugazi, At the Drive-In, Thrice.</p></div>
+        <div class="style-card"><h3>🧮 Math Rock</h3><p><strong>Surgimento:</strong> fim dos anos 1980–1990</p><p><strong>Bandas:</strong> Don Caballero, Slint, Battles.</p></div>
+        <div class="style-card"><h3>📢 Noise Rock</h3><p><strong>Surgimento:</strong> anos 1980</p><p><strong>Bandas:</strong> Sonic Youth, Big Black, The Jesus Lizard.</p></div>
+        <div class="style-card"><h3>🌋 Doom Metal</h3><p><strong>Surgimento:</strong> anos 1970</p><p><strong>Bandas:</strong> Black Sabbath, Candlemass, Saint Vitus.</p></div>
+        <div class="style-card"><h3>☠️ Black Metal</h3><p><strong>Surgimento:</strong> anos 1980</p><p><strong>Bandas:</strong> Venom, Bathory, Mayhem.</p></div>
+        <div class="style-card"><h3>🏆 Power Metal</h3><p><strong>Surgimento:</strong> anos 1980</p><p><strong>Bandas:</strong> Helloween, Blind Guardian, Stratovarius.</p></div>
+        <div class="style-card"><h3>🎻 Metal Sinfônico</h3><p><strong>Surgimento:</strong> anos 1990</p><p><strong>Bandas:</strong> Nightwish, Epica, Within Temptation.</p></div>
+        <div class="style-card"><h3>🧠 Progressive Metal</h3><p><strong>Surgimento:</strong> anos 1980</p><p><strong>Bandas:</strong> Dream Theater, Queensrÿche, Tool.</p></div>
+        <div class="style-card"><h3>🧬 Experimental Rock</h3><p><strong>Surgimento:</strong> várias épocas</p><p><strong>Bandas:</strong> Can, King Crimson, Radiohead, Swans.</p></div>
+        <div class="style-card"><h3>🎹 Piano Rock</h3><p><strong>Surgimento:</strong> anos 1960–1970</p><p><strong>Artistas/bandas:</strong> Elton John, Billy Joel, Ben Folds Five.</p></div>
+        <div class="style-card"><h3>🇧🇷 Rock Brasileiro</h3><p><strong>Surgimento:</strong> anos 1980 em grande expansão</p><p><strong>Bandas:</strong> Legião Urbana, Titãs, Os Paralamas do Sucesso, Barão Vermelho.</p></div>
+        <div class="style-card"><h3>🎛️ Electronic Rock</h3><p><strong>Surgimento:</strong> anos 1970 em diante</p><p><strong>Bandas:</strong> Depeche Mode, New Order, Muse.</p></div>
+    </div>
+</section>
 
 
 
@@ -1701,37 +1540,6 @@
         </div>
     </section>
 
-    <section id="perfil">
-        <button class="back" onclick="voltar()">← VOLTAR</button>
-        <h1 class="section-title">Perfil RockWave</h1>
-        <p class="section-subtitle">Seu cartão de identidade dentro da RockWave. 🤘</p>
-
-        <div class="profile-card">
-            <div class="level-head">
-                <div>
-                    <div class="level-label">SEU NÍVEL DE ROCK</div>
-                    <div id="profileLevel" class="level-number">ROCK NOVATO</div>
-                </div>
-                <div id="profilePercent" class="level-number">0%</div>
-            </div>
-            <div class="level-bar"><div id="profileFill" class="level-fill"></div></div>
-            <p id="profileLevelText" class="level-text">Faça o quiz para descobrir seu nível.</p>
-
-            <div class="profile-grid">
-                <div class="profile-item"><small>ESTILO</small><strong id="profileStyle">—</strong></div>
-                <div class="profile-item"><small>VIBE</small><strong id="profileVibe">—</strong></div>
-                <div class="profile-item"><small>INTENSIDADE</small><strong id="profileIntensity">—</strong></div>
-                <div class="profile-item"><small>ERA</small><strong id="profileEra">—</strong></div>
-            </div>
-
-            <div class="song-recommendation">
-                <div class="level-label">🎧 SUA PRIMEIRA MISSÃO</div>
-                <h2 id="recommendedSong" style="margin:8px 0;">Faça o quiz primeiro</h2>
-                <p id="recommendedText" style="color:#888;">Depois do resultado, a RockWave escolhe uma música para você conhecer.</p>
-            </div>
-        </div>
-    </section>
-
     <section id="curiosidades">
         <button class="back" onclick="voltar()">← VOLTAR</button>
         <h1 class="section-title">Rock Curiosidades</h1>
@@ -1748,12 +1556,12 @@
         <h1 class="section-title">Conquistas</h1>
         <p class="section-subtitle">Explore a RockWave e desbloqueie seu arquivo de roqueiro. 🏆</p>
         <div class="achievement-grid">
-            <div class="achievement" id="achXP"><h3>⭐ Nível de Ruído</h3><p>Ganhe seus primeiros 100 XP.</p><div class="achievement-state">BLOQUEADA</div></div>
+            </div>
             <div class="achievement" id="achGuitar"><h3>🎸 Guitarrista</h3><p>Acerte 8 batidas no minigame.</p><div class="achievement-state">BLOQUEADA</div></div>
             <div class="achievement" id="achBandQuiz"><h3>🧠 Enciclopédia do Rock</h3><p>Acerte o quiz de bandas.</p><div class="achievement-state">BLOQUEADA</div></div>
             <div class="achievement" id="achSongGuess"><h3>🎵 Ouvido RockWave</h3><p>Acerte a música pela pista.</p><div class="achievement-state">BLOQUEADA</div></div>
             <div class="achievement" id="achMap"><h3>🗺️ Cartógrafo do Rock</h3><p>Abra o mapa RockWave.</p><div class="achievement-state">BLOQUEADA</div></div>
-            <div class="achievement" id="achLore"><h3>📜 Guardião do Lore</h3><p>Leia a história da RockWave.</p><div class="achievement-state">BLOQUEADA</div></div>
+            </div>
             <div class="achievement" id="achNight"><h3>🌑 Depois da Meia-Noite</h3><p>Ative a Noite Extrema.</p><div class="achievement-state">BLOQUEADA</div></div>
 
             <div class="achievement" id="achShow">
@@ -1773,7 +1581,7 @@
             </div>
 
             <div class="achievement" id="achQuiz"><h3>🎸 Primeira Onda</h3><p>Complete o quiz de estilo.</p><div class="achievement-state">BLOQUEADA</div></div>
-            <div class="achievement" id="achProfile"><h3>🤘 Identidade Rock</h3><p>Descubra seu perfil RockWave.</p><div class="achievement-state">BLOQUEADA</div></div>
+            </div>
             <div class="achievement" id="achRadio"><h3>📻 Ouvinte</h3><p>Ligue a RockWave Radio.</p><div class="achievement-state">BLOQUEADA</div></div>
             <div class="achievement" id="achCuriosity"><h3>🧠 Curioso</h3><p>Abra uma curiosidade.</p><div class="achievement-state">BLOQUEADA</div></div>
             <div class="achievement" id="achTime"><h3>🕰️ Viajante do Tempo</h3><p>Visite uma década na Máquina do Tempo.</p><div class="achievement-state">BLOQUEADA</div></div>
@@ -1833,18 +1641,34 @@
 <section id="rockmap">
     <div class="back" onclick="voltar()">← VOLTAR</div>
     <h1 class="section-title">MAPA DO ROCK</h1>
-    <p class="section-subtitle">Explore cenas e cidades que ajudaram a construir a história do rock. 🌍</p>
+    <p class="section-subtitle">Gire pelo mundo do rock: escolha uma região para descobrir as cenas que marcaram — e ainda marcam — aquele lugar. 🌍</p>
     <div class="rock-map-box">
-        <div class="rock-map-grid">
-            <div class="rock-map-card"><span class="rock-map-tag">EUA</span><h3>Seattle</h3><p>Grunge, anos 90. Nirvana, Pearl Jam, Soundgarden e Alice in Chains.</p></div>
-            <div class="rock-map-card"><span class="rock-map-tag">EUA</span><h3>Detroit</h3><p>Garage rock e peso. Uma cidade ligada a The Stooges e MC5.</p></div>
-            <div class="rock-map-card"><span class="rock-map-tag">EUA</span><h3>Los Angeles</h3><p>Hard rock, glam e punk. Uma das cenas mais movimentadas do país.</p></div>
-            <div class="rock-map-card"><span class="rock-map-tag">REINO UNIDO</span><h3>Londres</h3><p>Uma das grandes capitais do rock: punk, glam, hard rock e muito mais.</p></div>
-            <div class="rock-map-card"><span class="rock-map-tag">REINO UNIDO</span><h3>Manchester</h3><p>Cena alternativa e independente com enorme influência na música britânica.</p></div>
-            <div class="rock-map-card"><span class="rock-map-tag">BRASIL</span><h3>São Paulo</h3><p>Uma cena gigantesca, do rock nacional ao underground e às casas de show.</p></div>
-            <div class="rock-map-card"><span class="rock-map-tag">BRASIL</span><h3>Brasília</h3><p>Berço de nomes importantes do rock brasileiro dos anos 80.</p></div>
-            <div class="rock-map-card"><span class="rock-map-tag">AUSTRÁLIA</span><h3>Sydney</h3><p>Casa de uma das bandas mais conhecidas do hard rock: AC/DC.</p></div>
+        <div class="rock-globe-wrap" aria-label="Globo 3D ilustrativo do mundo do rock">
+            <div class="rock-globe">
+                <div class="globe-grid"></div>
+                <svg class="globe-land" viewBox="0 0 500 250" role="img" aria-label="Continentes estilizados">
+                    <path d="M44 53 L78 32 119 40 139 61 126 83 103 91 91 116 70 109 60 86 39 77 Z M119 117 L148 126 165 155 153 185 141 220 123 197 117 163 101 142 Z M215 47 L242 31 270 42 281 60 265 72 242 68 230 89 209 77 Z M245 92 L276 88 297 109 288 137 270 161 260 195 241 175 233 141 218 119 Z M300 52 L347 35 397 49 431 71 416 92 384 97 365 117 338 106 320 86 293 80 Z M357 125 L386 119 403 139 392 168 371 181 357 158 Z" fill="currentColor" opacity=".82"/>
+                </svg>
+                <span class="globe-glow"></span>
+            </div>
+            <div class="globe-caption">ROCK SCENES • WORLDWIDE</div>
         </div>
+        <div class="rock-region-picker" role="group" aria-label="Escolha uma região do mapa">
+            <button class="rock-region active" type="button" onclick="selecionarRegiaoRock('eua')">🇺🇸 Estados Unidos</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('reino-unido')">🇬🇧 Reino Unido</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('brasil')">🇧🇷 Brasil</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('alemanha')">🇩🇪 Alemanha</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('australia')">🇦🇺 Austrália</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('japao')">🇯🇵 Japão</button>
+        </div>
+        <article class="rock-region-detail" aria-live="polite">
+            <span id="rockRegionTag" class="rock-map-tag">ESTADOS UNIDOS</span>
+            <h2 id="rockRegionTitle">Seattle, Detroit e Los Angeles</h2>
+            <p id="rockRegionHistory">O grunge marcou Seattle no fim dos anos 1980 e início dos 1990; Detroit tem raízes fortes no garage rock, enquanto Los Angeles ficou ligada ao punk e ao hard rock.</p>
+            <div class="rock-region-styles"><strong>Estilos marcantes</strong><p id="rockRegionStyles">Grunge • Garage rock • Punk • Hard rock</p></div>
+            <div class="rock-region-bands"><strong>Bandas e artistas ligados à cena</strong><p id="rockRegionBands">Nirvana, Pearl Jam, Soundgarden, The Stooges, MC5, Guns N’ Roses e Red Hot Chili Peppers.</p></div>
+            <p class="rock-region-note">As cenas mudam com o tempo: isto destaca movimentos historicamente associados à região, não um ranking de popularidade atual.</p>
+        </article>
     </div>
 </section>
 
@@ -1862,6 +1686,28 @@
             <div class="hall-card"><div class="hall-rank">06 • BANDA</div><div class="hall-name">Pink Floyd</div><div class="hall-meta">Rock progressivo • Reino Unido</div></div>
             <div class="hall-card"><div class="hall-rank">07 • BANDA</div><div class="hall-name">Metallica</div><div class="hall-meta">Thrash metal • EUA</div></div>
             <div class="hall-card"><div class="hall-rank">08 • BANDA</div><div class="hall-name">The Rolling Stones</div><div class="hall-meta">Rock • Reino Unido</div></div>
+                    <div class="hall-card"><div class="hall-rank">09 • BANDA</div><div class="hall-name">Led Zeppelin</div><div class="hall-meta">Hard rock • Reino Unido</div></div>
+            <div class="hall-card"><div class="hall-rank">10 • BANDA</div><div class="hall-name">The Beatles</div><div class="hall-meta">Rock • Liverpool, Reino Unido</div></div>
+            <div class="hall-card"><div class="hall-rank">11 • BANDA</div><div class="hall-name">The Who</div><div class="hall-meta">Rock • Reino Unido</div></div>
+            <div class="hall-card"><div class="hall-rank">12 • BANDA</div><div class="hall-name">The Clash</div><div class="hall-meta">Punk rock • Reino Unido</div></div>
+            <div class="hall-card"><div class="hall-rank">13 • BANDA</div><div class="hall-name">Foo Fighters</div><div class="hall-meta">Rock alternativo • EUA</div></div>
+            <div class="hall-card"><div class="hall-rank">14 • BANDA</div><div class="hall-name">Pearl Jam</div><div class="hall-meta">Grunge • Seattle</div></div>
+            <div class="hall-card"><div class="hall-rank">15 • BANDA</div><div class="hall-name">Soundgarden</div><div class="hall-meta">Grunge • Seattle</div></div>
+            <div class="hall-card"><div class="hall-rank">16 • BANDA</div><div class="hall-name">Alice in Chains</div><div class="hall-meta">Grunge / metal alternativo • Seattle</div></div>
+            <div class="hall-card"><div class="hall-rank">17 • BANDA</div><div class="hall-name">The Cure</div><div class="hall-meta">Post-punk / gothic rock • Reino Unido</div></div>
+            <div class="hall-card"><div class="hall-rank">18 • BANDA</div><div class="hall-name">Radiohead</div><div class="hall-meta">Rock alternativo • Reino Unido</div></div>
+            <div class="hall-card"><div class="hall-rank">19 • BANDA</div><div class="hall-name">The Strokes</div><div class="hall-meta">Indie rock • Nova York</div></div>
+            <div class="hall-card"><div class="hall-rank">20 • BANDA</div><div class="hall-name">Rage Against the Machine</div><div class="hall-meta">Rap metal • EUA</div></div>
+            <div class="hall-card"><div class="hall-rank">21 • BANDA</div><div class="hall-name">Red Hot Chili Peppers</div><div class="hall-meta">Funk rock • Califórnia</div></div>
+            <div class="hall-card"><div class="hall-rank">22 • BANDA</div><div class="hall-name">Iron Maiden</div><div class="hall-meta">Heavy metal • Reino Unido</div></div>
+            <div class="hall-card"><div class="hall-rank">23 • BANDA</div><div class="hall-name">Judas Priest</div><div class="hall-meta">Heavy metal • Reino Unido</div></div>
+            <div class="hall-card"><div class="hall-rank">24 • BANDA</div><div class="hall-name">Guns N’ Roses</div><div class="hall-meta">Hard rock • Los Angeles</div></div>
+            <div class="hall-card"><div class="hall-rank">25 • BANDA</div><div class="hall-name">The Doors</div><div class="hall-meta">Rock psicodélico • Los Angeles</div></div>
+            <div class="hall-card"><div class="hall-rank">26 • BANDA</div><div class="hall-name">The Jimi Hendrix Experience</div><div class="hall-meta">Rock psicodélico • EUA/Reino Unido</div></div>
+            <div class="hall-card"><div class="hall-rank">27 • BANDA</div><div class="hall-name">Legião Urbana</div><div class="hall-meta">Rock brasileiro • Brasília</div></div>
+            <div class="hall-card"><div class="hall-rank">28 • BANDA</div><div class="hall-name">Titãs</div><div class="hall-meta">Rock brasileiro • São Paulo</div></div>
+            <div class="hall-card"><div class="hall-rank">29 • BANDA</div><div class="hall-name">Os Paralamas do Sucesso</div><div class="hall-meta">Rock brasileiro • Rio de Janeiro</div></div>
+            <div class="hall-card"><div class="hall-rank">30 • BANDA</div><div class="hall-name">Charlie Brown Jr.</div><div class="hall-meta">Rock brasileiro • Santos</div></div>
         </div>
     </div>
 </section>
@@ -2248,39 +2094,7 @@ document.querySelectorAll("section").forEach(section => {
             "Samba Rock":["Jorge Ben Jor — Mas, Que Nada!","Uma ponte entre o balanço brasileiro e a atitude do rock."]
         };
 
-        function atualizarPerfil(estilo) {
-            const percent = Math.min(100, 50 + Math.floor(Math.random() * 51));
-            const niveis = percent >= 90 ? ["LENDÁRIO", "Você já está no território dos riffs perigosos."] :
-                           percent >= 75 ? ["ROQUEIRO PESADO", "Seu histórico já merece uma guitarra no ombro."] :
-                           percent >= 60 ? ["ROCKEIRO", "Você está pegando a estrada."] :
-                           ["ROCK NOVATO", "Toda lenda começa com uma primeira música."];
-
-            document.getElementById("profileStyle").textContent = estilo;
-            document.getElementById("profilePercent").textContent = percent + "%";
-            document.getElementById("profileLevel").textContent = niveis[0];
-            document.getElementById("profileLevelText").textContent = niveis[1];
-            document.getElementById("profileFill").style.width = percent + "%";
-
-            const intensidade = ["Baixa", "Média", "Alta", "EXTREMA"][Math.min(3, Math.floor(percent/25))];
-            const vibes = {
-                "Heavy Metal":"Pesada","Death Metal":"Extrema","Black Metal":"Sombria","Punk Rock":"Rebelde",
-                "Grunge":"Crue","New Wave":"Alternativa","Indie Rock":"Criativa","Progressive Rock":"Viajeira",
-                "Samba Rock":"Brasileira","Nu Metal":"Moderna"
-            };
-            const eras = {
-                "Rock and Roll":"1950s","Heavy Metal":"1970s","Punk Rock":"1970s","Grunge":"1990s",
-                "New Wave":"1980s","Indie Rock":"2000s","Nu Metal":"2000s","Samba Rock":"1960s"
-            };
-            document.getElementById("profileVibe").textContent = vibes[estilo] || "Alternativa";
-            document.getElementById("profileIntensity").textContent = intensidade;
-            document.getElementById("profileEra").textContent = eras[estilo] || "Várias eras";
-
-            const rec = recomendacoes[estilo] || ["The Rolling Stones — (I Can't Get No) Satisfaction","Uma porta de entrada clássica para continuar sua viagem."];
-            document.getElementById("recommendedSong").textContent = rec[0];
-            document.getElementById("recommendedText").textContent = rec[1];
-
-            desbloquear("achProfile");
-        }
+        function atualizarPerfil(estilo) { /* Perfil RockWave removido. */ }
 
         /* =========================
            ROCK CURIOSIDADES
@@ -2443,32 +2257,8 @@ document.querySelectorAll("section").forEach(section => {
         });
 
     
-        /* =========================
-           XP / PROGRESSO ROCKWAVE
-        ========================== */
-        let rwXP = 0;
-        function carregarXP(){
-            try { rwXP = Number(localStorage.getItem("rw_xp") || 0); } catch(e) { rwXP=0; }
-            atualizarXP();
-        }
-        function ganharXP(valor){
-            const antigoNivel=Math.floor(rwXP/100)+1;
-            rwXP=Math.max(0,rwXP+valor);
-            try { localStorage.setItem("rw_xp",String(rwXP)); } catch(e) {}
-            atualizarXP();
-            if(rwXP>=100) desbloquear("achXP");
-            const novoNivel=Math.floor(rwXP/100)+1;
-            if(novoNivel>antigoNivel) desbloquear("achXP");
-        }
-        function atualizarXP(){
-            const nivel=Math.floor(rwXP/100)+1;
-            const dentro=rwXP%100;
-            const level=document.getElementById("xpLevel"), val=document.getElementById("xpValue"), fill=document.getElementById("xpFill"), txt=document.getElementById("xpText");
-            if(level) level.textContent=nivel;
-            if(val) val.textContent=rwXP;
-            if(fill) fill.style.width=dentro+"%";
-            if(txt) txt.textContent=dentro+" / 100 XP para o próximo nível.";
-        }
+        // XP removido a pedido: chamadas antigas dos minigames não fazem nada.
+        function ganharXP(){ }
 
         /* =========================
            NOITE EXTREMA
@@ -2479,6 +2269,25 @@ document.querySelectorAll("section").forEach(section => {
             document.body.classList.toggle("extreme-night",noiteExtrema);
             desbloquear("achNight");
             ganharXP(15);
+        }
+
+
+        const regioesRock = {
+            "eua": {tag:"ESTADOS UNIDOS",titulo:"Seattle, Detroit e Los Angeles",historia:"O grunge marcou Seattle no fim dos anos 1980 e início dos 1990; Detroit tem raízes fortes no garage rock, enquanto Los Angeles ficou ligada ao punk e ao hard rock.",estilos:"Grunge • Garage rock • Punk • Hard rock",bandas:"Nirvana, Pearl Jam, Soundgarden, The Stooges, MC5, Guns N’ Roses e Red Hot Chili Peppers."},
+            "reino-unido": {tag:"REINO UNIDO",titulo:"Londres, Liverpool e Manchester",historia:"O Reino Unido foi central para a British Invasion dos anos 1960, o punk dos anos 1970, a new wave e cenas indie e britpop nas décadas seguintes.",estilos:"Rock clássico • Punk • New wave • Britpop • Indie",bandas:"The Beatles, The Rolling Stones, The Clash, The Cure, Oasis, Blur e Joy Division."},
+            "brasil": {tag:"BRASIL",titulo:"Brasília, São Paulo, Rio e além",historia:"O rock brasileiro ganhou grande projeção nos anos 1980 e seguiu diverso, com cenas punk, alternativa, metal e misturas com ritmos locais.",estilos:"Rock brasileiro • Punk • Alternativo • Metal • Manguebeat",bandas:"Legião Urbana, Titãs, Os Paralamas do Sucesso, Barão Vermelho, Sepultura, Raimundos e Charlie Brown Jr."},
+            "alemanha": {tag:"ALEMANHA",titulo:"Düsseldorf, Berlim e Frankfurt",historia:"A Alemanha ficou associada ao krautrock experimental dos anos 1970 e, mais tarde, a importantes vertentes do metal e do rock industrial.",estilos:"Krautrock • Metal • Industrial rock",bandas:"Kraftwerk, Can, Scorpions, Rammstein e Helloween."},
+            "australia": {tag:"AUSTRÁLIA",titulo:"Sydney, Melbourne e Perth",historia:"A cena australiana combina hard rock de arena, punk e rock alternativo, com bandas que alcançaram público internacional desde os anos 1970.",estilos:"Hard rock • Pub rock • Punk • Alternativo",bandas:"AC/DC, INXS, Midnight Oil, The Saints e Silverchair."},
+            "japao": {tag:"JAPÃO",titulo:"Tóquio e Osaka",historia:"O Japão desenvolveu cenas próprias que vão do hard rock e metal ao visual kei, punk e rock alternativo, com forte cultura de shows.",estilos:"Hard rock • Metal • Punk • Visual kei • Alternativo",bandas:"X Japan, B’z, Loudness, Shonen Knife e One OK Rock."}
+        };
+        function selecionarRegiaoRock(id){
+            const r=regioesRock[id]; if(!r)return;
+            document.querySelectorAll(".rock-region").forEach(b=>b.classList.toggle("active",b.getAttribute("onclick").includes("'"+id+"'")));
+            document.getElementById("rockRegionTag").textContent=r.tag;
+            document.getElementById("rockRegionTitle").textContent=r.titulo;
+            document.getElementById("rockRegionHistory").textContent=r.historia;
+            document.getElementById("rockRegionStyles").textContent=r.estilos;
+            document.getElementById("rockRegionBands").textContent=r.bandas;
         }
 
         /* =========================
@@ -2747,7 +2556,6 @@ document.querySelectorAll("section").forEach(section => {
             if(id==="lore"){ desbloquear("achLore"); ganharXP(15); }
         };
 
-        carregarXP();
         carregarPerguntaBanda();
         carregarPerguntaMusica();
 
