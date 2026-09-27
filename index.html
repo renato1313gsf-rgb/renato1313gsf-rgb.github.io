@@ -617,6 +617,102 @@
             font-weight:bold;
         }
 
+    
+        /* =========================
+           GALERIA ROCKWAVE
+        ========================== */
+        .gallery-intro {
+            max-width: 900px;
+            margin: 0 auto 35px;
+            color: #aaa;
+            line-height: 1.7;
+        }
+        .gallery-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+        .gallery-card {
+            position: relative;
+            min-height: 250px;
+            padding: 24px;
+            background: #090909;
+            border: 1px solid #252525;
+            overflow: hidden;
+            transition: .25s;
+        }
+        .gallery-card:hover {
+            transform: translateY(-6px) rotate(-.4deg);
+            border-color: #b00000;
+            box-shadow: 0 18px 40px rgba(180,0,0,.16);
+        }
+        .gallery-art {
+            height: 150px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background:
+                repeating-linear-gradient(135deg, #0b0b0b 0 8px, #111 8px 16px);
+            border: 1px solid #222;
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-art::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(180,0,0,.22), transparent 65%);
+            pointer-events: none;
+        }
+        .gallery-art strong {
+            position: relative;
+            z-index: 1;
+            font-size: clamp(26px, 5vw, 42px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            transform: rotate(-4deg);
+            text-shadow: 3px 3px 0 #500000;
+        }
+        .gallery-art .mini-logo {
+            font-size: 32px;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+        .gallery-card h3 {
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+        .gallery-card p {
+            color: #777;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        .gallery-label {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 2;
+            color: #777;
+            font: 700 10px monospace;
+            letter-spacing: 2px;
+        }
+        .gallery-note {
+            max-width: 1100px;
+            margin: 30px auto 0;
+            padding: 18px;
+            border-left: 3px solid #a00000;
+            background: #090909;
+            color: #666;
+            font-size: 12px;
+        }
+        @media(max-width:650px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+
     </style>
 </head>
 
@@ -840,6 +936,91 @@
 <div class="style-card"><h3>🧠 Progressive Metal</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
 <div class="style-card"><h3>🧬 Experimental Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div></div>
 </section>
+
+
+
+    <!-- =========================
+         GALERIA ROCKWAVE
+    ========================== -->
+
+    <section id="galeria">
+
+        <button class="back" onclick="voltar()">← VOLTAR</button>
+
+        <h1 class="section-title">Galeria RockWave</h1>
+
+        <p class="section-subtitle">
+            Um arquivo visual do universo RockWave.
+        </p>
+
+        <p class="gallery-intro">
+            Aqui ficam artes, versões da identidade e momentos especiais do projeto.
+            A galeria pode crescer junto com a RockWave.
+        </p>
+
+        <div class="gallery-grid">
+
+            <article class="gallery-card">
+                <span class="gallery-label">RW-001</span>
+                <div class="gallery-art">
+                    <strong class="mini-logo">ROCKWAVE</strong>
+                </div>
+                <h3>Identidade RockWave</h3>
+                <p>A marca principal do projeto e o visual que representa a RockWave.</p>
+            </article>
+
+            <article class="gallery-card">
+                <span class="gallery-label">RW-002</span>
+                <div class="gallery-art">
+                    <strong>O SOM<br>NÃO MORREU.</strong>
+                </div>
+                <h3>O som não morreu.</h3>
+                <p>A frase que virou a assinatura da RockWave.</p>
+            </article>
+
+            <article class="gallery-card">
+                <span class="gallery-label">RW-003</span>
+                <div class="gallery-art">
+                    <strong>RADIO<br>LIVE</strong>
+                </div>
+                <h3>RockWave Radio</h3>
+                <p>O arquivo visual da rádio que mantém os riffs tocando.</p>
+            </article>
+
+            <article class="gallery-card">
+                <span class="gallery-label">RW-004</span>
+                <div class="gallery-art">
+                    <strong>1991</strong>
+                </div>
+                <h3>Sinal de 1991</h3>
+                <p>Uma referência escondida ao universo do rock que também aparece nos segredos.</p>
+            </article>
+
+            <article class="gallery-card">
+                <span class="gallery-label">RW-005</span>
+                <div class="gallery-art">
+                    <strong>EXE</strong>
+                </div>
+                <h3>RockWave.EXE</h3>
+                <p>Uma das identidades usadas nos Easter Eggs da RockWave.</p>
+            </article>
+
+            <article class="gallery-card">
+                <span class="gallery-label">RW-006</span>
+                <div class="gallery-art">
+                    <strong>🤘</strong>
+                </div>
+                <h3>Arquivo aberto</h3>
+                <p>Este espaço fica preparado para receber novas artes e imagens do projeto.</p>
+            </article>
+
+        </div>
+
+        <div class="gallery-note">
+            ARQUIVO: 006 ENTRADAS • A GALERIA ESTÁ EM EXPANSÃO.
+        </div>
+
+    </section>
 
 
     <!-- =========================
