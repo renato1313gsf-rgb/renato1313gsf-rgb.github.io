@@ -21,34 +21,6 @@
             overflow-x: hidden;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            background:
-                linear-gradient(
-                    rgba(255,255,255,0.02) 1px,
-                    transparent 1px
-                );
-            background-size: 100% 4px;
-            opacity: 0.15;
-            z-index: 10;
-        }
-
-        body{background-color:#080808!important;background-image:repeating-radial-gradient(circle at 20% 30%,rgba(255,255,255,.035) 0 1px,transparent 1px 5px),repeating-linear-gradient(7deg,rgba(255,255,255,.028) 0 1px,transparent 1px 9px),repeating-linear-gradient(91deg,rgba(0,0,0,.35) 0 2px,transparent 2px 13px),radial-gradient(circle at 18% 22%,rgba(150,0,0,.22),transparent 18%),linear-gradient(135deg,#171717,#070707 38%,#121212 62%,#040404)!important;background-attachment:fixed!important;background-size:180px 180px,260px 260px,310px 310px,auto,100% 100%!important;}
-        body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.55;background:repeating-linear-gradient(17deg,transparent 0 24px,rgba(255,255,255,.025) 25px 27px,transparent 28px 52px),repeating-linear-gradient(103deg,transparent 0 37px,rgba(0,0,0,.28) 38px 43px,transparent 44px 80px);mix-blend-mode:multiply;}
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            text-align: center;
-            position: relative;
-        }
-
         .glow {
             position: absolute;
             width: 500px;
@@ -70,7 +42,15 @@
            ROCKWAVE VISUAL POLISH
         ========================== */
         body {
-            background-color:#080808; background-image:repeating-radial-gradient(circle at 20% 30%,rgba(255,255,255,.035) 0 1px,transparent 1px 5px);
+            background-color: #080808;
+            background-image:
+                repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,.035) 0 1px, transparent 1px 5px),
+                repeating-linear-gradient(7deg, rgba(255,255,255,.028) 0 1px, transparent 1px 9px),
+                repeating-linear-gradient(91deg, rgba(0,0,0,.35) 0 2px, transparent 2px 13px),
+                radial-gradient(circle at 18% 22%, rgba(150,0,0,.22), transparent 18%),
+                linear-gradient(135deg,#171717,#070707 38%,#121212 62%,#040404);
+            background-attachment: fixed;
+            background-size: 180px 180px,260px 260px,310px 310px,auto,100% 100%;
         }
         .hero::after {
             content: "ROCKWAVE • SIGNAL ONLINE";
@@ -224,15 +204,19 @@
             background: #090909;
             border: 1px solid #292929;
             padding: 25px;
+            position: relative;
         }
 
         .radio-screen {
+            position: relative;
             aspect-ratio: 16 / 9;
             background: #000;
             margin-bottom: 20px;
+            overflow: hidden;
         }
 
         .radio-screen iframe {
+            display: block;
             width: 100%;
             height: 100%;
             border: 0;
@@ -777,7 +761,6 @@
            ROCKWAVE EXPANSION PACK
         ========================== */
         body.extreme-night { background:#000 !important; color:#ddd; }
-        body.extreme-night::before { opacity:.04; }
         body.extreme-night .glow { opacity:.02 !important; }
         body.extreme-night .menu button,
         body.extreme-night section,
@@ -921,75 +904,6 @@
         .rock-region-styles strong,.rock-region-bands strong{display:block;margin-bottom:8px}
         .rock-region-note{font-size:12px;margin-top:18px;color:#666!important}
         @media(max-width:650px){.rock-region-detail{padding:20px}.rock-region-picker{grid-template-columns:1fr 1fr}.rock-globe{width:min(300px,75vw)}}
-
-
-        /* CORREÇÃO DO FUNDO SOBRE O RÁDIO */
-        body {
-            position: relative;
-            isolation: isolate;
-        }
-
-        body::before,
-        body::after {
-            z-index: -1 !important;
-        }
-
-        .radio-box,
-        .radio-screen,
-        .radio-screen iframe {
-            position: relative;
-            z-index: 5;
-        }
-
-        .radio-screen {
-            overflow: hidden;
-            isolation: isolate;
-        }
-
-        .radio-screen iframe {
-            display: block;
-            background: #000;
-        }
-
-    
-        /* CORREÇÃO DEFINITIVA: textura nunca fica acima do conteúdo */
-        body::before,
-        body::after {
-            display: none !important;
-        }
-
-        body {
-            background-color: #080808 !important;
-            background-image:
-                repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,.035) 0 1px, transparent 1px 5px),
-                repeating-linear-gradient(7deg, rgba(255,255,255,.028) 0 1px, transparent 1px 9px),
-                repeating-linear-gradient(91deg, rgba(0,0,0,.35) 0 2px, transparent 2px 13px),
-                radial-gradient(circle at 18% 22%, rgba(150,0,0,.22), transparent 18%),
-                linear-gradient(135deg,#171717,#070707 38%,#121212 62%,#040404) !important;
-            background-attachment: fixed !important;
-        }
-
-        .radio-box,
-        .radio-screen {
-            position: relative !important;
-            z-index: 10 !important;
-            isolation: isolate;
-            background: #090909 !important;
-        }
-
-        .radio-screen {
-            overflow: hidden !important;
-        }
-
-        .radio-screen iframe {
-            position: relative !important;
-            z-index: 11 !important;
-            display: block !important;
-            width: 100% !important;
-            height: 100% !important;
-            background: #000 !important;
-            border: 0 !important;
-        }
 
     </style>
 </head>
