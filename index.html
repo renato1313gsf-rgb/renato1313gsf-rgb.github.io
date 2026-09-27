@@ -64,6 +64,36 @@
             filter: drop-shadow(0 0 20px rgba(255,0,0,0.35));
         }
 
+        /* =========================
+           ROCKWAVE VISUAL POLISH
+        ========================== */
+        body {
+            background: radial-gradient(circle at 50% 0%, rgba(150,0,0,.08), transparent 32%), #050505;
+        }
+        .hero::after {
+            content: "ROCKWAVE • SIGNAL ONLINE";
+            position: absolute; bottom:24px; left:50%; transform:translateX(-50%);
+            color:#4f4f4f; font:900 10px/1 Arial,Helvetica,sans-serif;
+            letter-spacing:4px; white-space:nowrap;
+        }
+        .tagline {
+            position:relative; padding:10px 18px; border-top:1px solid #280000;
+            border-bottom:1px solid #280000; text-shadow:0 0 18px rgba(180,0,0,.25);
+        }
+        .menu { perspective:900px; }
+        .menu button { position:relative; overflow:hidden; border-radius:3px; box-shadow:inset 0 0 0 1px rgba(255,255,255,.015); }
+        .menu button::after {
+            content:""; position:absolute; left:-110%; top:0; width:70%; height:100%;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+            transform:skewX(-20deg); transition:left .45s ease;
+        }
+        .menu button:hover::after { left:130%; }
+        .menu button span { filter:drop-shadow(0 0 8px rgba(255,0,0,.18)); }
+        .section-title { text-shadow:0 0 30px rgba(180,0,0,.12); }
+        .back { border-left:3px solid #a00000; transition:.2s; }
+        .back:hover { transform:translateX(-3px); }
+        .gallery-card,.achievement,.style-card,.profile-card,.curiosity-box,.radio-box,.decade-display,.quiz-question { border-radius:3px; }
+
         .fallback-logo {
             font-size: clamp(60px, 12vw, 120px);
             font-weight: 900;
@@ -713,6 +743,33 @@
             .gallery-grid { grid-template-columns: 1fr; }
         }
 
+        .gallery-filters{max-width:1100px;margin:0 auto 22px;display:flex;flex-wrap:wrap;gap:9px}
+        .gallery-filter{background:#0d0d0d;color:#aaa;border:1px solid #333;padding:10px 14px;cursor:pointer;font-weight:900;letter-spacing:1px;transition:.2s}
+        .gallery-filter:hover,.gallery-filter.active{color:#fff;background:#300000;border-color:#b00000}
+        .gallery-card.hidden{display:none}
+        .gallery-card h3{margin-bottom:8px}.gallery-card p{color:#888;line-height:1.5}
+        @media(max-width:650px){
+            .hero{min-height:100svh;padding:32px 14px 90px}.logo{width:min(330px,82vw)}
+            .fallback-logo{font-size:clamp(48px,16vw,82px);letter-spacing:-5px}
+            .tagline{font-size:12px;letter-spacing:3px;margin-bottom:30px}.hero::after{bottom:12px;font-size:8px;letter-spacing:2px}
+            .menu{width:min(520px,94vw);grid-template-columns:1fr;gap:10px}
+            .menu button{min-height:78px;padding:15px 16px;font-size:14px}
+            .menu button span{display:inline;font-size:22px;margin-right:8px;margin-bottom:0}
+            section{min-height:100svh;padding:58px 14px 90px}.section-title{font-size:clamp(34px,12vw,58px);letter-spacing:-2px;line-height:.95}
+            .section-subtitle{font-size:14px;line-height:1.5;margin-bottom:28px}.back{margin-bottom:28px}
+            .show-mode-btn{right:10px;bottom:10px;padding:10px 12px;font-size:11px;letter-spacing:.5px}
+            .radio-box,.profile-card,.curiosity-box,.rock-level,.decade-display,.quiz-question,.underground-box{padding:20px}
+            .radio-info{align-items:flex-start}.radio-title{font-size:18px}.radio-controls button{flex:1 1 130px;min-height:46px}
+            .gallery-grid,.achievement-grid,.styles-grid,.profile-grid,.time-grid{grid-template-columns:1fr}
+            .gallery-card{min-height:0;padding:18px}.gallery-art{height:125px}
+            .gallery-filters{display:grid;grid-template-columns:repeat(2,1fr)}.gallery-filter{width:100%;padding:11px 8px;font-size:11px}
+            .decade-buttons{grid-template-columns:repeat(2,1fr)}.level-head{align-items:flex-start;flex-direction:column}
+        }
+        @media(max-width:420px){
+            .menu button{min-height:68px;padding:12px 14px}.menu button span{font-size:20px}
+            .show-mode-btn{max-width:145px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        }
+
     </style>
 </head>
 
@@ -786,6 +843,11 @@
             <button onclick="abrir('maquina')">
                 <span>🕰️</span>
                 MÁQUINA DO TEMPO
+            </button>
+
+            <button onclick="abrir('galeria')">
+                <span>🖼️</span>
+                GALERIA ROCKWAVE
             </button>
 
         </div>
@@ -958,9 +1020,16 @@
             A galeria pode crescer junto com a RockWave.
         </p>
 
+        <div class="gallery-filters" role="group" aria-label="Filtros da galeria">
+            <button class="gallery-filter active" onclick="filtrarGaleria('todos', this)">TODOS</button>
+            <button class="gallery-filter" onclick="filtrarGaleria('identidade', this)">IDENTIDADE</button>
+            <button class="gallery-filter" onclick="filtrarGaleria('segredos', this)">SEGREDOS</button>
+            <button class="gallery-filter" onclick="filtrarGaleria('radio', this)">RÁDIO</button>
+        </div>
+
         <div class="gallery-grid">
 
-            <article class="gallery-card">
+            <article class="gallery-card" data-category="identidade">
                 <span class="gallery-label">RW-001</span>
                 <div class="gallery-art">
                     <strong class="mini-logo">ROCKWAVE</strong>
@@ -969,7 +1038,7 @@
                 <p>A marca principal do projeto e o visual que representa a RockWave.</p>
             </article>
 
-            <article class="gallery-card">
+            <article class="gallery-card" data-category="identidade">
                 <span class="gallery-label">RW-002</span>
                 <div class="gallery-art">
                     <strong>O SOM<br>NÃO MORREU.</strong>
@@ -978,7 +1047,7 @@
                 <p>A frase que virou a assinatura da RockWave.</p>
             </article>
 
-            <article class="gallery-card">
+            <article class="gallery-card" data-category="radio">
                 <span class="gallery-label">RW-003</span>
                 <div class="gallery-art">
                     <strong>RADIO<br>LIVE</strong>
@@ -987,7 +1056,7 @@
                 <p>O arquivo visual da rádio que mantém os riffs tocando.</p>
             </article>
 
-            <article class="gallery-card">
+            <article class="gallery-card" data-category="segredos">
                 <span class="gallery-label">RW-004</span>
                 <div class="gallery-art">
                     <strong>1991</strong>
@@ -996,7 +1065,7 @@
                 <p>Uma referência escondida ao universo do rock que também aparece nos segredos.</p>
             </article>
 
-            <article class="gallery-card">
+            <article class="gallery-card" data-category="segredos">
                 <span class="gallery-label">RW-005</span>
                 <div class="gallery-art">
                     <strong>EXE</strong>
@@ -1005,7 +1074,7 @@
                 <p>Uma das identidades usadas nos Easter Eggs da RockWave.</p>
             </article>
 
-            <article class="gallery-card">
+            <article class="gallery-card" data-category="identidade">
                 <span class="gallery-label">RW-006</span>
                 <div class="gallery-art">
                     <strong>🤘</strong>
@@ -1439,6 +1508,10 @@
             <div class="achievement" id="achCuriosity"><h3>🧠 Curioso</h3><p>Abra uma curiosidade.</p><div class="achievement-state">BLOQUEADA</div></div>
             <div class="achievement" id="achTime"><h3>🕰️ Viajante do Tempo</h3><p>Visite uma década na Máquina do Tempo.</p><div class="achievement-state">BLOQUEADA</div></div>
             <div class="achievement" id="achEgg"><h3>🕵️ Caçador de Segredos</h3><p>Encontre um Easter egg.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achGallery"><h3>🖼️ Arquivista Visual</h3><p>Abra a Galeria RockWave.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achGalleryFilter"><h3>🔎 Olho de Arquivista</h3><p>Use um filtro para investigar a galeria.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achMobile"><h3>📱 RockWave no Bolso</h3><p>Acesse a RockWave em uma tela pequena.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achExplorer"><h3>🗺️ Explorador RockWave</h3><p>Abra cinco áreas diferentes do site.</p><div class="achievement-state">BLOQUEADA</div></div>
         </div>
     </section>
 
@@ -1495,6 +1568,15 @@
            NAVEGAÇÃO
         ========================== */
 
+        const rwVisitedSections = new Set();
+        function registrarExploracao(id){if(!id||id==="home")return;rwVisitedSections.add(id);if(rwVisitedSections.size>=5)desbloquear("achExplorer");}
+        function filtrarGaleria(filtro,botao){
+            document.querySelectorAll(".gallery-filter").forEach(btn=>btn.classList.remove("active"));
+            if(botao)botao.classList.add("active");
+            document.querySelectorAll(".gallery-card").forEach(card=>card.classList.toggle("hidden",filtro!=="todos"&&card.dataset.category!==filtro));
+            desbloquear("achGalleryFilter");
+        }
+
         function abrir(id) {
 document.getElementById("home").style.display = "none";
 
@@ -1503,6 +1585,8 @@ document.getElementById("home").style.display = "none";
             });
 
             document.getElementById(id).classList.add("active");
+            registrarExploracao(id);
+            if(id==="galeria") desbloquear("achGallery");
 
             window.scrollTo({
                 top: 0,
@@ -1592,6 +1676,9 @@ document.querySelectorAll("section").forEach(section => {
 
         iniciarQuiz();
         carregarConquistas();
+
+        if(window.innerWidth<=650) desbloquear("achMobile");
+        window.addEventListener("resize",function(){if(window.innerWidth<=650)desbloquear("achMobile");});
 
 
         /* =========================
