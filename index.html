@@ -1613,6 +1613,7 @@ document.querySelectorAll("section").forEach(section => {
         const easterText = document.getElementById("easterText");
 
         let easterEggTimer = null;
+        let easterMusicTimer = null;
 
         function mostrarEasterEgg(tipo) {
             desbloquear("achEgg");
@@ -1620,6 +1621,11 @@ document.querySelectorAll("section").forEach(section => {
             if (easterEggTimer) {
                 clearTimeout(easterEggTimer);
             }
+            if (easterMusicTimer) {
+                clearTimeout(easterMusicTimer);
+                easterMusicTimer = null;
+            }
+
             if (tipo === "nirvana") {
                 easterTitle.textContent = "NEVERMIND.EXE";
                 easterText.textContent = "Você encontrou o sinal de 1991. 🎸";
@@ -1631,7 +1637,15 @@ document.querySelectorAll("section").forEach(section => {
             }
 
             easterMessage.classList.add("show");
-            ligarRadio();
+
+            if (tipo === "rockwave") {
+                easterMusicTimer = setTimeout(() => {
+                    ligarRadio();
+                    easterMusicTimer = null;
+                }, 500);
+            } else {
+                ligarRadio();
+            }
 
             easterEggTimer = setTimeout(() => {
                 fecharEasterEgg();
@@ -1640,6 +1654,12 @@ document.querySelectorAll("section").forEach(section => {
 
         function fecharEasterEgg() {
             easterMessage.classList.remove("show");
+
+            if (easterMusicTimer) {
+                clearTimeout(easterMusicTimer);
+                easterMusicTimer = null;
+            }
+
             pausarRadio();
 
             if (easterEggTimer) {
