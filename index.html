@@ -936,6 +936,7 @@
         <p class="tagline">O som não morreu.</p>
 
         <div class="menu">
+            <button type="button" onclick="abrir('doacao')"><span>❤️</span>APOIE O ROCKWAVE</button>
             <button onclick="abrir('rockmap')"><span>🌍</span>MAPA DO ROCK</button>
             <button onclick="abrir('hall')"><span>🏆</span>HALL DA FAMA</button>
             <button onclick="abrir('createband')"><span>🤘</span>MONTE SUA BANDA</button>
@@ -2783,5 +2784,34 @@ function gerarBanda(){
 }
 </script></script>
 
+
+
+<section id="doacao">
+    <div class="back" onclick="voltar()">← VOLTAR</div>
+    <h1 class="section-title">APOIE O ROCKWAVE</h1>
+    <p class="section-subtitle">Se quiser apoiar o desenvolvimento do site, você pode contribuir via PIX.</p>
+    <div class="donation-box">
+        <h2>❤️ VALEU POR FORTALECER O ROCK</h2>
+        <p>Qualquer contribuição é opcional e ajuda a manter o RockWave sendo atualizado e cheio de novas ideias.</p>
+        <div class="pix-key">
+            <code id="pixKey">+55 11 96433 78-97</code>
+            <button class="pix-copy" type="button" onclick="copiarPix()">📋 COPIAR PIX</button>
+        </div>
+        <div id="pixStatus" class="pix-status"></div>
+    </div>
+</section>
+
+<script>
+function copiarPix(){
+    const chave="+5511964337897";
+    const status=document.getElementById("pixStatus");
+    navigator.clipboard.writeText(chave).then(()=>{
+        status.textContent="PIX copiado! 🤘";
+        setTimeout(()=>status.textContent="",2200);
+    }).catch(()=>{
+        status.textContent="Não foi possível copiar automaticamente. Selecione a chave acima.";
+    });
+}
+</script>
 </body>
 </html>
