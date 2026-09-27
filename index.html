@@ -795,7 +795,7 @@
         #xpFill { width:0; height:100%; background:linear-gradient(90deg,#700000,#e00000); transition:width .5s; }
         .xp-note { color:#777; margin-top:10px; }
         .map-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-top:25px; }
-        .map-node { padding:22px; background:#101010; border:1px solid #292929; cursor:pointer; transition:.2s; }
+        .map-node { padding:22px; background:#101010; color:#fff; border:1px solid #292929; cursor:pointer; transition:.2s; text-align:left; font:inherit; width:100%; }
         .map-node:hover { border-color:#b00000; transform:translateY(-3px); }
         .map-node small { color:#666; display:block; margin-bottom:8px; letter-spacing:2px; }
         .lore-box p { color:#aaa; line-height:1.8; margin-bottom:18px; }
@@ -1093,32 +1093,26 @@
     <section id="quizbandas">
         <div class="back" onclick="voltar()">← VOLTAR</div>
         <h1 class="section-title">QUIZ DE BANDAS</h1>
-        <p class="section-subtitle">Teste se você reconhece a banda pela pista.</p>
+        <p class="section-subtitle">10 perguntas. Veja quantas bandas você reconhece.</p>
         <div class="mini-game">
+            <div id="bandQuizProgress" class="radio-meta">PERGUNTA 1 DE 10</div>
             <div id="bandQuizQuestion"><h2>Qual banda lançou “Nevermind”?</h2></div>
-            <div class="guess-options">
-                <button onclick="responderBanda('Nirvana')">Nirvana</button>
-                <button onclick="responderBanda('Queen')">Queen</button>
-                <button onclick="responderBanda('AC/DC')">AC/DC</button>
-                <button onclick="responderBanda('Metallica')">Metallica</button>
-            </div>
+            <div id="bandQuizOptions" class="guess-options"></div>
             <div id="bandQuizResult" class="band-quiz-result"></div>
+            <button id="bandQuizNext" class="random-button" type="button" onclick="proximaPerguntaBanda()" style="display:none">PRÓXIMA →</button>
         </div>
     </section>
 
     <section id="adivinhe">
         <div class="back" onclick="voltar()">← VOLTAR</div>
         <h1 class="section-title">ADIVINHE A MÚSICA</h1>
-        <p class="section-subtitle">Leia a pista e escolha a música certa.</p>
+        <p class="section-subtitle">10 pistas diferentes para testar seu ouvido.</p>
         <div class="mini-game song-guess">
+            <div id="songGuessProgress" class="radio-meta">PERGUNTA 1 DE 10</div>
             <div id="songGuessClue"><h2>🎤 Pista: “I'm gonna fight 'em off...”</h2></div>
-            <div class="guess-options">
-                <button onclick="responderMusica(0)">Seven Nation Army</button>
-                <button onclick="responderMusica(1)">In the End</button>
-                <button onclick="responderMusica(2)">Psychosocial</button>
-                <button onclick="responderMusica(3)">Thunderstruck</button>
-            </div>
+            <div id="songGuessOptions" class="guess-options"></div>
             <div id="songGuessResult" class="band-quiz-result"></div>
+            <button id="songGuessNext" class="random-button" type="button" onclick="proximaPerguntaMusica()" style="display:none">PRÓXIMA →</button>
         </div>
     </section>
 
@@ -1136,7 +1130,8 @@
                 <button class="guitar-string" onclick="tocarCorda(this)"></button>
                 <button class="guitar-string" onclick="tocarCorda(this)"></button>
             </div>
-            <div id="guitarMessage" class="band-quiz-result">A guitarra está esperando. 🎸</div>
+            <div id="guitarMessage" class="band-quiz-result">A guitarra está esperando. 🎸 Clique nas cordas e aumente o volume.</div>
+            <div class="radio-meta">🔊 O som é gerado pelo navegador — não precisa baixar nenhum arquivo.</div>
         </div>
     </section>
 
@@ -1146,14 +1141,16 @@
         <p class="section-subtitle">Veja os territórios que você já explorou.</p>
         <div class="map-box">
             <div class="map-grid">
-                <div class="map-node" onclick="abrir('quiz')"><small>01</small>Descubra seu estilo</div>
-                <div class="map-node" onclick="abrir('radio')"><small>02</small>RockWave Radio</div>
-                <div class="map-node" onclick="abrir('curiosidades')"><small>03</small>Curiosidades</div>
-                <div class="map-node" onclick="abrir('tempo')"><small>04</small>Máquina do Tempo</div>
-                <div class="map-node" onclick="abrir('galeria')"><small>05</small>Galeria</div>
-                <div class="map-node" onclick="abrir('underground')"><small>06</small>Underground</div>
-                <div class="map-node" onclick="abrir('lore')"><small>07</small>Lore</div>
-                <div class="map-node" onclick="abrir('guitarra')"><small>08</small>Minigame</div>
+                <button class="map-node" type="button" onclick="abrirMapa('estilos')"><small>01</small>Descubra seu estilo</button>
+                <button class="map-node" type="button" onclick="abrirMapa('radio')"><small>02</small>RockWave Radio</button>
+                <button class="map-node" type="button" onclick="abrirMapa('curiosidades')"><small>03</small>Curiosidades</button>
+                <button class="map-node" type="button" onclick="abrirMapa('maquina')"><small>04</small>Máquina do Tempo</button>
+                <button class="map-node" type="button" onclick="abrirMapa('galeria')"><small>05</small>Galeria</button>
+                <button class="map-node" type="button" onclick="abrirMapa('underground')"><small>06</small>Underground</button>
+                <button class="map-node" type="button" onclick="abrirMapa('lore')"><small>07</small>Lore</button>
+                <button class="map-node" type="button" onclick="abrirMapa('guitarra')"><small>08</small>Minigame</button>
+                <button class="map-node" type="button" onclick="abrirMapa('quizbandas')"><small>09</small>Quiz de Bandas</button>
+                <button class="map-node" type="button" onclick="abrirMapa('adivinhe')"><small>10</small>Adivinhe a Música</button>
             </div>
         </div>
     </section>
@@ -2325,34 +2322,145 @@ document.querySelectorAll("section").forEach(section => {
         }
 
         /* =========================
-           QUIZ DE BANDAS
+           NAVEGAÇÃO DO MAPA
         ========================== */
-        function responderBanda(resposta){
-            const certo=resposta==="Nirvana";
+        function abrirMapa(id){
+            const alvo=document.getElementById(id);
+            if(!alvo){
+                console.error("Área do mapa não encontrada:", id);
+                return;
+            }
+            abrir(id);
+        }
+
+        /* =========================
+           QUIZ DE BANDAS — 10 PERGUNTAS
+        ========================== */
+        const perguntasBandas=[
+            {q:"Qual banda lançou “Nevermind”?",o:["Nirvana","Queen","AC/DC","Metallica"],a:0},
+            {q:"Quem gravou “Back in Black”?",o:["AC/DC","Nirvana","Oasis","The Police"],a:0},
+            {q:"Qual banda é associada ao álbum “The Dark Side of the Moon”?",o:["Pink Floyd","Queen","Metallica","Green Day"],a:0},
+            {q:"Quem lançou “Hybrid Theory”?",o:["Linkin Park","Slipknot","Foo Fighters","Pearl Jam"],a:0},
+            {q:"Qual banda lançou “Paranoid” em 1970?",o:["Black Sabbath","Iron Maiden","Judas Priest","Megadeth"],a:0},
+            {q:"Qual banda tem Freddie Mercury como vocalista clássico?",o:["Queen","Nirvana","The Clash","R.E.M."],a:0},
+            {q:"Qual banda lançou “Master of Puppets”?",o:["Metallica","Slayer","Anthrax","Korn"],a:0},
+            {q:"Qual banda é ligada ao álbum “Ten”?",o:["Pearl Jam","Nirvana","Oasis","Muse"],a:0},
+            {q:"Qual banda gravou “Seven Nation Army”?",o:["The White Stripes","The Strokes","Arctic Monkeys","Foo Fighters"],a:0},
+            {q:"Qual banda ficou conhecida por “Chop Suey!”?",o:["System Of A Down","Slipknot","Korn","Rage Against the Machine"],a:0}
+        ];
+        let bandaAtual=0, bandaPontos=0, bandaRespondida=false;
+
+        function carregarPerguntaBanda(){
+            const p=perguntasBandas[bandaAtual];
+            document.getElementById("bandQuizProgress").textContent="PERGUNTA "+(bandaAtual+1)+" DE "+perguntasBandas.length;
+            document.getElementById("bandQuizQuestion").innerHTML="<h2>"+p.q+"</h2>";
+            document.getElementById("bandQuizOptions").innerHTML=p.o.map((op,i)=>"<button type='button' onclick='responderBanda("+i+")'>"+op+"</button>").join("");
+            document.getElementById("bandQuizResult").textContent="";
+            document.getElementById("bandQuizNext").style.display="none";
+            bandaRespondida=false;
+        }
+        function responderBanda(indice){
+            if(bandaRespondida)return;
+            bandaRespondida=true;
+            const p=perguntasBandas[bandaAtual];
+            const certo=indice===p.a;
             const box=document.getElementById("bandQuizResult");
-            box.textContent=certo ? "ACERTOU! Nevermind é do Nirvana. 🤘" : "Quase! A resposta era Nirvana.";
-            if(certo){ desbloquear("achBandQuiz"); ganharXP(25); }
-            else ganharXP(5);
+            if(certo){ bandaPontos++; box.textContent="ACERTOU! 🤘"; desbloquear("achBandQuiz"); ganharXP(25); }
+            else { box.textContent="Quase! A resposta era "+p.o[p.a]+"."; ganharXP(5); }
+            document.querySelectorAll("#bandQuizOptions button").forEach((b,i)=>{b.disabled=true;b.style.opacity=i===p.a?"1":".55";});
+            document.getElementById("bandQuizNext").style.display=bandaAtual<perguntasBandas.length-1?"inline-block":"none";
+            if(bandaAtual===perguntasBandas.length-1){
+                box.textContent+=(certo?" ":" ")+"Fim do quiz: "+bandaPontos+"/"+perguntasBandas.length+" acertos. 🎸";
+                ganharXP(20);
+            }
+        }
+        function proximaPerguntaBanda(){
+            if(bandaAtual>=perguntasBandas.length-1)return;
+            bandaAtual++;
+            carregarPerguntaBanda();
         }
 
         /* =========================
-           ADIVINHE A MÚSICA
+           ADIVINHE A MÚSICA — 10 PERGUNTAS
         ========================== */
+        const perguntasMusicas=[
+            {p:"“I'm gonna fight 'em off...”",o:["Seven Nation Army","In the End","Psychosocial","Thunderstruck"],a:0},
+            {p:"“I tried so hard and got so far...”",o:["In the End","Numb","Crawling","Breaking the Habit"],a:0},
+            {p:"“Oh, we're halfway there...”",o:["Livin' on a Prayer","Paradise City","Jump","Dream On"],a:0},
+            {p:"“Is this the real life? Is this just fantasy?”",o:["Bohemian Rhapsody","We Will Rock You","Don't Stop Me Now","Radio Ga Ga"],a:0},
+            {p:"“Hello, hello, hello, how low?”",o:["Smells Like Teen Spirit","Come as You Are","Lithium","Heart-Shaped Box"],a:0},
+            {p:"“Are you gonna go my way?”",o:["Are You Gonna Go My Way","Fly Away","Again","Always on the Run"],a:0},
+            {p:"“We're not gonna take it!”",o:["We're Not Gonna Take It","I Wanna Rock","Cum On Feel the Noize","Cherry Pie"],a:0},
+            {p:"“I can't get no satisfaction”",o:["(I Can't Get No) Satisfaction","Paint It, Black","Start Me Up","Gimme Shelter"],a:0},
+            {p:"“I walk alone...”",o:["Boulevard of Broken Dreams","Holiday","Basket Case","21 Guns"],a:0},
+            {p:"“Back in black, I hit the sack...”",o:["Back in Black","Thunderstruck","Highway to Hell","T.N.T."],a:0}
+        ];
+        let musicaAdivAtual=0, musicaPontos=0, musicaRespondida=false;
+
+        function carregarPerguntaMusica(){
+            const p=perguntasMusicas[musicaAdivAtual];
+            document.getElementById("songGuessProgress").textContent="PERGUNTA "+(musicaAdivAtual+1)+" DE "+perguntasMusicas.length;
+            document.getElementById("songGuessClue").innerHTML="<h2>🎤 Pista: "+p.p+"</h2>";
+            document.getElementById("songGuessOptions").innerHTML=p.o.map((op,i)=>"<button type='button' onclick='responderMusica("+i+")'>"+op+"</button>").join("");
+            document.getElementById("songGuessResult").textContent="";
+            document.getElementById("songGuessNext").style.display="none";
+            musicaRespondida=false;
+        }
         function responderMusica(indice){
+            if(musicaRespondida)return;
+            musicaRespondida=true;
+            const p=perguntasMusicas[musicaAdivAtual];
+            const certo=indice===p.a;
             const box=document.getElementById("songGuessResult");
-            const certo=indice===0;
-            box.textContent=certo ? "ACERTOU! Era Seven Nation Army. 🔥" : "Não foi dessa vez. A resposta era Seven Nation Army.";
-            if(certo){ desbloquear("achSongGuess"); ganharXP(25); }
-            else ganharXP(5);
+            if(certo){ musicaPontos++; box.textContent="ACERTOU! 🔥"; desbloquear("achSongGuess"); ganharXP(25); }
+            else { box.textContent="Não foi dessa vez. Era "+p.o[p.a]+"."; ganharXP(5); }
+            document.querySelectorAll("#songGuessOptions button").forEach((b,i)=>{b.disabled=true;b.style.opacity=i===p.a?"1":".55";});
+            document.getElementById("songGuessNext").style.display=musicaAdivAtual<perguntasMusicas.length-1?"inline-block":"none";
+            if(musicaAdivAtual===perguntasMusicas.length-1){
+                box.textContent+=(certo?" ":" ")+"Fim do desafio: "+musicaPontos+"/"+perguntasMusicas.length+" acertos. 🎵";
+                ganharXP(20);
+            }
+        }
+        function proximaPerguntaMusica(){
+            if(musicaAdivAtual>=perguntasMusicas.length-1)return;
+            musicaAdivAtual++;
+            carregarPerguntaMusica();
         }
 
         /* =========================
-           MINIGAME DE GUITARRA
+           MINIGAME DE GUITARRA — SOM REAL
         ========================== */
         let guitarScore=0;
+        let guitarAudioContext=null;
+        const guitarFrequencies=[82.41,110,146.83,196,246.94,329.63];
+
+        function tocarSomCorda(freq){
+            try{
+                const AudioCtx=window.AudioContext||window.webkitAudioContext;
+                if(!AudioCtx)return;
+                if(!guitarAudioContext)guitarAudioContext=new AudioCtx();
+                if(guitarAudioContext.state==="suspended")guitarAudioContext.resume();
+                const osc=guitarAudioContext.createOscillator();
+                const gain=guitarAudioContext.createGain();
+                const now=guitarAudioContext.currentTime;
+                osc.type="sawtooth";
+                osc.frequency.setValueAtTime(freq,now);
+                osc.frequency.exponentialRampToValueAtTime(Math.max(40,freq*.72),now+.55);
+                gain.gain.setValueAtTime(.0001,now);
+                gain.gain.exponentialRampToValueAtTime(.22,now+.012);
+                gain.gain.exponentialRampToValueAtTime(.0001,now+.62);
+                osc.connect(gain);
+                gain.connect(guitarAudioContext.destination);
+                osc.start(now);
+                osc.stop(now+.65);
+            }catch(e){ console.warn("Áudio da guitarra indisponível:",e); }
+        }
+
         function tocarCorda(el){
-            if(guitarScore>=8) guitarScore=0;
+            if(guitarScore>=8)guitarScore=0;
             guitarScore++;
+            const indice=[...document.querySelectorAll(".guitar-string")].indexOf(el);
+            tocarSomCorda(guitarFrequencies[Math.max(0,indice)]);
             el.classList.add("hit");
             setTimeout(()=>el.classList.remove("hit"),120);
             document.getElementById("guitarScore").textContent=guitarScore;
@@ -2360,7 +2468,7 @@ document.querySelectorAll("section").forEach(section => {
                 document.getElementById("guitarMessage").textContent="RIFF COMPLETO! Você fez barulho. 🤘";
                 desbloquear("achGuitar");
                 ganharXP(40);
-            } else {
+            }else{
                 document.getElementById("guitarMessage").textContent="Boa! Continue o riff...";
             }
         }
@@ -2381,6 +2489,8 @@ document.querySelectorAll("section").forEach(section => {
         };
 
         carregarXP();
+        carregarPerguntaBanda();
+        carregarPerguntaMusica();
 
     </script>
 
