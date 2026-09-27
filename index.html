@@ -326,6 +326,97 @@
         .small-title { font-size:clamp(28px,5vw,50px); margin-top:60px; }
         @media (max-width:650px){ .quiz-options{grid-template-columns:1fr;} .quiz-question{padding:25px;} }
 
+
+        .time-machine {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .decade-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .decade-buttons button {
+            background: #111;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 16px 10px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .decade-buttons button:hover,
+        .decade-buttons button.selected {
+            background: #300000;
+            border-color: #b00000;
+            transform: translateY(-2px);
+        }
+
+        .decade-display {
+            background: #090909;
+            border: 1px solid #292929;
+            padding: 40px;
+            min-height: 330px;
+            box-shadow: inset 0 0 50px rgba(120,0,0,.06);
+        }
+
+        .time-kicker {
+            color: #777;
+            font-size: 12px;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+
+        .decade-display h2 {
+            font-size: clamp(38px, 7vw, 70px);
+            margin-bottom: 20px;
+        }
+
+        .decade-display p {
+            color: #aaa;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .time-item {
+            background: #0f0f0f;
+            border-left: 3px solid #a00000;
+            padding: 18px;
+        }
+
+        .time-item strong {
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .time-item span {
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .time-note {
+            max-width: 1000px;
+            margin: 20px auto 0;
+            color: #666;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        @media (max-width:650px) {
+            .decade-display { padding: 25px; }
+        }
+
         @media (max-width: 650px) {
             .menu {
                 grid-template-columns: 1fr;
@@ -392,6 +483,11 @@
             <button onclick="abrir('extras')">
                 <span>🕵️</span>
                 EXTRAS
+            </button>
+
+            <button onclick="abrir('maquina')">
+                <span>🕰️</span>
+                MÁQUINA DO TEMPO
             </button>
 
         </div>
@@ -818,6 +914,47 @@
     </section>
 
 
+
+
+    <!-- =========================
+         MÁQUINA DO TEMPO
+    ========================== -->
+
+    <section id="maquina">
+
+        <button class="back" onclick="voltar()">← VOLTAR</button>
+
+        <h1 class="section-title">Máquina do Tempo</h1>
+        <p class="section-subtitle">
+            Escolha uma época e descubra o que estava bombando no rock. 🎸
+        </p>
+
+        <div class="time-machine">
+            <div class="decade-buttons">
+                <button onclick="mostrarDecada('1950')">1950s</button>
+                <button onclick="mostrarDecada('1960')">1960s</button>
+                <button onclick="mostrarDecada('1970')">1970s</button>
+                <button onclick="mostrarDecada('1980')">1980s</button>
+                <button onclick="mostrarDecada('1990')">1990s</button>
+                <button onclick="mostrarDecada('2000')">2000s</button>
+                <button onclick="mostrarDecada('2010')">2010s</button>
+            </div>
+
+            <div id="decadeDisplay" class="decade-display">
+                <div class="time-kicker">ESCOLHA UMA DÉCADA</div>
+                <h2>⏳ Para onde vamos?</h2>
+                <p>Selecione uma década para abrir o arquivo musical da RockWave.</p>
+            </div>
+        </div>
+
+        <p class="time-note">
+            * “Em destaque” significa músicas e artistas que tiveram grande presença
+            popular ou nas paradas da época — não necessariamente as músicas mais ouvidas de todo o mundo.
+        </p>
+
+    </section>
+
+
     <!-- =========================
          EXTRAS
     ========================== -->
@@ -1074,6 +1211,116 @@
 
         }
 
+
+
+
+        /* =========================
+           MÁQUINA DO TEMPO
+        ========================== */
+
+        const decadasRock = {
+            "1950": {
+                titulo: "OS ANOS 50",
+                resumo: "O nascimento do rock'n'roll colocou guitarras elétricas, ritmo e atitude no centro da cultura jovem.",
+                estilos: "Rock and Roll • Rockabilly • Blues",
+                destaques: [
+                    ["🎸 Rock and Roll", "Chuck Berry — Johnny B. Goode"],
+                    ["🔥 Elvis Presley", "Jailhouse Rock"],
+                    ["🎙️ Little Richard", "Tutti Frutti"],
+                    ["🕺 Rockabilly", "Carl Perkins — Blue Suede Shoes"]
+                ]
+            },
+            "1960": {
+                titulo: "OS ANOS 60",
+                resumo: "O rock ficou mais experimental: psicodelia, blues rock e novas formas de gravação começaram a dominar a cena.",
+                estilos: "Psychedelic Rock • Blues Rock • Garage Rock",
+                destaques: [
+                    ["🌈 The Beatles", "Come Together"],
+                    ["⚡ The Rolling Stones", "(I Can't Get No) Satisfaction"],
+                    ["🎸 Jimi Hendrix", "Purple Haze"],
+                    ["🌊 The Beach Boys", "Good Vibrations"]
+                ]
+            },
+            "1970": {
+                titulo: "OS ANOS 70",
+                resumo: "Hard rock, heavy metal e progressive rock ganharam enorme espaço, enquanto o rock de arena crescia.",
+                estilos: "Hard Rock • Heavy Metal • Progressive Rock • Glam Rock",
+                destaques: [
+                    ["🤘 Led Zeppelin", "Stairway to Heaven"],
+                    ["🖤 Black Sabbath", "Paranoid"],
+                    ["🚀 Pink Floyd", "Another Brick in the Wall, Pt. 2"],
+                    ["✨ Queen", "Bohemian Rhapsody"]
+                ]
+            },
+            "1980": {
+                titulo: "OS ANOS 80",
+                resumo: "O rock ficou gigantesco nas rádios e na MTV, misturando arena rock, hard rock, metal, new wave e sons alternativos.",
+                estilos: "Hard Rock • Heavy Metal • New Wave • Thrash Metal",
+                destaques: [
+                    ["🔥 Bon Jovi", "Livin' on a Prayer"],
+                    ["🎸 Guns N' Roses", "Sweet Child o' Mine"],
+                    ["⚡ Joan Jett", "I Love Rock 'n Roll"],
+                    ["🕶️ The Police", "Every Breath You Take"]
+                ]
+            },
+            "1990": {
+                titulo: "OS ANOS 90",
+                resumo: "Grunge e alternative rock explodiram, enquanto britpop, nu metal e outras cenas mudavam o som das guitarras.",
+                estilos: "Grunge • Alternative Rock • Britpop • Industrial Rock",
+                destaques: [
+                    ["🌲 Nirvana", "Smells Like Teen Spirit"],
+                    ["🇬🇧 Oasis", "Wonderwall"],
+                    ["🎸 Pearl Jam", "Alive"],
+                    ["🖤 The Smashing Pumpkins", "1979"]
+                ]
+            },
+            "2000": {
+                titulo: "OS ANOS 2000",
+                resumo: "O rock alternativo, emo, pop punk, nu metal e indie ganharam grande presença enquanto a internet mudava a forma de descobrir música.",
+                estilos: "Alternative Rock • Nu Metal • Pop Punk • Indie Rock",
+                destaques: [
+                    ["🎧 Linkin Park", "In the End"],
+                    ["🔥 The White Stripes", "Seven Nation Army"],
+                    ["🖤 Evanescence", "Bring Me to Life"],
+                    ["⚡ The Strokes", "Last Nite"]
+                ]
+            },
+            "2010": {
+                titulo: "OS ANOS 2010",
+                resumo: "O streaming mudou o jogo e o rock passou a dividir espaço com muitos gêneros, enquanto novas bandas mantinham as guitarras vivas.",
+                estilos: "Indie Rock • Alternative Rock • Post-Punk Revival",
+                destaques: [
+                    ["🎸 Arctic Monkeys", "Do I Wanna Know?"],
+                    ["⚡ Royal Blood", "Figure It Out"],
+                    ["🖤 Tame Impala", "The Less I Know the Better"],
+                    ["🔥 Foo Fighters", "The Pretender"]
+                ]
+            }
+        };
+
+        function mostrarDecada(decada) {
+            const dados = decadasRock[decada];
+            const display = document.getElementById("decadeDisplay");
+
+            document.querySelectorAll(".decade-buttons button").forEach(botao => {
+                botao.classList.toggle("selected", botao.textContent.includes(decada));
+            });
+
+            display.innerHTML = `
+                <div class="time-kicker">ARQUIVO ROCKWAVE • ${decada}</div>
+                <h2>${dados.titulo}</h2>
+                <p>${dados.resumo}</p>
+                <p><strong>🎸 Estilos em destaque:</strong> ${dados.estilos}</p>
+                <div class="time-grid">
+                    ${dados.destaques.map(item => `
+                        <div class="time-item">
+                            <strong>${item[0]}</strong>
+                            <span>${item[1]}</span>
+                        </div>
+                    `).join("")}
+                </div>
+            `;
+        }
 
 
         /* =========================
