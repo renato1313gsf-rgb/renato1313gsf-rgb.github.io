@@ -951,6 +951,46 @@
             background: #000;
         }
 
+    
+        /* CORREÇÃO DEFINITIVA: textura nunca fica acima do conteúdo */
+        body::before,
+        body::after {
+            display: none !important;
+        }
+
+        body {
+            background-color: #080808 !important;
+            background-image:
+                repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,.035) 0 1px, transparent 1px 5px),
+                repeating-linear-gradient(7deg, rgba(255,255,255,.028) 0 1px, transparent 1px 9px),
+                repeating-linear-gradient(91deg, rgba(0,0,0,.35) 0 2px, transparent 2px 13px),
+                radial-gradient(circle at 18% 22%, rgba(150,0,0,.22), transparent 18%),
+                linear-gradient(135deg,#171717,#070707 38%,#121212 62%,#040404) !important;
+            background-attachment: fixed !important;
+        }
+
+        .radio-box,
+        .radio-screen {
+            position: relative !important;
+            z-index: 10 !important;
+            isolation: isolate;
+            background: #090909 !important;
+        }
+
+        .radio-screen {
+            overflow: hidden !important;
+        }
+
+        .radio-screen iframe {
+            position: relative !important;
+            z-index: 11 !important;
+            display: block !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: #000 !important;
+            border: 0 !important;
+        }
+
     </style>
 </head>
 
