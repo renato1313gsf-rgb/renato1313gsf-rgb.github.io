@@ -36,6 +36,8 @@
             z-index: 10;
         }
 
+        body{background-color:#080808!important;background-image:repeating-radial-gradient(circle at 20% 30%,rgba(255,255,255,.035) 0 1px,transparent 1px 5px),repeating-linear-gradient(7deg,rgba(255,255,255,.028) 0 1px,transparent 1px 9px),repeating-linear-gradient(91deg,rgba(0,0,0,.35) 0 2px,transparent 2px 13px),radial-gradient(circle at 18% 22%,rgba(150,0,0,.22),transparent 18%),linear-gradient(135deg,#171717,#070707 38%,#121212 62%,#040404)!important;background-attachment:fixed!important;background-size:180px 180px,260px 260px,310px 310px,auto,100% 100%!important;}
+        body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.55;background:repeating-linear-gradient(17deg,transparent 0 24px,rgba(255,255,255,.025) 25px 27px,transparent 28px 52px),repeating-linear-gradient(103deg,transparent 0 37px,rgba(0,0,0,.28) 38px 43px,transparent 44px 80px);mix-blend-mode:multiply;}
         .hero {
             min-height: 100vh;
             display: flex;
