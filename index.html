@@ -818,6 +818,62 @@
             .xp-panel,.map-box,.lore-box,.mini-game { padding:22px; }
         }
 
+    
+        /* =========================
+           ADIVINHE O RIFF
+        ========================== */
+        .riff-box {
+            max-width: 900px;
+            margin: 0 auto;
+            background:#090909;
+            border:1px solid #292929;
+            padding:35px;
+            text-align:center;
+        }
+        .riff-round {
+            color:#777;
+            font-size:12px;
+            letter-spacing:3px;
+            margin-bottom:12px;
+        }
+        .riff-status {
+            min-height:30px;
+            color:#aaa;
+            margin:18px 0;
+            line-height:1.5;
+        }
+        .riff-play {
+            background:#b00000;
+            color:#fff;
+            border:1px solid #d00000;
+            padding:16px 24px;
+            cursor:pointer;
+            font-weight:900;
+            letter-spacing:1px;
+            transition:.2s;
+        }
+        .riff-play:hover { background:#d00000; transform:translateY(-2px); }
+        .riff-play:disabled { opacity:.45; cursor:not-allowed; transform:none; }
+        .riff-options {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:12px;
+            margin-top:25px;
+        }
+        .riff-options button {
+            background:#111;
+            color:#fff;
+            border:1px solid #444;
+            padding:18px;
+            cursor:pointer;
+            font-weight:bold;
+            transition:.2s;
+        }
+        .riff-options button:hover { background:#300000; border-color:#b00000; transform:translateY(-2px); }
+        .riff-options button:disabled { cursor:default; }
+        .riff-score { color:#aaa; margin-top:25px; }
+        @media(max-width:650px){ .riff-options{grid-template-columns:1fr;} .riff-box{padding:25px;} }
+
     </style>
 </head>
 
@@ -899,6 +955,7 @@
             <button onclick="abrir('quizbandas')"><span>🧠</span>QUIZ DE BANDAS</button>
             <button onclick="abrir('adivinhe')"><span>🎵</span>ADIVINHE A MÚSICA</button>
             <button onclick="abrir('guitarra')"><span>🎮</span>MINIGAME DE GUITARRA</button>
+            <button onclick="abrir('riffguess')"><span>🎶</span>ADIVINHE O RIFF</button>
             <button onclick="abrir('mapa')"><span>🗺️</span>MAPA ROCKWAVE</button>
             <button onclick="abrir('lore')"><span>📜</span>LORE ROCKWAVE</button>
             <button onclick="alternarNoiteExtrema()"><span>🌑</span>NOITE EXTREMA</button>
@@ -1132,6 +1189,19 @@
             </div>
             <div id="guitarMessage" class="band-quiz-result">A guitarra está esperando. 🎸 Clique nas cordas e aumente o volume.</div>
             <div class="radio-meta">🔊 O som é gerado pelo navegador — não precisa baixar nenhum arquivo.</div>
+        </div>
+    </section>
+
+    <section id="riffguess">
+        <div class="back" onclick="voltar()">← VOLTAR</div>
+        <h1 class="section-title">ADIVINHE O RIFF</h1>
+        <p class="section-subtitle">Ouça um riff sintetizado e descubra qual música ele representa. 🎸</p>
+        <div class="riff-box">
+            <div id="riffRound" class="riff-round">RIFF 1 DE 5</div>
+            <div class="game-score">Pontuação: <span id="riffScore">0</span> / 5</div>
+            <button id="riffPlay" class="riff-play" type="button" onclick="tocarRiff()">▶ OUVIR RIFF</button>
+            <div id="riffStatus" class="riff-status">Aumente o volume e tente reconhecer as notas.</div>
+            <div id="riffOptions" class="riff-options"></div>
         </div>
     </section>
 
@@ -2424,6 +2494,105 @@ document.querySelectorAll("section").forEach(section => {
             if(musicaAdivAtual>=perguntasMusicas.length-1)return;
             musicaAdivAtual++;
             carregarPerguntaMusica();
+        }
+
+        /* =========================
+           ADIVINHE O RIFF
+        ========================== */
+        const riffsRockWave = [
+            {nome:"Smoke on the Water", artista:"Deep Purple", notas:[196,220,246.94,196,220,261.63,246.94]},
+            {nome:"Seven Nation Army", artista:"The White Stripes", notas:[164.81,164.81,196,164.81,146.83,130.81,123.47]},
+            {nome:"Iron Man", artista:"Black Sabbath", notas:[130.81,130.81,164.81,196,220,196,164.81]},
+            {nome:"(I Can't Get No) Satisfaction", artista:"The Rolling Stones", notas:[146.83,146.83,164.81,196,164.81,146.83]},
+            {nome:"Come as You Are", artista:"Nirvana", notas:[164.81,196,246.94,196,164.81,146.83,164.81]}
+        ];
+        let riffAtual=0, riffPontos=0, riffTocando=false, riffRespondido=false, riffAudioContext=null;
+
+        function tocarNotaRiff(freq, inicio, duracao){
+            if(!riffAudioContext)return;
+            const osc=riffAudioContext.createOscillator();
+            const gain=riffAudioContext.createGain();
+            osc.type="sawtooth";
+            osc.frequency.setValueAtTime(freq,inicio);
+            gain.gain.setValueAtTime(.0001,inicio);
+            gain.gain.exponentialRampToValueAtTime(.16,inicio+.015);
+            gain.gain.exponentialRampToValueAtTime(.0001,inicio+duracao);
+            osc.connect(gain);
+            gain.connect(riffAudioContext.destination);
+            osc.start(inicio);
+            osc.stop(inicio+duracao+.03);
+        }
+
+        function tocarRiff(){
+            if(riffTocando)return;
+            try{
+                const AudioCtx=window.AudioContext||window.webkitAudioContext;
+                if(!AudioCtx)return;
+                if(!riffAudioContext)riffAudioContext=new AudioCtx();
+                if(riffAudioContext.state==="suspended")riffAudioContext.resume();
+                riffTocando=true;
+                riffRespondido=false;
+                const botao=document.getElementById("riffPlay");
+                botao.disabled=true;
+                document.getElementById("riffStatus").textContent="🎸 Ouvindo o riff...";
+                const riff=riffsRockWave[riffAtual];
+                let inicio=riffAudioContext.currentTime+.05;
+                riff.notas.forEach((freq,i)=>{
+                    tocarNotaRiff(freq,inicio+i*.22,.19);
+                });
+                setTimeout(()=>{
+                    riffTocando=false;
+                    botao.disabled=false;
+                    botao.textContent="🔁 OUVIR DE NOVO";
+                    document.getElementById("riffStatus").textContent="Qual música é essa?";
+                },riff.notas.length*220+120);
+            }catch(e){
+                riffTocando=false;
+                console.warn("Áudio do riff indisponível:",e);
+            }
+        }
+
+        function carregarRiff(){
+            const riff=riffsRockWave[riffAtual];
+            document.getElementById("riffRound").textContent="RIFF "+(riffAtual+1)+" DE "+riffsRockWave.length;
+            document.getElementById("riffScore").textContent=riffPontos;
+            document.getElementById("riffStatus").textContent="Aumente o volume e tente reconhecer as notas.";
+            const opcoes=riffsRockWave.map(r=>r.nome).sort(()=>Math.random()-.5);
+            document.getElementById("riffOptions").innerHTML=opcoes.map(nome=>
+                "<button type='button' onclick='responderRiff("+JSON.stringify(nome)+")'>"+nome+"</button>"
+            ).join("");
+            riffRespondido=false;
+            document.getElementById("riffPlay").disabled=false;
+            document.getElementById("riffPlay").textContent="▶ OUVIR RIFF";
+        }
+
+        function responderRiff(nome){
+            if(riffRespondido || riffTocando)return;
+            riffRespondido=true;
+            const certo=nome===riffsRockWave[riffAtual].nome;
+            const box=document.getElementById("riffStatus");
+            if(certo){
+                riffPontos++;
+                box.textContent="ACERTOU! 🤘 "+riffsRockWave[riffAtual].artista;
+                ganharXP(25);
+            }else{
+                box.textContent="Quase! Era "+riffsRockWave[riffAtual].nome+" — "+riffsRockWave[riffAtual].artista+".";
+                ganharXP(5);
+            }
+            document.getElementById("riffScore").textContent=riffPontos;
+            document.querySelectorAll("#riffOptions button").forEach(b=>{
+                b.disabled=true;
+                if(b.textContent===riffsRockWave[riffAtual].nome)b.style.borderColor="#b00000";
+            });
+            if(riffAtual<riffsRockWave.length-1){
+                setTimeout(()=>{
+                    riffAtual++;
+                    carregarRiff();
+                },1100);
+            }else{
+                box.textContent+="  Fim do desafio: "+riffPontos+"/"+riffsRockWave.length+" acertos. 🎶";
+                ganharXP(20);
+            }
         }
 
         /* =========================
