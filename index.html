@@ -2793,25 +2793,9 @@ function gerarBanda(){
     <div class="donation-box">
         <h2>❤️ VALEU POR FORTALECER O ROCK</h2>
         <p>Qualquer contribuição é opcional e ajuda a manter o RockWave sendo atualizado e cheio de novas ideias.</p>
-        <div class="pix-key">
-            <code id="pixKey">+55 11 96433 78-97</code>
-            <button class="pix-copy" type="button" onclick="copiarPix()">📋 COPIAR PIX</button>
-        </div>
-        <div id="pixStatus" class="pix-status"></div>
-    </div>
+        <p class="pix-status">A forma de doação via PIX será adicionada aqui em breve.</p>
+</div>
 </section>
 
-<script>
-function copiarPix(){
-    const chave="+5511964337897";
-    const status=document.getElementById("pixStatus");
-    navigator.clipboard.writeText(chave).then(()=>{
-        status.textContent="PIX copiado! 🤘";
-        setTimeout(()=>status.textContent="",2200);
-    }).catch(()=>{
-        status.textContent="Não foi possível copiar automaticamente. Selecione a chave acima.";
-    });
-}
-</script>
 </body>
 </html>
