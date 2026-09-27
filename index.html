@@ -525,202 +525,6 @@
         @media(max-width:650px){
             .profile-card,.curiosity-box,.rock-level{padding:25px;}
         }
-
-
-        /* =========================
-           LOGIN / CONTA ROCKWAVE
-        ========================== */
-        body.auth-required #home {
-            display: none !important;
-        }
-
-        body.auth-required section:not(#conta) {
-            display: none !important;
-        }
-
-        body.auth-required #conta {
-            display: block !important;
-        }
-
-        body.auth-required #conta > .back {
-            display: none;
-        }
-
-        .verification-message {
-            display: none;
-            text-align: center;
-            padding: 45px 20px;
-            min-height: 330px;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: #080808;
-            border: 2px solid #b00000;
-            box-shadow: 0 0 55px rgba(180,0,0,.18);
-        }
-
-        .verification-message.show {
-            display: flex;
-        }
-
-        .verification-message .verification-icon {
-            font-size: 70px;
-            margin-bottom: 20px;
-        }
-
-        .verification-message h2 {
-            font-size: clamp(42px, 8vw, 86px);
-            line-height: .95;
-            font-weight: 900;
-            color: #ff3030;
-            text-transform: uppercase;
-            margin-bottom: 22px;
-        }
-
-        .verification-message p {
-            color: #aaa;
-            max-width: 650px;
-            line-height: 1.6;
-            font-size: 17px;
-        }
-
-        .verification-back {
-            margin-top: 28px;
-            background: #111;
-            color: #fff;
-            border: 1px solid #555;
-            padding: 14px 22px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .verification-back:hover {
-            background: #300000;
-            border-color: #b00000;
-        }
-
-        .account-button {
-            grid-column: 1 / -1;
-            min-height: 78px !important;
-            background: #140000 !important;
-            border: 1px solid #8b0000 !important;
-            border-left: 5px solid #ff3030 !important;
-            text-align: center !important;
-            padding: 18px !important;
-        }
-        .account-button:hover {
-            background: #220000 !important;
-            box-shadow: 0 10px 30px rgba(180,0,0,.25);
-        }
-        .account-button span {
-            display: inline !important;
-            font-size: 22px !important;
-            margin-right: 8px;
-        }
-        .account-screen {
-            max-width: 520px;
-            margin: 0 auto;
-            background: #090909;
-            border: 1px solid #b00000;
-            padding: 35px;
-            box-shadow: 0 0 45px rgba(180,0,0,.12);
-        }
-        .account-tabs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 28px;
-        }
-        .account-tabs button {
-            background: #111;
-            color: #888;
-            border: 1px solid #333;
-            padding: 14px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .account-tabs button.active {
-            background: #300000;
-            color: #fff;
-            border-color: #b00000;
-        }
-        .account-form { display: none; }
-        .account-form.active { display: block; }
-        .account-form label {
-            display: block;
-            color: #aaa;
-            font-size: 13px;
-            margin: 0 0 8px;
-            letter-spacing: 1px;
-        }
-        .account-form input {
-            width: 100%;
-            background: #111;
-            color: #fff;
-            border: 1px solid #333;
-            padding: 15px;
-            margin-bottom: 18px;
-            outline: none;
-        }
-        .account-form input:focus {
-            border-color: #b00000;
-            box-shadow: 0 0 0 2px rgba(176,0,0,.12);
-        }
-        .account-submit {
-            width: 100%;
-            background: #a00000;
-            color: #fff;
-            border: 1px solid #d00000;
-            padding: 16px;
-            cursor: pointer;
-            font-weight: 900;
-            letter-spacing: 1px;
-        }
-        .account-submit:hover { background: #c00000; }
-        .account-note {
-            color: #666;
-            font-size: 12px;
-            line-height: 1.5;
-            margin-top: 18px;
-            text-align: center;
-        }
-        .account-message {
-            min-height: 20px;
-            margin-top: 15px;
-            color: #ff6666;
-            font-size: 13px;
-            text-align: center;
-        }
-        .account-welcome {
-            display: none;
-            text-align: center;
-        }
-        .account-welcome.show { display: block; }
-        .account-welcome h2 { font-size: 34px; margin-bottom: 12px; }
-        .account-welcome p { color: #999; line-height: 1.6; margin-bottom: 22px; }
-        .account-logout {
-            background: #111;
-            color: #fff;
-            border: 1px solid #444;
-            padding: 13px 20px;
-            cursor: pointer;
-        }
-        .account-logout:hover { background: #300000; border-color: #b00000; }
-
-        @media (max-width: 650px) {
-            .menu {
-                grid-template-columns: 1fr;
-            }
-
-            .tagline {
-                font-size: 13px;
-                letter-spacing: 3px;
-            }
-
-            section {
-                padding: 70px 20px;
-            }
-        }
     </style>
 </head>
 
@@ -754,13 +558,7 @@
         <p class="tagline">O som não morreu.</p>
 
         <div class="menu">
-
-            <button class="account-button" onclick="abrir('conta')">
-                <span>📧</span>
-                ENTRAR / CRIAR CONTA
-            </button>
-
-            <button onclick="abrir('estilos')">
+<button onclick="abrir('estilos')">
                 <span>🎸</span>
                 DESCUBRA SEU ESTILO
             </button>
@@ -808,62 +606,7 @@
     <!-- =========================
          ENTRAR / CRIAR CONTA
     ========================== -->
-    <section id="conta">
-        <button class="back" onclick="voltar()">← VOLTAR</button>
-        <h1 class="section-title">Sua conta</h1>
-        <p class="section-subtitle">Entre na RockWave ou crie seu perfil para guardar seu progresso. 🤘</p>
-
-        <div class="account-screen">
-            <div id="accountForms">
-                <div class="account-tabs">
-                    <button id="tabLogin" class="active" type="button" onclick="mostrarContaForm('login')">ENTRAR</button>
-                    <button id="tabSignup" type="button" onclick="mostrarContaForm('signup')">CRIAR CONTA</button>
-                </div>
-
-                <form id="loginForm" class="account-form active" onsubmit="entrarConta(event)">
-                    <label for="loginEmail">E-MAIL</label>
-                    <input id="loginEmail" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" required>
-
-                    <label for="loginPassword">SENHA</label>
-                    <input id="loginPassword" type="password" placeholder="Sua senha" autocomplete="current-password" required>
-
-                    <button class="account-submit" type="submit">ENTRAR NA ROCKWAVE</button>
-                    <div id="loginMessage" class="account-message"></div>
-                </form>
-
-                <form id="signupForm" class="account-form" onsubmit="criarConta(event)">
-                    <label for="signupEmail">E-MAIL</label>
-                    <input id="signupEmail" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" required>
-
-                    <label for="signupPassword">SENHA</label>
-                    <input id="signupPassword" type="password" placeholder="Mínimo de 6 caracteres" minlength="6" autocomplete="new-password" required>
-
-                    <label for="signupPassword2">CONFIRME A SENHA</label>
-                    <input id="signupPassword2" type="password" placeholder="Digite a senha novamente" minlength="6" autocomplete="new-password" required>
-
-                    <button class="account-submit" type="submit">CRIAR MINHA CONTA</button>
-                    <div id="signupMessage" class="account-message"></div>
-                </form>
-
-                <p class="account-note">Seu cadastro e login são protegidos pelo Supabase Auth. Se a confirmação por e-mail estiver ativada, você receberá um link para confirmar sua conta.</p>
-            </div>
-
-            <div id="verificationMessage" class="verification-message">
-                <div class="verification-icon">📧</div>
-                <h2>VERIFIQUE<br>SEU E-MAIL</h2>
-                <p>Conta criada com sucesso! Abra seu e-mail e clique no link de confirmação para liberar sua entrada na RockWave.</p>
-                <button class="verification-back" type="button" onclick="voltarParaLogin()">VOLTAR PARA ENTRAR</button>
-            </div>
-
-            <div id="accountWelcome" class="account-welcome">
-                <h2>VOCÊ ESTÁ DENTRO 🤘</h2>
-                <p id="accountWelcomeText"></p>
-                <button class="account-logout" type="button" onclick="sairConta()">SAIR DA CONTA</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- =========================
+<!-- =========================
          ESTILOS
     ========================== -->
 
@@ -1432,24 +1175,14 @@
     <footer>
         ROCKWAVE — O som não morreu. 🎸
     </footer>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <script>
+<script>
 
         /* =========================
            NAVEGAÇÃO
         ========================== */
 
         function abrir(id) {
-
-            if (!usuarioRockWave && id !== "conta") {
-                exigirEntrada();
-                return;
-            }
-
-            document.getElementById("home").style.display = "none";
+document.getElementById("home").style.display = "none";
 
             document.querySelectorAll("section").forEach(section => {
                 section.classList.remove("active");
@@ -1465,13 +1198,7 @@
 
 
         function voltar() {
-
-            if (!usuarioRockWave) {
-                exigirEntrada();
-                return;
-            }
-
-            document.querySelectorAll("section").forEach(section => {
+document.querySelectorAll("section").forEach(section => {
                 section.classList.remove("active");
             });
 
@@ -1484,159 +1211,8 @@
 
         }
 
-
-
-
         /* =========================
-           CONTA ROCKWAVE — SUPABASE AUTH
-        ========================== */
-
-        let usuarioRockWave = null;
-
-        function exigirEntrada() {
-            if (!usuarioRockWave) {
-                document.body.classList.add("auth-required");
-                document.getElementById("home").style.display = "none";
-                document.querySelectorAll("section").forEach(section => section.classList.remove("active"));
-                document.getElementById("conta").classList.add("active");
-                document.getElementById("verificationMessage").classList.remove("show");
-                document.getElementById("accountForms").style.display = "block";
-            }
-        }
-
-        function liberarEntrada() {
-            document.body.classList.remove("auth-required");
-            document.getElementById("home").style.display = "flex";
-        }
-
-        const SUPABASE_URL = "https://ehhzjsunispjlallbjat.supabase.co";
-        const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_745Mn1RXZegh_r2XeBU55A_HUglUV5E";
-
-        const rockwaveSupabase = window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_PUBLISHABLE_KEY
-        );
-
-        function mostrarContaForm(tipo) {
-            const login = tipo === "login";
-            document.getElementById("loginForm").classList.toggle("active", login);
-            document.getElementById("signupForm").classList.toggle("active", !login);
-            document.getElementById("tabLogin").classList.toggle("active", login);
-            document.getElementById("tabSignup").classList.toggle("active", !login);
-            document.getElementById("loginMessage").textContent = "";
-            document.getElementById("signupMessage").textContent = "";
-        }
-
-        function mostrarContaLogada(user) {
-            usuarioRockWave = user;
-            liberarEntrada();
-            document.getElementById("verificationMessage").classList.remove("show");
-            document.getElementById("accountForms").style.display = "none";
-            document.getElementById("accountWelcome").classList.add("show");
-            document.getElementById("accountWelcomeText").textContent =
-                "Conta conectada como " + (user.email || "usuário RockWave") + ". Seu login está salvo neste navegador.";
-        }
-
-        function mostrarContaDeslogada() {
-            usuarioRockWave = null;
-            document.getElementById("accountWelcome").classList.remove("show");
-            document.getElementById("accountForms").style.display = "block";
-            exigirEntrada();
-        }
-
-        async function criarConta(event) {
-            event.preventDefault();
-
-            const email = document.getElementById("signupEmail").value.trim();
-            const senha = document.getElementById("signupPassword").value;
-            const confirmar = document.getElementById("signupPassword2").value;
-            const msg = document.getElementById("signupMessage");
-
-            msg.textContent = "";
-
-            if (senha !== confirmar) {
-                msg.textContent = "As senhas não são iguais.";
-                return;
-            }
-
-            if (senha.length < 6) {
-                msg.textContent = "A senha precisa ter pelo menos 6 caracteres.";
-                return;
-            }
-
-            msg.textContent = "Criando sua conta...";
-
-            const { data, error } = await rockwaveSupabase.auth.signUp({
-                email,
-                password: senha,
-                options: {
-                    emailRedirectTo: window.location.origin
-                }
-            });
-
-            if (error) {
-                msg.textContent = "Erro: " + error.message;
-                return;
-            }
-
-            if (data.session) {
-                msg.textContent = "Conta criada! Você já está conectado. 🤘";
-                mostrarContaLogada(data.user);
-            } else {
-                document.getElementById("accountForms").style.display = "none";
-                document.getElementById("verificationMessage").classList.add("show");
-            }
-        }
-
-        async function entrarConta(event) {
-            event.preventDefault();
-
-            const email = document.getElementById("loginEmail").value.trim();
-            const senha = document.getElementById("loginPassword").value;
-            const msg = document.getElementById("loginMessage");
-
-            msg.textContent = "Entrando...";
-
-            const { data, error } = await rockwaveSupabase.auth.signInWithPassword({
-                email,
-                password: senha
-            });
-
-            if (error) {
-                msg.textContent = "Não foi possível entrar: " + error.message;
-                return;
-            }
-
-            msg.textContent = "";
-            mostrarContaLogada(data.user);
-        }
-
-        async function sairConta() {
-            const { error } = await rockwaveSupabase.auth.signOut();
-
-            if (error) {
-                document.getElementById("loginMessage").textContent =
-                    "Não foi possível sair: " + error.message;
-                return;
-            }
-
-            mostrarContaDeslogada();
-            mostrarContaForm("login");
-        }
-
-        function voltarParaLogin() {
-            document.getElementById("verificationMessage").classList.remove("show");
-            document.getElementById("accountForms").style.display = "block";
-            mostrarContaForm("login");
-        }
-
-        rockwaveSupabase.auth.onAuthStateChange((event, session) => {
-            if (session?.user) {
-                mostrarContaLogada(session.user);
-            } else {
-                mostrarContaDeslogada();
-            }
-        });
+           QUIZ — 50 RESULTADOS
         
         /* =========================
            QUIZ — 50 RESULTADOS
