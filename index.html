@@ -308,6 +308,24 @@
             letter-spacing: 2px;
         }
 
+
+        #quizBox { max-width: 900px; margin: 0 auto 70px; }
+        .quiz-question { display: none; background:#090909; border:1px solid #292929; padding:35px; }
+        .quiz-question.active { display:block; }
+        .quiz-question h2 { font-size:clamp(24px,4vw,38px); margin-bottom:25px; }
+        .quiz-options { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .quiz-options button, .quiz-restart { background:#111; color:#fff; border:1px solid #444; padding:18px; text-align:left; cursor:pointer; font-weight:bold; font-size:15px; transition:.2s; }
+        .quiz-options button:hover, .quiz-restart:hover { background:#300000; border-color:#b00000; transform:translateY(-2px); }
+        #quizProgress { color:#888; margin-bottom:15px; letter-spacing:2px; font-size:12px; }
+        .quiz-result { display:none; text-align:center; padding:50px 25px; background:#090909; border:1px solid #b00000; box-shadow:0 0 40px rgba(180,0,0,.18); }
+        .quiz-result.show { display:block; }
+        .result-kicker { color:#888; letter-spacing:4px; font-size:12px; margin-bottom:15px; }
+        #resultGenre { font-size:clamp(40px,8vw,80px); font-weight:900; margin-bottom:18px; }
+        #resultText { color:#aaa; max-width:650px; margin:0 auto 25px; line-height:1.6; }
+        .quiz-restart { text-align:center; display:inline-block; }
+        .small-title { font-size:clamp(28px,5vw,50px); margin-top:60px; }
+        @media (max-width:650px){ .quiz-options{grid-template-columns:1fr;} .quiz-question{padding:25px;} }
+
         @media (max-width: 650px) {
             .menu {
                 grid-template-columns: 1fr;
@@ -386,197 +404,140 @@
     ========================== -->
 
     <section id="estilos">
+<button class="back" onclick="voltar()">← VOLTAR</button>
+<h1 class="section-title">Descubra seu estilo</h1>
+<p class="section-subtitle">Responda 10 perguntas e descubra qual das 50 ondas da RockWave combina mais com você. 🤘</p>
+<div id="quizBox">
+  <div id="quizProgress">PERGUNTA 1 DE 10</div>
+  
+<div class="quiz-question" data-question="0">
+  <h2>1. Qual energia você quer sentir?</h2>
+  <div class="quiz-options">
+    <button type="button" onclick="responder(0,'Heavy Metal')">🔥 🔥 Porrada e peso</button><button type="button" onclick="responder(0,'Death Metal')">🎸 Death Metal</button><button type="button" onclick="responder(0,'Doom Metal')">🖤 Doom Metal</button><button type="button" onclick="responder(0,'Black Metal')">⚡ Black Metal</button><button type="button" onclick="responder(0,'Metalcore')">🎧 Metalcore</button>
+  </div>
+</div>
 
-        <button class="back" onclick="voltar()">← VOLTAR</button>
+<div class="quiz-question" data-question="1">
+  <h2>2. Qual guitarra combina mais com você?</h2>
+  <div class="quiz-options">
+    <button type="button" onclick="responder(1,'Rock and Roll')">🔥 🎸 Riff clássico</button><button type="button" onclick="responder(1,'Blues Rock')">🎸 Blues Rock</button><button type="button" onclick="responder(1,'Hard Rock')">🖤 Hard Rock</button><button type="button" onclick="responder(1,'Garage Rock')">⚡ Garage Rock</button><button type="button" onclick="responder(1,'Country Rock')">🎧 Country Rock</button>
+  </div>
+</div>
 
-        <h1 class="section-title">Seu estilo</h1>
+<div class="quiz-question" data-question="2">
+  <h2>3. Escolha uma atmosfera</h2>
+  <div class="quiz-options">
+    <button type="button" onclick="responder(2,'Gothic Rock')">🔥 🖤 Sombria</button><button type="button" onclick="responder(2,'Post-Punk')">🎸 Post-Punk</button><button type="button" onclick="responder(2,'Industrial Rock')">🖤 Industrial Rock</button><button type="button" onclick="responder(2,'Black Metal')">⚡ Black Metal</button><button type="button" onclick="responder(2,'Doom Metal')">🎧 Doom Metal</button>
+  </div>
+</div>
 
-        <p class="section-subtitle">
-            Qual dessas ondas combina com você?
-        </p>
+<div class="quiz-question" data-question="3">
+  <h2>4. Qual atitude?</h2>
+  <div class="quiz-options">
+    <button type="button" onclick="responder(3,'Punk Rock')">🔥 Ⓐ Rebeldia</button><button type="button" onclick="responder(3,'Hardcore Punk')">🎸 Hardcore Punk</button><button type="button" onclick="responder(3,'Post-Hardcore')">🖤 Post-Hardcore</button><button type="button" onclick="responder(3,'Emo Rock')">⚡ Emo Rock</button><button type="button" onclick="responder(3,'Alternative Rock')">🎧 Alternative Rock</button>
+  </div>
+</div>
 
-        <div class="styles-grid">
+<div class="quiz-question" data-question="4">
+  <h2>5. Qual viagem sonora?</h2>
+  <div class="quiz-options">
+    <button type="button" onclick="responder(4,'Psychedelic Rock')">🔥 🌈 Psicodélica</button><button type="button" onclick="responder(4,'Acid Rock')">🎸 Acid Rock</button><button type="button" onclick="responder(4,'Progressive Rock')">🖤 Progressive Rock</button><button type="button" onclick="responder(4,'Art Rock')">⚡ Art Rock</button><button type="button" onclick="responder(4,'Experimental Rock')">🎧 Experimental Rock</button>
+  </div>
+</div>
 
-            <div class="style-card">
-                <h3>🎸 Rock and Roll</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
+<div class="quiz-question" data-question="5">
+  <h2>6. Qual vibe para cantar junto?</h2>
+  <div class="quiz-options">
+    <button type="button" onclick="responder(5,'Pop Rock')">🔥 🎤 Hino</button><button type="button" onclick="responder(5,'Arena Rock')">🎸 Arena Rock</button><button type="button" onclick="responder(5,'Power Metal')">🖤 Power Metal</button><button type="button" onclick="responder(5,'Britpop')">⚡ Britpop</button><button type="button" onclick="responder(5,'Post-Grunge')">🎧 Post-Grunge</button>
+  </div>
+</div>
 
-            <div class="style-card">
-                <h3>🕺 Rockabilly</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
+<div class="quiz-question" data-question="6">
+  <h2>7. Qual mistura te chama?</h2>
+  <div class="quiz-options">
+    <button type="button" onclick="responder(6,'Rap Rock')">🔥 💿 Fusão</button><button type="button" onclick="responder(6,'Funk Rock')">🎸 Funk Rock</button><button type="button" onclick="responder(6,'Reggae Rock')">🖤 Reggae Rock</button><button type="button" onclick="responder(6,'Latin Rock')">⚡ Latin Rock</button><button type="button" onclick="responder(6,'Samba Rock')">🎧 Samba Rock</button>
+  </div>
+</div>
 
-            <div class="style-card">
-                <h3>🌊 Surf Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
+<div class="quiz-question" data-question="7">
+  <h2>8. Qual som mais experimental?</h2>
+  <div class="quiz-options">
+    <button type="button" onclick="responder(7,'Math Rock')">🔥 🧠 Diferentão</button><button type="button" onclick="responder(7,'Noise Rock')">🎸 Noise Rock</button><button type="button" onclick="responder(7,'Post-Rock')">🖤 Post-Rock</button><button type="button" onclick="responder(7,'Shoegaze')">⚡ Shoegaze</button><button type="button" onclick="responder(7,'Experimental Rock')">🎧 Experimental Rock</button>
+  </div>
+</div>
 
-            <div class="style-card">
-                <h3>🎶 Blues Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
+<div class="quiz-question" data-question="8">
+  <h2>9. Qual raiz você escolheria?</h2>
+  <div class="quiz-options">
+    <button type="button" onclick="responder(8,'Rockabilly')">🔥 🌾 Raiz</button><button type="button" onclick="responder(8,'Surf Rock')">🎸 Surf Rock</button><button type="button" onclick="responder(8,'Folk Rock')">🖤 Folk Rock</button><button type="button" onclick="responder(8,'Country Rock')">⚡ Country Rock</button><button type="button" onclick="responder(8,'Southern Rock')">🎧 Southern Rock</button>
+  </div>
+</div>
 
-            <div class="style-card">
-                <h3>🌈 Psychedelic Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🤘 Hard Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🚀 Progressive Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>✨ Glam Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>⚡ Heavy Metal</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>Ⓐ Punk Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🖤 Gothic Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>📡 New Wave</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🌑 Post-Punk</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🧨 Thrash Metal</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🏴 Alternative Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🎤 Pop Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🩸 Death Metal</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🌲 Grunge</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>💿 Industrial Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🎧 Shoegaze</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🔥 Nu Metal</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🧱 Post-Grunge</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>💥 Metalcore</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🎙️ Emo Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🕶️ Indie Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🥁 Post-Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🏍️ Stoner Rock</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🌎 Britpop</h3>
-                                <p>Explore as características e os principais nomes desse estilo na RockWave.</p>
-            </div>
-
-        </div>
-
-            <div class="style-card">
-                <h3>🔥 Nu Metal</h3>
-                <p>Riffs pesados misturados com hip-hop e elementos eletrônicos.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>⚡ Heavy Metal</h3>
-                <p>Guitarras pesadas, solos marcantes e muita potência.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>Ⓐ Punk Rock</h3>
-                <p>Atitude, velocidade e uma boa dose de rebeldia.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🌑 Alternative Rock</h3>
-                <p>Rock que foge das fórmulas tradicionais.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🤘 Hard Rock</h3>
-                <p>Grandes riffs, baterias fortes e vocais marcantes.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🖤 Gothic Rock</h3>
-                <p>Atmosfera sombria, dramática e cheia de personalidade.</p>
-            </div>
-
-            <div class="style-card">
-                <h3>🧨 Thrash Metal</h3>
-                <p>Velocidade absurda, riffs agressivos e muita energia.</p>
-            </div>
-
-        </div>
-
-    </section>
+<div class="quiz-question" data-question="9">
+  <h2>10. Qual estética te representa?</h2>
+  <div class="quiz-options">
+    <button type="button" onclick="responder(9,'Glam Rock')">🔥 ✨ Diferente</button><button type="button" onclick="responder(9,'New Wave')">🎸 New Wave</button><button type="button" onclick="responder(9,'Indie Rock')">🖤 Indie Rock</button><button type="button" onclick="responder(9,'Nu Metal')">⚡ Nu Metal</button><button type="button" onclick="responder(9,'Thrash Metal')">🎧 Thrash Metal</button>
+  </div>
+</div>
+  <div id="quizResult" class="quiz-result">
+    <div class="result-kicker">SEU RESULTADO</div>
+    <div id="resultGenre"></div>
+    <p id="resultText"></p>
+    <button class="quiz-restart" onclick="reiniciarQuiz()">🔄 FAZER DE NOVO</button>
+  </div>
+</div>
+<h2 class="section-title small-title">50 RESULTADOS POSSÍVEIS</h2>
+<div class="styles-grid"><div class="style-card"><h3>🎸 Rock and Roll</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🕺 Rockabilly</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🌊 Surf Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🎶 Blues Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🌈 Psychedelic Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🤘 Hard Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🚀 Progressive Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>✨ Glam Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>⚡ Heavy Metal</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>Ⓐ Punk Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🖤 Gothic Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>📡 New Wave</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🌑 Post-Punk</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🧨 Thrash Metal</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🏴 Alternative Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🎤 Pop Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🩸 Death Metal</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🌲 Grunge</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>💿 Industrial Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🎧 Shoegaze</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🔥 Nu Metal</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🧱 Post-Grunge</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>💥 Metalcore</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🎙️ Emo Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🕶️ Indie Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🥁 Post-Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🏍️ Stoner Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🌎 Britpop</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>📻 Garage Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🌾 Folk Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🤠 Country Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🌵 Southern Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🏟️ Arena Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🎨 Art Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🧪 Acid Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🕺 Funk Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🎙️ Rap Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🌴 Reggae Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🌎 Latin Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🇧🇷 Samba Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>💣 Hardcore Punk</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>⚔️ Post-Hardcore</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🧮 Math Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>📢 Noise Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🌋 Doom Metal</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>☠️ Black Metal</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🏆 Power Metal</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🎻 Symphonic Metal</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🧠 Progressive Metal</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div>
+<div class="style-card"><h3>🧬 Experimental Rock</h3><p>Resultado possível do quiz. Descubra se essa é a sua onda.</p></div></div>
+</section>
 
 
     <!-- =========================
@@ -943,6 +904,69 @@
             });
 
         }
+
+
+
+        /* =========================
+           QUIZ — 50 RESULTADOS
+        ========================== */
+        const quizScores = {};
+        const quizQuestions = document.querySelectorAll(".quiz-question");
+        let quizCurrent = 0;
+
+        function iniciarQuiz() {
+            Object.keys(quizScores).forEach(k => delete quizScores[k]);
+            quizCurrent = 0;
+            quizQuestions.forEach((q,i) => q.classList.toggle("active", i === 0));
+            document.getElementById("quizResult").classList.remove("show");
+            document.getElementById("quizProgress").textContent = "PERGUNTA 1 DE 10";
+        }
+
+        function responder(numero, estilo) {
+            quizScores[estilo] = (quizScores[estilo] || 0) + 1;
+            quizCurrent = numero + 1;
+
+            if (quizCurrent < quizQuestions.length) {
+                quizQuestions.forEach((q,i) => q.classList.toggle("active", i === quizCurrent));
+                document.getElementById("quizProgress").textContent =
+                    "PERGUNTA " + (quizCurrent + 1) + " DE 10";
+            } else {
+                mostrarResultado();
+            }
+        }
+
+        function mostrarResultado() {
+            quizQuestions.forEach(q => q.classList.remove("active"));
+            document.getElementById("quizProgress").textContent = "RESULTADO FINAL";
+
+            const vencedor = Object.entries(quizScores)
+                .sort((a,b) => b[1] - a[1])[0][0];
+
+            const frases = {
+                "Rock and Roll":"Você curte a raiz que colocou o rock no mapa. Riff, atitude e energia pura!",
+                "Heavy Metal":"Peso, potência e guitarras no talo. O amplificador já pediu socorro.",
+                "Punk Rock":"Velocidade, atitude e zero paciência para enrolação. 🤘",
+                "Grunge":"Distorção, melodia e aquela energia crua que não precisa pedir licença.",
+                "Progressive Rock":"Você gosta de viajar na música e não tem medo de uma música de 12 minutos.",
+                "Black Metal":"Atmosfera extrema, intensidade e uma sonoridade sombria.",
+                "Indie Rock":"Você procura personalidade e sons que fogem do caminho óbvio.",
+                "New Wave":"Você gosta quando o rock encontra sintetizadores, estilo e experimentação.",
+                "Nu Metal":"Peso moderno, groove e misturas que não respeitam fronteiras.",
+                "Samba Rock":"O rock encontrou o balanço brasileiro — e ninguém saiu ileso. 🇧🇷"
+            };
+
+            document.getElementById("resultGenre").textContent = vencedor + " 🤘";
+            document.getElementById("resultText").textContent =
+                frases[vencedor] || "Essa é a sua onda na RockWave. Agora aumente o volume e descubra mais desse estilo!";
+            document.getElementById("quizResult").classList.add("show");
+        }
+
+        function reiniciarQuiz() {
+            iniciarQuiz();
+            window.scrollTo({top:0, behavior:"smooth"});
+        }
+
+        iniciarQuiz();
 
 
         /* =========================
