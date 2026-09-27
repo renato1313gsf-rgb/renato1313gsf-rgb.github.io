@@ -280,6 +280,15 @@
 
         #easterMessage.show {
             display: flex;
+            animation: easterShake .12s infinite;
+        }
+
+        @keyframes easterShake {
+            0%   { transform: translate(0, 0) rotate(0deg); }
+            25%  { transform: translate(-5px, 3px) rotate(-0.5deg); }
+            50%  { transform: translate(5px, -3px) rotate(0.5deg); }
+            75%  { transform: translate(-3px, -4px) rotate(-0.3deg); }
+            100% { transform: translate(3px, 4px) rotate(0.3deg); }
         }
 
         .easter-card {
@@ -1603,8 +1612,14 @@ document.querySelectorAll("section").forEach(section => {
         const easterTitle = document.getElementById("easterTitle");
         const easterText = document.getElementById("easterText");
 
+        let easterEggTimer = null;
+
         function mostrarEasterEgg(tipo) {
             desbloquear("achEgg");
+
+            if (easterEggTimer) {
+                clearTimeout(easterEggTimer);
+            }
             if (tipo === "nirvana") {
                 easterTitle.textContent = "NEVERMIND.EXE";
                 easterText.textContent = "Você encontrou o sinal de 1991. 🎸";
@@ -1617,11 +1632,20 @@ document.querySelectorAll("section").forEach(section => {
 
             easterMessage.classList.add("show");
             ligarRadio();
+
+            easterEggTimer = setTimeout(() => {
+                fecharEasterEgg();
+            }, 10000);
         }
 
         function fecharEasterEgg() {
             easterMessage.classList.remove("show");
             pausarRadio();
+
+            if (easterEggTimer) {
+                clearTimeout(easterEggTimer);
+                easterEggTimer = null;
+            }
         }
 
         document.addEventListener("keydown", function(event) {
