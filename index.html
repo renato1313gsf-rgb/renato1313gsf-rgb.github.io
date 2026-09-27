@@ -534,6 +534,89 @@
         @media(max-width:650px){
             .profile-card,.curiosity-box,.rock-level{padding:25px;}
         }
+
+        /* =========================
+           RECURSOS ROCKWAVE — SHOW / UNDERGROUND
+        ========================== */
+        .show-mode-btn {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 5000;
+            background: #0b0b0b;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-weight: 900;
+            letter-spacing: 1px;
+            box-shadow: 0 0 18px rgba(180,0,0,.18);
+        }
+        .show-mode-btn:hover { background:#300000; border-color:#b00000; }
+        body.show-mode {
+            background: radial-gradient(circle at 50% 35%, #260000 0%, #050505 45%, #000 100%);
+        }
+        body.show-mode .hero,
+        body.show-mode section {
+            animation: showPulse 1.8s ease-in-out infinite alternate;
+        }
+        body.show-mode .glow {
+            opacity: .34;
+            background: #ff0000;
+            filter: blur(120px);
+            animation: showGlow 1.1s ease-in-out infinite alternate;
+        }
+        body.show-mode .menu button,
+        body.show-mode .style-card,
+        body.show-mode .achievement,
+        body.show-mode .profile-card,
+        body.show-mode .curiosity-box,
+        body.show-mode .radio-box,
+        body.show-mode .decade-display,
+        body.show-mode .quiz-question {
+            border-color: #700000;
+            box-shadow: 0 0 24px rgba(180,0,0,.12);
+        }
+        @keyframes showPulse {
+            from { filter: brightness(.9); }
+            to { filter: brightness(1.12); }
+        }
+        @keyframes showGlow {
+            from { transform:scale(.9); opacity:.22; }
+            to { transform:scale(1.15); opacity:.42; }
+        }
+        .underground-box {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #020202;
+            border: 1px solid #3d0000;
+            box-shadow: inset 0 0 70px rgba(180,0,0,.08), 0 0 35px rgba(180,0,0,.1);
+        }
+        .underground-terminal {
+            margin-top: 25px;
+            background:#000;
+            border:1px solid #252525;
+            padding:22px;
+            color:#8f8;
+            font-family:monospace;
+            line-height:1.7;
+            min-height:180px;
+        }
+        .underground-terminal .red { color:#f44; }
+        .underground-code {
+            margin-top:22px;
+            padding:18px;
+            background:#090909;
+            border:1px dashed #500;
+            color:#aaa;
+        }
+        .secret-code {
+            color:#ff5555;
+            font-family:monospace;
+            font-weight:bold;
+        }
+
     </style>
 </head>
 
@@ -544,6 +627,9 @@
     ========================== -->
 
     <main id="home" class="hero">
+
+        <button class="show-mode-btn" id="showModeButton" onclick="alternarModoShow()">🎸 MODO SHOW</button>
+
 
         <div class="glow"></div>
 
@@ -594,6 +680,11 @@
             <button onclick="abrir('conquistas')">
                 <span>🏆</span>
                 CONQUISTAS
+            </button>
+
+            <button onclick="abrir('underground')">
+                <span>🕵️</span>
+                ROCKWAVE UNDERGROUND
             </button>
 
             <button onclick="abrir('perfil')">
@@ -1081,6 +1172,28 @@
 
 
 
+
+    <section id="underground">
+        <button class="back" onclick="voltar()">← VOLTAR</button>
+        <h1 class="section-title">RockWave Underground</h1>
+        <p class="section-subtitle">Você encontrou uma área que não aparece no menu normal. 🤫</p>
+        <div class="underground-box">
+            <div class="time-kicker">ACCESS GRANTED • ROCKWAVE.EXE</div>
+            <h2>ARQUIVO SUBTERRÂNEO</h2>
+            <p class="section-subtitle">Um canto escondido da RockWave para quem gosta de procurar além do óbvio.</p>
+            <div class="underground-terminal">
+                <div>&gt; conexão estabelecida...</div>
+                <div>&gt; verificando credenciais...</div>
+                <div>&gt; <span class="red">SEGREDO DESCOBERTO</span></div>
+                <div>&gt; bem-vindo ao Underground, roqueiro.</div>
+            </div>
+            <div class="underground-code">
+                <strong>PRÓXIMO SINAL:</strong><br>
+                Procure pelo código <span class="secret-code">headbang</span>.
+            </div>
+        </div>
+    </section>
+
     <section id="perfil">
         <button class="back" onclick="voltar()">← VOLTAR</button>
         <h1 class="section-title">Perfil RockWave</h1>
@@ -1128,6 +1241,22 @@
         <h1 class="section-title">Conquistas</h1>
         <p class="section-subtitle">Explore a RockWave e desbloqueie seu arquivo de roqueiro. 🏆</p>
         <div class="achievement-grid">
+            <div class="achievement" id="achShow">
+                <h3>🎸 Modo Show</h3>
+                <p>Ative o palco secreto da RockWave.</p>
+                <div class="achievement-state">BLOQUEADA</div>
+            </div>
+            <div class="achievement" id="achCodes">
+                <h3>🔐 Caçador de Códigos</h3>
+                <p>Descubra um dos novos códigos secretos.</p>
+                <div class="achievement-state">BLOQUEADA</div>
+            </div>
+            <div class="achievement" id="achUnderground">
+                <h3>🕵️ Underground</h3>
+                <p>Encontre a entrada para o arquivo subterrâneo.</p>
+                <div class="achievement-state">BLOQUEADA</div>
+            </div>
+
             <div class="achievement" id="achQuiz"><h3>🎸 Primeira Onda</h3><p>Complete o quiz de estilo.</p><div class="achievement-state">BLOQUEADA</div></div>
             <div class="achievement" id="achProfile"><h3>🤘 Identidade Rock</h3><p>Descubra seu perfil RockWave.</p><div class="achievement-state">BLOQUEADA</div></div>
             <div class="achievement" id="achRadio"><h3>📻 Ouvinte</h3><p>Ligue a RockWave Radio.</p><div class="achievement-state">BLOQUEADA</div></div>
@@ -1603,6 +1732,20 @@ document.querySelectorAll("section").forEach(section => {
             });
         }
 
+
+        /* =========================
+           MODO SHOW + NOVOS SEGREDOS
+        ========================== */
+        let modoShow = false;
+
+        function alternarModoShow() {
+            modoShow = !modoShow;
+            document.body.classList.toggle("show-mode", modoShow);
+            const botao = document.getElementById("showModeButton");
+            botao.textContent = modoShow ? "🛑 SAIR DO SHOW" : "🎸 MODO SHOW";
+            desbloquear("achShow");
+        }
+
         /* =========================
            EASTER EGGS
         ========================== */
@@ -1686,6 +1829,23 @@ document.querySelectorAll("section").forEach(section => {
             } else if (codigoSecreto.includes("rockwave")) {
                 codigoSecreto = "";
                 mostrarEasterEgg("rockwave");
+            } else if (codigoSecreto.includes("showtime")) {
+                codigoSecreto = "";
+                alternarModoShow();
+                desbloquear("achCodes");
+            } else if (codigoSecreto.includes("underground")) {
+                codigoSecreto = "";
+                desbloquear("achCodes");
+                desbloquear("achUnderground");
+                abrir("underground");
+            } else if (codigoSecreto.includes("headbang")) {
+                codigoSecreto = "";
+                desbloquear("achCodes");
+                mostrarEasterEgg("rockwave");
+                easterTitle.textContent = "HEADBANG.EXE";
+                easterText.textContent = "Você encontrou um sinal ainda mais fundo no RockWave. 🤘";
+                musicaAtual = 5;
+                ligarRadio();
             }
         });
 
