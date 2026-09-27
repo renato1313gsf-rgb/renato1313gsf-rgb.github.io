@@ -770,6 +770,54 @@
             .show-mode-btn{max-width:145px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         }
 
+    
+        /* =========================
+           ROCKWAVE EXPANSION PACK
+        ========================== */
+        body.extreme-night { background:#000 !important; color:#ddd; }
+        body.extreme-night::before { opacity:.04; }
+        body.extreme-night .glow { opacity:.02 !important; }
+        body.extreme-night .menu button,
+        body.extreme-night section,
+        body.extreme-night .style-card,
+        body.extreme-night .radio-box,
+        body.extreme-night .profile-card,
+        body.extreme-night .achievement,
+        body.extreme-night .curiosity-box,
+        body.extreme-night .rock-level,
+        body.extreme-night .map-box,
+        body.extreme-night .lore-box,
+        body.extreme-night .mini-game { background:#000; border-color:#151515; box-shadow:none; }
+        .xp-panel,.map-box,.lore-box,.mini-game { max-width:1000px; margin:0 auto 30px; background:#090909; border:1px solid #292929; padding:30px; }
+        .xp-row { display:flex; justify-content:space-between; gap:15px; align-items:center; }
+        .xp-number { font-size:clamp(35px,7vw,62px); font-weight:900; }
+        .xp-bar { height:15px; background:#171717; border:1px solid #333; margin-top:15px; overflow:hidden; }
+        #xpFill { width:0; height:100%; background:linear-gradient(90deg,#700000,#e00000); transition:width .5s; }
+        .xp-note { color:#777; margin-top:10px; }
+        .map-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-top:25px; }
+        .map-node { padding:22px; background:#101010; border:1px solid #292929; cursor:pointer; transition:.2s; }
+        .map-node:hover { border-color:#b00000; transform:translateY(-3px); }
+        .map-node small { color:#666; display:block; margin-bottom:8px; letter-spacing:2px; }
+        .lore-box p { color:#aaa; line-height:1.8; margin-bottom:18px; }
+        .lore-chapter { border-left:3px solid #a00000; padding:18px; background:#101010; margin:12px 0; }
+        .guitar-strings { display:grid; gap:8px; margin:25px 0; }
+        .guitar-string { height:10px; background:#555; border:0; cursor:pointer; transition:.1s; }
+        .guitar-string:hover,.guitar-string.hit { background:#b00000; box-shadow:0 0 18px #b00000; }
+        .game-score { font-size:28px; font-weight:900; }
+        .song-guess { text-align:center; }
+        .guess-options { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px; }
+        .guess-options button { background:#111; color:#fff; border:1px solid #444; padding:16px; cursor:pointer; font-weight:bold; }
+        .guess-options button:hover { background:#300000; border-color:#b00000; }
+        .band-quiz-result { margin-top:18px; color:#aaa; min-height:24px; }
+        .band-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:15px; }
+        .band-card { background:#0d0d0d; border:1px solid #222; padding:24px; }
+        .band-card h3 { margin-bottom:10px; }
+        .band-card p { color:#888; line-height:1.5; }
+        @media(max-width:650px){
+            .guess-options { grid-template-columns:1fr; }
+            .xp-panel,.map-box,.lore-box,.mini-game { padding:22px; }
+        }
+
     </style>
 </head>
 
@@ -845,7 +893,17 @@
                 MÁQUINA DO TEMPO
             </button>
 
-            <button onclick="abrir('galeria')">
+            
+            <button onclick="abrir('nivel')"><span>⭐</span>XP & NÍVEIS</button>
+            <button onclick="abrir('bandas')"><span>🎸</span>BANDAS ROCKWAVE</button>
+            <button onclick="abrir('quizbandas')"><span>🧠</span>QUIZ DE BANDAS</button>
+            <button onclick="abrir('adivinhe')"><span>🎵</span>ADIVINHE A MÚSICA</button>
+            <button onclick="abrir('guitarra')"><span>🎮</span>MINIGAME DE GUITARRA</button>
+            <button onclick="abrir('mapa')"><span>🗺️</span>MAPA ROCKWAVE</button>
+            <button onclick="abrir('lore')"><span>📜</span>LORE ROCKWAVE</button>
+            <button onclick="alternarNoiteExtrema()"><span>🌑</span>NOITE EXTREMA</button>
+
+<button onclick="abrir('galeria')">
                 <span>🖼️</span>
                 GALERIA ROCKWAVE
             </button>
@@ -1004,6 +1062,113 @@
     <!-- =========================
          GALERIA ROCKWAVE
     ========================== -->
+
+
+    <section id="nivel">
+        <div class="back" onclick="voltarHome()">← VOLTAR</div>
+        <h1 class="section-title">XP & NÍVEIS</h1>
+        <p class="section-subtitle">Cada descoberta deixa sua marca no arquivo RockWave.</p>
+        <div class="xp-panel">
+            <div class="xp-row"><div><div class="level-label">NÍVEL ROCKWAVE</div><div id="xpLevel" class="xp-number">1</div></div><div class="game-score"><span id="xpValue">0</span> XP</div></div>
+            <div class="xp-bar"><div id="xpFill"></div></div>
+            <div id="xpText" class="xp-note">0 / 100 XP para o próximo nível.</div>
+        </div>
+        <div class="xp-panel"><h2>Como ganhar XP</h2><p class="xp-note">Explore áreas, complete quizzes, descubra segredos e interaja com a RockWave.</p></div>
+    </section>
+
+    <section id="bandas">
+        <div class="back" onclick="voltarHome()">← VOLTAR</div>
+        <h1 class="section-title">BANDAS ROCKWAVE</h1>
+        <p class="section-subtitle">Um arquivo rápido de bandas que atravessam diferentes eras e estilos.</p>
+        <div class="band-cards">
+            <div class="band-card"><h3>Nirvana</h3><p>Grunge • Seattle • anos 90</p></div>
+            <div class="band-card"><h3>Linkin Park</h3><p>Nu metal / alternative • anos 2000</p></div>
+            <div class="band-card"><h3>Black Sabbath</h3><p>Heavy metal • anos 70</p></div>
+            <div class="band-card"><h3>Queen</h3><p>Rock • hard rock • glam</p></div>
+            <div class="band-card"><h3>AC/DC</h3><p>Hard rock • riffs e energia</p></div>
+            <div class="band-card"><h3>System Of A Down</h3><p>Alternative metal • anos 2000</p></div>
+        </div>
+    </section>
+
+    <section id="quizbandas">
+        <div class="back" onclick="voltarHome()">← VOLTAR</div>
+        <h1 class="section-title">QUIZ DE BANDAS</h1>
+        <p class="section-subtitle">Teste se você reconhece a banda pela pista.</p>
+        <div class="mini-game">
+            <div id="bandQuizQuestion"><h2>Qual banda lançou “Nevermind”?</h2></div>
+            <div class="guess-options">
+                <button onclick="responderBanda('Nirvana')">Nirvana</button>
+                <button onclick="responderBanda('Queen')">Queen</button>
+                <button onclick="responderBanda('AC/DC')">AC/DC</button>
+                <button onclick="responderBanda('Metallica')">Metallica</button>
+            </div>
+            <div id="bandQuizResult" class="band-quiz-result"></div>
+        </div>
+    </section>
+
+    <section id="adivinhe">
+        <div class="back" onclick="voltarHome()">← VOLTAR</div>
+        <h1 class="section-title">ADIVINHE A MÚSICA</h1>
+        <p class="section-subtitle">Leia a pista e escolha a música certa.</p>
+        <div class="mini-game song-guess">
+            <div id="songGuessClue"><h2>🎤 Pista: “I'm gonna fight 'em off...”</h2></div>
+            <div class="guess-options">
+                <button onclick="responderMusica(0)">Seven Nation Army</button>
+                <button onclick="responderMusica(1)">In the End</button>
+                <button onclick="responderMusica(2)">Psychosocial</button>
+                <button onclick="responderMusica(3)">Thunderstruck</button>
+            </div>
+            <div id="songGuessResult" class="band-quiz-result"></div>
+        </div>
+    </section>
+
+    <section id="guitarra">
+        <div class="back" onclick="voltarHome()">← VOLTAR</div>
+        <h1 class="section-title">MINIGAME DE GUITARRA</h1>
+        <p class="section-subtitle">Clique nas cordas para fazer um riff. Acerte 8 batidas para liberar a conquista.</p>
+        <div class="mini-game">
+            <div class="game-score">Riff: <span id="guitarScore">0</span> / 8</div>
+            <div class="guitar-strings">
+                <button class="guitar-string" onclick="tocarCorda(this)"></button>
+                <button class="guitar-string" onclick="tocarCorda(this)"></button>
+                <button class="guitar-string" onclick="tocarCorda(this)"></button>
+                <button class="guitar-string" onclick="tocarCorda(this)"></button>
+                <button class="guitar-string" onclick="tocarCorda(this)"></button>
+                <button class="guitar-string" onclick="tocarCorda(this)"></button>
+            </div>
+            <div id="guitarMessage" class="band-quiz-result">A guitarra está esperando. 🎸</div>
+        </div>
+    </section>
+
+    <section id="mapa">
+        <div class="back" onclick="voltarHome()">← VOLTAR</div>
+        <h1 class="section-title">MAPA ROCKWAVE</h1>
+        <p class="section-subtitle">Veja os territórios que você já explorou.</p>
+        <div class="map-box">
+            <div class="map-grid">
+                <div class="map-node" onclick="abrir('quiz')"><small>01</small>Descubra seu estilo</div>
+                <div class="map-node" onclick="abrir('radio')"><small>02</small>RockWave Radio</div>
+                <div class="map-node" onclick="abrir('curiosidades')"><small>03</small>Curiosidades</div>
+                <div class="map-node" onclick="abrir('tempo')"><small>04</small>Máquina do Tempo</div>
+                <div class="map-node" onclick="abrir('galeria')"><small>05</small>Galeria</div>
+                <div class="map-node" onclick="abrir('underground')"><small>06</small>Underground</div>
+                <div class="map-node" onclick="abrir('lore')"><small>07</small>Lore</div>
+                <div class="map-node" onclick="abrir('guitarra')"><small>08</small>Minigame</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lore">
+        <div class="back" onclick="voltarHome()">← VOLTAR</div>
+        <h1 class="section-title">LORE ROCKWAVE</h1>
+        <p class="section-subtitle">A história do sinal que mantém o rock vivo.</p>
+        <div class="lore-box">
+            <div class="lore-chapter"><h2>CAPÍTULO I — O SINAL</h2><p>Em algum ponto entre uma guitarra ligada e um amplificador antigo, surgiu um sinal. Ninguém sabe exatamente quando ele começou.</p></div>
+            <div class="lore-chapter"><h2>CAPÍTULO II — A FREQUÊNCIA</h2><p>O sinal atravessou décadas: do rock'n'roll ao metal, do punk ao grunge, das fitas ao streaming.</p></div>
+            <div class="lore-chapter"><h2>CAPÍTULO III — ROCKWAVE</h2><p>A RockWave nasceu para arquivar esse sinal. Cada música, descoberta e segredo aumenta sua frequência.</p></div>
+            <div class="lore-chapter"><h2>CAPÍTULO IV — O UNDERGROUND</h2><p>Mas existe uma frequência abaixo de todas as outras. Quem encontrar os códigos certos pode descobrir o que está escondido.</p></div>
+        </div>
+    </section>
 
     <section id="galeria">
 
@@ -1486,6 +1651,14 @@
         <h1 class="section-title">Conquistas</h1>
         <p class="section-subtitle">Explore a RockWave e desbloqueie seu arquivo de roqueiro. 🏆</p>
         <div class="achievement-grid">
+            <div class="achievement" id="achXP"><h3>⭐ Nível de Ruído</h3><p>Ganhe seus primeiros 100 XP.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achGuitar"><h3>🎸 Guitarrista</h3><p>Acerte 8 batidas no minigame.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achBandQuiz"><h3>🧠 Enciclopédia do Rock</h3><p>Acerte o quiz de bandas.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achSongGuess"><h3>🎵 Ouvido RockWave</h3><p>Acerte a música pela pista.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achMap"><h3>🗺️ Cartógrafo do Rock</h3><p>Abra o mapa RockWave.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achLore"><h3>📜 Guardião do Lore</h3><p>Leia a história da RockWave.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achNight"><h3>🌑 Depois da Meia-Noite</h3><p>Ative a Noite Extrema.</p><div class="achievement-state">BLOQUEADA</div></div>
+
             <div class="achievement" id="achShow">
                 <h3>🎸 Modo Show</h3>
                 <p>Ative o palco secreto da RockWave.</p>
@@ -2111,6 +2284,103 @@ document.querySelectorAll("section").forEach(section => {
                 ligarRadio();
             }
         });
+
+    
+        /* =========================
+           XP / PROGRESSO ROCKWAVE
+        ========================== */
+        let rwXP = 0;
+        function carregarXP(){
+            try { rwXP = Number(localStorage.getItem("rw_xp") || 0); } catch(e) { rwXP=0; }
+            atualizarXP();
+        }
+        function ganharXP(valor){
+            const antigoNivel=Math.floor(rwXP/100)+1;
+            rwXP=Math.max(0,rwXP+valor);
+            try { localStorage.setItem("rw_xp",String(rwXP)); } catch(e) {}
+            atualizarXP();
+            if(rwXP>=100) desbloquear("achXP");
+            const novoNivel=Math.floor(rwXP/100)+1;
+            if(novoNivel>antigoNivel) desbloquear("achXP");
+        }
+        function atualizarXP(){
+            const nivel=Math.floor(rwXP/100)+1;
+            const dentro=rwXP%100;
+            const level=document.getElementById("xpLevel"), val=document.getElementById("xpValue"), fill=document.getElementById("xpFill"), txt=document.getElementById("xpText");
+            if(level) level.textContent=nivel;
+            if(val) val.textContent=rwXP;
+            if(fill) fill.style.width=dentro+"%";
+            if(txt) txt.textContent=dentro+" / 100 XP para o próximo nível.";
+        }
+
+        /* =========================
+           NOITE EXTREMA
+        ========================== */
+        let noiteExtrema=false;
+        function alternarNoiteExtrema(){
+            noiteExtrema=!noiteExtrema;
+            document.body.classList.toggle("extreme-night",noiteExtrema);
+            desbloquear("achNight");
+            ganharXP(15);
+        }
+
+        /* =========================
+           QUIZ DE BANDAS
+        ========================== */
+        function responderBanda(resposta){
+            const certo=resposta==="Nirvana";
+            const box=document.getElementById("bandQuizResult");
+            box.textContent=certo ? "ACERTOU! Nevermind é do Nirvana. 🤘" : "Quase! A resposta era Nirvana.";
+            if(certo){ desbloquear("achBandQuiz"); ganharXP(25); }
+            else ganharXP(5);
+        }
+
+        /* =========================
+           ADIVINHE A MÚSICA
+        ========================== */
+        function responderMusica(indice){
+            const box=document.getElementById("songGuessResult");
+            const certo=indice===0;
+            box.textContent=certo ? "ACERTOU! Era Seven Nation Army. 🔥" : "Não foi dessa vez. A resposta era Seven Nation Army.";
+            if(certo){ desbloquear("achSongGuess"); ganharXP(25); }
+            else ganharXP(5);
+        }
+
+        /* =========================
+           MINIGAME DE GUITARRA
+        ========================== */
+        let guitarScore=0;
+        function tocarCorda(el){
+            if(guitarScore>=8) guitarScore=0;
+            guitarScore++;
+            el.classList.add("hit");
+            setTimeout(()=>el.classList.remove("hit"),120);
+            document.getElementById("guitarScore").textContent=guitarScore;
+            if(guitarScore===8){
+                document.getElementById("guitarMessage").textContent="RIFF COMPLETO! Você fez barulho. 🤘";
+                desbloquear("achGuitar");
+                ganharXP(40);
+            } else {
+                document.getElementById("guitarMessage").textContent="Boa! Continue o riff...";
+            }
+        }
+
+        /* =========================
+           EXPLORAÇÃO EXTRA
+        ========================== */
+        const rwOldAbrir=abrir;
+        abrir=function(id){
+            rwOldAbrir(id);
+            if(id==="nivel") ganharXP(10);
+            if(id==="bandas") ganharXP(10);
+            if(id==="quizbandas") ganharXP(10);
+            if(id==="adivinhe") ganharXP(10);
+            if(id==="guitarra") ganharXP(10);
+            if(id==="mapa"){ desbloquear("achMap"); ganharXP(15); }
+            if(id==="lore"){ desbloquear("achLore"); ganharXP(15); }
+        };
+
+        carregarXP();
 
     </script>
 
