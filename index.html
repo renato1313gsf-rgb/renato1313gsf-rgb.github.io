@@ -530,6 +530,75 @@
         /* =========================
            LOGIN / CONTA ROCKWAVE
         ========================== */
+        body.auth-required #home {
+            display: none !important;
+        }
+
+        body.auth-required section:not(#conta) {
+            display: none !important;
+        }
+
+        body.auth-required #conta {
+            display: block !important;
+        }
+
+        body.auth-required #conta > .back {
+            display: none;
+        }
+
+        .verification-message {
+            display: none;
+            text-align: center;
+            padding: 45px 20px;
+            min-height: 330px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #080808;
+            border: 2px solid #b00000;
+            box-shadow: 0 0 55px rgba(180,0,0,.18);
+        }
+
+        .verification-message.show {
+            display: flex;
+        }
+
+        .verification-message .verification-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        .verification-message h2 {
+            font-size: clamp(42px, 8vw, 86px);
+            line-height: .95;
+            font-weight: 900;
+            color: #ff3030;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .verification-message p {
+            color: #aaa;
+            max-width: 650px;
+            line-height: 1.6;
+            font-size: 17px;
+        }
+
+        .verification-back {
+            margin-top: 28px;
+            background: #111;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 14px 22px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .verification-back:hover {
+            background: #300000;
+            border-color: #b00000;
+        }
+
         .account-button {
             grid-column: 1 / -1;
             min-height: 78px !important;
@@ -777,6 +846,13 @@
                 </form>
 
                 <p class="account-note">Seu cadastro e login são protegidos pelo Supabase Auth. Se a confirmação por e-mail estiver ativada, você receberá um link para confirmar sua conta.</p>
+            </div>
+
+            <div id="verificationMessage" class="verification-message">
+                <div class="verification-icon">📧</div>
+                <h2>VERIFIQUE<br>SEU E-MAIL</h2>
+                <p>Conta criada com sucesso! Abra seu e-mail e clique no link de confirmação para liberar sua entrada na RockWave.</p>
+                <button class="verification-back" type="button" onclick="voltarParaLogin()">VOLTAR PARA ENTRAR</button>
             </div>
 
             <div id="accountWelcome" class="account-welcome">
@@ -1368,6 +1444,11 @@
 
         function abrir(id) {
 
+            if (!usuarioRockWave && id !== "conta") {
+                exigirEntrada();
+                return;
+            }
+
             document.getElementById("home").style.display = "none";
 
             document.querySelectorAll("section").forEach(section => {
@@ -1384,6 +1465,11 @@
 
 
         function voltar() {
+
+            if (!usuarioRockWave) {
+                exigirEntrada();
+                return;
+            }
 
             document.querySelectorAll("section").forEach(section => {
                 section.classList.remove("active");
@@ -1405,6 +1491,24 @@
            CONTA ROCKWAVE — SUPABASE AUTH
         ========================== */
 
+        let usuarioRockWave = null;
+
+        function exigirEntrada() {
+            if (!usuarioRockWave) {
+                document.body.classList.add("auth-required");
+                document.getElementById("home").style.display = "none";
+                document.querySelectorAll("section").forEach(section => section.classList.remove("active"));
+                document.getElementById("conta").classList.add("active");
+                document.getElementById("verificationMessage").classList.remove("show");
+                document.getElementById("accountForms").style.display = "block";
+            }
+        }
+
+        function liberarEntrada() {
+            document.body.classList.remove("auth-required");
+            document.getElementById("home").style.display = "flex";
+        }
+
         const SUPABASE_URL = "https://ehhzjsunispjlallbjat.supabase.co";
         const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_745Mn1RXZegh_r2XeBU55A_HUglUV5E";
 
@@ -1424,6 +1528,9 @@
         }
 
         function mostrarContaLogada(user) {
+            usuarioRockWave = user;
+            liberarEntrada();
+            document.getElementById("verificationMessage").classList.remove("show");
             document.getElementById("accountForms").style.display = "none";
             document.getElementById("accountWelcome").classList.add("show");
             document.getElementById("accountWelcomeText").textContent =
@@ -1431,8 +1538,10 @@
         }
 
         function mostrarContaDeslogada() {
+            usuarioRockWave = null;
             document.getElementById("accountWelcome").classList.remove("show");
             document.getElementById("accountForms").style.display = "block";
+            exigirEntrada();
         }
 
         async function criarConta(event) {
@@ -1474,7 +1583,8 @@
                 msg.textContent = "Conta criada! Você já está conectado. 🤘";
                 mostrarContaLogada(data.user);
             } else {
-                msg.textContent = "Conta criada! Confira seu e-mail para confirmar a conta. 📧";
+                document.getElementById("accountForms").style.display = "none";
+                document.getElementById("verificationMessage").classList.add("show");
             }
         }
 
@@ -1511,6 +1621,12 @@
             }
 
             mostrarContaDeslogada();
+            mostrarContaForm("login");
+        }
+
+        function voltarParaLogin() {
+            document.getElementById("verificationMessage").classList.remove("show");
+            document.getElementById("accountForms").style.display = "block";
             mostrarContaForm("login");
         }
 
