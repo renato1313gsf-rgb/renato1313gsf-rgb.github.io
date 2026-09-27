@@ -2793,9 +2793,31 @@ function gerarBanda(){
     <div class="donation-box">
         <h2>❤️ VALEU POR FORTALECER O ROCK</h2>
         <p>Qualquer contribuição é opcional e ajuda a manter o RockWave sendo atualizado e cheio de novas ideias.</p>
-        <p class="pix-status">A forma de doação via PIX será adicionada aqui em breve.</p>
+        <div class="pix-key" style="margin-top:24px;padding:20px;background:#111;border:1px solid #444;overflow-wrap:anywhere;">
+            <p style="color:#aaa;margin-bottom:12px;">CHAVE PIX ALEATÓRIA</p>
+            <strong id="rockwavePixKey" style="font-size:clamp(16px,3vw,22px);">1ef4cf7a-6513-408b-876e-65e3f846e1f3</strong>
+            <br>
+            <button type="button" onclick="copiarPixRockWave()" style="margin-top:18px;background:#300000;color:#fff;border:1px solid #a00000;padding:13px 18px;cursor:pointer;font-weight:bold;">📋 COPIAR CHAVE PIX</button>
+            <p id="pixCopyStatus" class="pix-status" aria-live="polite" style="margin-top:12px;">Copie a chave para fazer sua contribuição.</p>
+        </div>
 </div>
 </section>
+
+<script>
+function copiarPixRockWave(){
+    const chave=document.getElementById("rockwavePixKey").textContent.trim();
+    const status=document.getElementById("pixCopyStatus");
+    if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(chave).then(()=>{
+            status.textContent="Chave PIX copiada! 🤘";
+        }).catch(()=>{
+            status.textContent="Não foi possível copiar automaticamente. Selecione e copie a chave acima.";
+        });
+    }else{
+        status.textContent="Selecione e copie a chave acima.";
+    }
+}
+</script>
 
 </body>
 </html>
