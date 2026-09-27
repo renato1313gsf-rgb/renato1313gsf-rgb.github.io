@@ -874,7 +874,33 @@
         .riff-score { color:#aaa; margin-top:25px; }
         @media(max-width:650px){ .riff-options{grid-template-columns:1fr;} .riff-box{padding:25px;} }
 
-    </style>
+    
+/* =========================
+   ROCKWAVE EXPANSION: MAPA DO ROCK + HALL + MONTE SUA BANDA
+========================= */
+.rock-map-box,.hall-box,.band-builder{max-width:1100px;margin:0 auto;}
+.rock-map-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;}
+.rock-map-card,.hall-card,.band-builder-card{background:#090909;border:1px solid #292929;padding:24px;transition:.2s;}
+.rock-map-card:hover,.hall-card:hover,.band-builder-card:hover{border-color:#a00000;transform:translateY(-3px);}
+.rock-map-card h3,.hall-card h3{margin-bottom:10px;font-size:22px;}
+.rock-map-card p,.hall-card p{color:#888;line-height:1.5;}
+.rock-map-tag{display:inline-block;color:#ff4b4b;font-size:11px;font-weight:900;letter-spacing:2px;margin-bottom:10px;}
+.hall-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+.hall-rank{font-size:12px;color:#666;letter-spacing:3px;margin-bottom:8px;}
+.hall-name{font-size:25px;font-weight:900;margin-bottom:5px;}
+.hall-meta{color:#aaa;}
+.band-builder-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+.band-builder-form label{color:#888;font-size:12px;letter-spacing:1px;}
+.band-builder-form input,.band-builder-form select{width:100%;margin-top:7px;background:#111;color:#fff;border:1px solid #444;padding:14px;font:inherit;}
+.band-builder-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:5px;}
+.band-builder-actions button{background:#111;color:#fff;border:1px solid #444;padding:14px 18px;cursor:pointer;font-weight:bold;}
+.band-builder-actions button:hover{background:#300000;border-color:#a00000;}
+.band-result{margin-top:20px;border:1px solid #a00000;background:#0b0b0b;padding:25px;display:none;}
+.band-result.show{display:block;}
+.band-result h2{font-size:clamp(30px,6vw,58px);margin-bottom:12px;}
+.band-members{color:#aaa;line-height:1.8;}
+@media(max-width:650px){.band-builder-form{grid-template-columns:1fr;}}
+</style>
 </head>
 
 <body>
@@ -910,6 +936,10 @@
         <p class="tagline">O som não morreu.</p>
 
         <div class="menu">
+            <button onclick="abrir('rockmap')"><span>🌍</span>MAPA DO ROCK</button>
+            <button onclick="abrir('hall')"><span>🏆</span>HALL DA FAMA</button>
+            <button onclick="abrir('createband')"><span>🤘</span>MONTE SUA BANDA</button>
+
 <button onclick="abrir('estilos')">
                 <span>🎸</span>
                 DESCUBRA SEU ESTILO
@@ -1798,7 +1828,67 @@
         </div>
     </div>
 
-    <footer>
+    
+<section id="rockmap">
+    <div class="back" onclick="voltar()">← VOLTAR</div>
+    <h1 class="section-title">MAPA DO ROCK</h1>
+    <p class="section-subtitle">Explore cenas e cidades que ajudaram a construir a história do rock. 🌍</p>
+    <div class="rock-map-box">
+        <div class="rock-map-grid">
+            <div class="rock-map-card"><span class="rock-map-tag">EUA</span><h3>Seattle</h3><p>Grunge, anos 90. Nirvana, Pearl Jam, Soundgarden e Alice in Chains.</p></div>
+            <div class="rock-map-card"><span class="rock-map-tag">EUA</span><h3>Detroit</h3><p>Garage rock e peso. Uma cidade ligada a The Stooges e MC5.</p></div>
+            <div class="rock-map-card"><span class="rock-map-tag">EUA</span><h3>Los Angeles</h3><p>Hard rock, glam e punk. Uma das cenas mais movimentadas do país.</p></div>
+            <div class="rock-map-card"><span class="rock-map-tag">REINO UNIDO</span><h3>Londres</h3><p>Uma das grandes capitais do rock: punk, glam, hard rock e muito mais.</p></div>
+            <div class="rock-map-card"><span class="rock-map-tag">REINO UNIDO</span><h3>Manchester</h3><p>Cena alternativa e independente com enorme influência na música britânica.</p></div>
+            <div class="rock-map-card"><span class="rock-map-tag">BRASIL</span><h3>São Paulo</h3><p>Uma cena gigantesca, do rock nacional ao underground e às casas de show.</p></div>
+            <div class="rock-map-card"><span class="rock-map-tag">BRASIL</span><h3>Brasília</h3><p>Berço de nomes importantes do rock brasileiro dos anos 80.</p></div>
+            <div class="rock-map-card"><span class="rock-map-tag">AUSTRÁLIA</span><h3>Sydney</h3><p>Casa de uma das bandas mais conhecidas do hard rock: AC/DC.</p></div>
+        </div>
+    </div>
+</section>
+
+<section id="hall">
+    <div class="back" onclick="voltar()">← VOLTAR</div>
+    <h1 class="section-title">HALL DA FAMA</h1>
+    <p class="section-subtitle">Uma coleção de lendas, álbuns e momentos que marcaram o rock. 🏆</p>
+    <div class="hall-box">
+        <div class="hall-grid">
+            <div class="hall-card"><div class="hall-rank">01 • BANDA</div><div class="hall-name">Nirvana</div><div class="hall-meta">Grunge • Seattle</div></div>
+            <div class="hall-card"><div class="hall-rank">02 • BANDA</div><div class="hall-name">Queen</div><div class="hall-meta">Rock • Reino Unido</div></div>
+            <div class="hall-card"><div class="hall-rank">03 • BANDA</div><div class="hall-name">Black Sabbath</div><div class="hall-meta">Heavy metal • Birmingham</div></div>
+            <div class="hall-card"><div class="hall-rank">04 • BANDA</div><div class="hall-name">AC/DC</div><div class="hall-meta">Hard rock • Austrália</div></div>
+            <div class="hall-card"><div class="hall-rank">05 • BANDA</div><div class="hall-name">Linkin Park</div><div class="hall-meta">Nu metal / rock alternativo • EUA</div></div>
+            <div class="hall-card"><div class="hall-rank">06 • BANDA</div><div class="hall-name">Pink Floyd</div><div class="hall-meta">Rock progressivo • Reino Unido</div></div>
+            <div class="hall-card"><div class="hall-rank">07 • BANDA</div><div class="hall-name">Metallica</div><div class="hall-meta">Thrash metal • EUA</div></div>
+            <div class="hall-card"><div class="hall-rank">08 • BANDA</div><div class="hall-name">The Rolling Stones</div><div class="hall-meta">Rock • Reino Unido</div></div>
+        </div>
+    </div>
+</section>
+
+<section id="createband">
+    <div class="back" onclick="voltar()">← VOLTAR</div>
+    <h1 class="section-title">MONTE SUA BANDA</h1>
+    <p class="section-subtitle">Escolha os integrantes, o estilo e dê um nome para sua própria banda. 🤘</p>
+    <div class="band-builder">
+        <div class="band-builder-card">
+            <div class="band-builder-form">
+                <label>Nome da banda<input id="bandName" maxlength="30" placeholder="Ex.: Black Wolves"></label>
+                <label>Estilo<select id="bandStyle"><option>Grunge</option><option>Hard rock</option><option>Heavy metal</option><option>Rock alternativo</option><option>Punk rock</option><option>Rock clássico</option><option>Nu metal</option></select></label>
+                <label>Vocalista<input id="bandSinger" maxlength="25" placeholder="Seu vocalista"></label>
+                <label>Guitarrista<input id="bandGuitar" maxlength="25" placeholder="Seu guitarrista"></label>
+                <label>Baixista<input id="bandBass" maxlength="25" placeholder="Seu baixista"></label>
+                <label>Baterista<input id="bandDrums" maxlength="25" placeholder="Seu baterista"></label>
+            </div>
+            <div class="band-builder-actions">
+                <button type="button" onclick="criarMinhaBanda()">CRIAR BANDA 🤘</button>
+                <button type="button" onclick="gerarBanda()">GERAR UMA BANDA</button>
+            </div>
+            <div id="bandResult" class="band-result"></div>
+        </div>
+    </div>
+</section>
+
+<footer>
         ROCKWAVE — O som não morreu. 🎸
     </footer>
 <script>
@@ -2660,7 +2750,38 @@ document.querySelectorAll("section").forEach(section => {
         carregarPerguntaBanda();
         carregarPerguntaMusica();
 
-    </script>
+    <script>
+const rwBandNames=["Black Wolves","Red Voltage","Midnight Riot","Broken Strings","Static Hearts","Crimson Echo","Neon Skulls","Last Amplifier"];
+const rwBandStyles=["Grunge","Hard rock","Heavy metal","Rock alternativo","Punk rock","Rock clássico","Nu metal"];
+const rwMembers=["Alex","Rafa","Dani","Leo","Kai","Nina","Max","Bia","Chris","Sam"];
+function mostrarBanda(nome,estilo,vocal,guitarra,baixo,bateria){
+    const box=document.getElementById("bandResult");
+    if(!box)return;
+    box.innerHTML="<h2>"+nome.replace(/</g,"&lt;")+"</h2><p><strong>"+estilo+"</strong></p><div class='band-members'>🎤 "+vocal+"<br>🎸 "+guitarra+"<br>🎸 "+baixo+"<br>🥁 "+bateria+"</div>";
+    box.classList.add("show");
+}
+function criarMinhaBanda(){
+    const nome=document.getElementById("bandName").value.trim()||"Minha Banda";
+    const estilo=document.getElementById("bandStyle").value;
+    const vocal=document.getElementById("bandSinger").value.trim()||"Vocalista misterioso";
+    const guitarra=document.getElementById("bandGuitar").value.trim()||"Guitarrista rebelde";
+    const baixo=document.getElementById("bandBass").value.trim()||"Baixista sombrio";
+    const bateria=document.getElementById("bandDrums").value.trim()||"Baterista insano";
+    mostrarBanda(nome,estilo,vocal,guitarra,baixo,bateria);
+    try{localStorage.setItem("rw_band",JSON.stringify({nome,estilo,vocal,guitarra,baixo,bateria}));}catch(e){}
+    ganharXP(20);
+}
+function gerarBanda(){
+    const pick=a=>a[Math.floor(Math.random()*a.length)];
+    document.getElementById("bandName").value=pick(rwBandNames);
+    document.getElementById("bandStyle").value=pick(rwBandStyles);
+    document.getElementById("bandSinger").value=pick(rwMembers);
+    document.getElementById("bandGuitar").value=pick(rwMembers);
+    document.getElementById("bandBass").value=pick(rwMembers);
+    document.getElementById("bandDrums").value=pick(rwMembers);
+    criarMinhaBanda();
+}
+</script></script>
 
 </body>
 </html>
