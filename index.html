@@ -205,14 +205,17 @@
             border: 1px solid #292929;
             padding: 25px;
             position: relative;
+            isolation: isolate;
         }
 
         .radio-screen {
             position: relative;
             aspect-ratio: 16 / 9;
-            background: #000;
+            background: #000 !important;
             margin-bottom: 20px;
             overflow: hidden;
+            isolation: isolate;
+            contain: paint;
         }
 
         .radio-screen iframe {
@@ -220,6 +223,16 @@
             width: 100%;
             height: 100%;
             border: 0;
+            opacity: 1 !important;
+            filter: none !important;
+            mix-blend-mode: normal !important;
+            background: #000 !important;
+            position: relative;
+            z-index: 2;
+        }
+
+        #radio {
+            background: #050505;
         }
 
         .radio-info {
