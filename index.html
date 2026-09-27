@@ -417,6 +417,115 @@
             .decade-display { padding: 25px; }
         }
 
+
+        .rock-level {
+            max-width: 900px;
+            margin: 0 auto 35px;
+            background:#090909;
+            border:1px solid #292929;
+            padding:30px;
+        }
+        .level-head {
+            display:flex;
+            justify-content:space-between;
+            gap:15px;
+            align-items:end;
+            margin-bottom:15px;
+        }
+        .level-number { font-size:clamp(38px,7vw,65px); font-weight:900; }
+        .level-label { color:#888; letter-spacing:3px; font-size:12px; }
+        .level-bar { height:14px; background:#151515; border:1px solid #333; overflow:hidden; }
+        .level-fill { height:100%; width:0; background:#b00000; transition:width .8s ease; }
+        .level-text { color:#aaa; margin-top:14px; line-height:1.5; }
+
+        .profile-card {
+            max-width:900px;
+            margin:0 auto;
+            background:#090909;
+            border:1px solid #b00000;
+            padding:35px;
+            box-shadow:0 0 40px rgba(180,0,0,.12);
+        }
+        .profile-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+            gap:12px;
+            margin-top:25px;
+        }
+        .profile-item { background:#101010; padding:18px; border-left:3px solid #a00000; }
+        .profile-item small { display:block; color:#777; letter-spacing:2px; margin-bottom:7px; }
+        .profile-item strong { font-size:20px; }
+        .song-recommendation {
+            margin-top:25px;
+            padding:22px;
+            background:#111;
+            border:1px solid #333;
+        }
+
+        .curiosity-box {
+            max-width:900px;
+            margin:0 auto;
+            min-height:300px;
+            background:#090909;
+            border:1px solid #292929;
+            padding:40px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+        }
+        .curiosity-tag { color:#b00000; font-weight:bold; letter-spacing:3px; font-size:12px; margin-bottom:15px; }
+        #curiosityText { font-size:clamp(24px,4vw,40px); line-height:1.3; }
+        .random-button {
+            margin-top:30px;
+            align-self:flex-start;
+            background:#111;
+            color:#fff;
+            border:1px solid #555;
+            padding:15px 22px;
+            cursor:pointer;
+            font-weight:bold;
+        }
+        .random-button:hover { background:#300000; border-color:#b00000; }
+
+        .achievement-grid {
+            max-width:1000px;
+            margin:0 auto;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+            gap:15px;
+        }
+        .achievement {
+            background:#0d0d0d;
+            border:1px solid #222;
+            padding:24px;
+            min-height:160px;
+            opacity:.48;
+            transition:.2s;
+        }
+        .achievement.unlocked { opacity:1; border-color:#a00000; box-shadow:0 0 20px rgba(180,0,0,.1); }
+        .achievement h3 { margin-bottom:10px; }
+        .achievement p { color:#888; line-height:1.5; }
+        .achievement-state { margin-top:15px; color:#666; font-size:11px; letter-spacing:2px; }
+        .achievement.unlocked .achievement-state { color:#ff5555; }
+
+        .radio-live {
+            display:flex;
+            align-items:center;
+            gap:8px;
+            margin-bottom:15px;
+            color:#ff5555;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+        .live-dot { width:9px; height:9px; background:#d00000; border-radius:50%; box-shadow:0 0 12px #d00000; }
+        .radio-progress { height:5px; background:#222; margin-top:18px; overflow:hidden; }
+        #radioProgressFill { width:0; height:100%; background:#b00000; transition:width .3s; }
+        .radio-meta { color:#666; font-size:12px; margin-top:8px; }
+
+        @media(max-width:650px){
+            .profile-card,.curiosity-box,.rock-level{padding:25px;}
+        }
+
         @media (max-width: 650px) {
             .menu {
                 grid-template-columns: 1fr;
@@ -483,6 +592,20 @@
             <button onclick="abrir('extras')">
                 <span>🕵️</span>
                 EXTRAS
+            </button>
+            <button onclick="abrir('curiosidades')">
+                <span>🧠</span>
+                ROCK CURIOSIDADES
+            </button>
+
+            <button onclick="abrir('conquistas')">
+                <span>🏆</span>
+                CONQUISTAS
+            </button>
+
+            <button onclick="abrir('perfil')">
+                <span>🤘</span>
+                PERFIL ROCKWAVE
             </button>
 
             <button onclick="abrir('maquina')">
@@ -664,6 +787,8 @@
 
             </div>
 
+            <div class="radio-live"><span class="live-dot"></span> ROCKWAVE RADIO • AO VIVO</div>
+
             <div class="radio-info">
 
                 <div>
@@ -677,6 +802,9 @@
                 </div>
 
             </div>
+
+            <div class="radio-progress"><div id="radioProgressFill"></div></div>
+            <div class="radio-meta" id="radioMeta">Pronto para tocar</div>
 
             <div class="radio-controls">
 
@@ -955,6 +1083,63 @@
     </section>
 
 
+
+    <section id="perfil">
+        <button class="back" onclick="voltar()">← VOLTAR</button>
+        <h1 class="section-title">Perfil RockWave</h1>
+        <p class="section-subtitle">Seu cartão de identidade dentro da RockWave. 🤘</p>
+
+        <div class="profile-card">
+            <div class="level-head">
+                <div>
+                    <div class="level-label">SEU NÍVEL DE ROCK</div>
+                    <div id="profileLevel" class="level-number">ROCK NOVATO</div>
+                </div>
+                <div id="profilePercent" class="level-number">0%</div>
+            </div>
+            <div class="level-bar"><div id="profileFill" class="level-fill"></div></div>
+            <p id="profileLevelText" class="level-text">Faça o quiz para descobrir seu nível.</p>
+
+            <div class="profile-grid">
+                <div class="profile-item"><small>ESTILO</small><strong id="profileStyle">—</strong></div>
+                <div class="profile-item"><small>VIBE</small><strong id="profileVibe">—</strong></div>
+                <div class="profile-item"><small>INTENSIDADE</small><strong id="profileIntensity">—</strong></div>
+                <div class="profile-item"><small>ERA</small><strong id="profileEra">—</strong></div>
+            </div>
+
+            <div class="song-recommendation">
+                <div class="level-label">🎧 SUA PRIMEIRA MISSÃO</div>
+                <h2 id="recommendedSong" style="margin:8px 0;">Faça o quiz primeiro</h2>
+                <p id="recommendedText" style="color:#888;">Depois do resultado, a RockWave escolhe uma música para você conhecer.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="curiosidades">
+        <button class="back" onclick="voltar()">← VOLTAR</button>
+        <h1 class="section-title">Rock Curiosidades</h1>
+        <p class="section-subtitle">Fatos, histórias e pequenas loucuras do mundo do rock. 🧠</p>
+        <div class="curiosity-box">
+            <div id="curiosityTag" class="curiosity-tag">VOCÊ SABIA?</div>
+            <div id="curiosityText">Clique no botão e descubra uma curiosidade.</div>
+            <button class="random-button" onclick="outraCuriosidade()">🎲 OUTRA CURIOSIDADE</button>
+        </div>
+    </section>
+
+    <section id="conquistas">
+        <button class="back" onclick="voltar()">← VOLTAR</button>
+        <h1 class="section-title">Conquistas</h1>
+        <p class="section-subtitle">Explore a RockWave e desbloqueie seu arquivo de roqueiro. 🏆</p>
+        <div class="achievement-grid">
+            <div class="achievement" id="achQuiz"><h3>🎸 Primeira Onda</h3><p>Complete o quiz de estilo.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achProfile"><h3>🤘 Identidade Rock</h3><p>Descubra seu perfil RockWave.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achRadio"><h3>📻 Ouvinte</h3><p>Ligue a RockWave Radio.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achCuriosity"><h3>🧠 Curioso</h3><p>Abra uma curiosidade.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achTime"><h3>🕰️ Viajante do Tempo</h3><p>Visite uma década na Máquina do Tempo.</p><div class="achievement-state">BLOQUEADA</div></div>
+            <div class="achievement" id="achEgg"><h3>🕵️ Caçador de Segredos</h3><p>Encontre um Easter egg.</p><div class="achievement-state">BLOQUEADA</div></div>
+        </div>
+    </section>
+
     <!-- =========================
          EXTRAS
     ========================== -->
@@ -1096,14 +1281,18 @@
             document.getElementById("resultText").textContent =
                 frases[vencedor] || "Essa é a sua onda na RockWave. Agora aumente o volume e descubra mais desse estilo!";
             document.getElementById("quizResult").classList.add("show");
+            atualizarPerfil(vencedor);
+            desbloquear("achQuiz");
         }
 
         function reiniciarQuiz() {
             iniciarQuiz();
+            carregarConquistas();
             window.scrollTo({top:0, behavior:"smooth"});
         }
 
         iniciarQuiz();
+        carregarConquistas();
 
 
         /* =========================
@@ -1169,6 +1358,7 @@
         function ligarRadio() {
 
             radioLigada = true;
+            desbloquear("achRadio");
 
             const video =
                 document.getElementById("radioVideo");
@@ -1299,6 +1489,7 @@
         };
 
         function mostrarDecada(decada) {
+            desbloquear("achTime");
             const dados = decadasRock[decada];
             const display = document.getElementById("decadeDisplay");
 
@@ -1323,6 +1514,101 @@
         }
 
 
+
+        /* =========================
+           PERFIL + NÍVEL + RECOMENDAÇÃO
+        ========================== */
+
+        const recomendacoes = {
+            "Rock and Roll":["Chuck Berry — Johnny B. Goode","Comece pela raiz: guitarra, ritmo e energia clássica."],
+            "Heavy Metal":["Black Sabbath — Paranoid","Peso e riffs históricos para começar sem freio."],
+            "Punk Rock":["Ramones — Blitzkrieg Bop","Curta, rápida e direta ao ponto."],
+            "Grunge":["Nirvana — Smells Like Teen Spirit","Distorção, melodia e uma porta de entrada para o grunge."],
+            "Progressive Rock":["Pink Floyd — Time","Uma viagem sonora para quem gosta de explorar."],
+            "Black Metal":["Mayhem — Freezing Moon","Atmosfera extrema e som sombrio."],
+            "Indie Rock":["Arctic Monkeys — Do I Wanna Know?","Uma entrada moderna para o universo indie."],
+            "New Wave":["Talking Heads — Once in a Lifetime","Rock, arte e experimentação em uma mistura única."],
+            "Nu Metal":["Linkin Park — In the End","Peso, groove e elementos eletrônicos."],
+            "Samba Rock":["Jorge Ben Jor — Mas, Que Nada!","Uma ponte entre o balanço brasileiro e a atitude do rock."]
+        };
+
+        function atualizarPerfil(estilo) {
+            const percent = Math.min(100, 50 + Math.floor(Math.random() * 51));
+            const niveis = percent >= 90 ? ["LENDÁRIO", "Você já está no território dos riffs perigosos."] :
+                           percent >= 75 ? ["ROQUEIRO PESADO", "Seu histórico já merece uma guitarra no ombro."] :
+                           percent >= 60 ? ["ROCKEIRO", "Você está pegando a estrada."] :
+                           ["ROCK NOVATO", "Toda lenda começa com uma primeira música."];
+
+            document.getElementById("profileStyle").textContent = estilo;
+            document.getElementById("profilePercent").textContent = percent + "%";
+            document.getElementById("profileLevel").textContent = niveis[0];
+            document.getElementById("profileLevelText").textContent = niveis[1];
+            document.getElementById("profileFill").style.width = percent + "%";
+
+            const intensidade = ["Baixa", "Média", "Alta", "EXTREMA"][Math.min(3, Math.floor(percent/25))];
+            const vibes = {
+                "Heavy Metal":"Pesada","Death Metal":"Extrema","Black Metal":"Sombria","Punk Rock":"Rebelde",
+                "Grunge":"Crue","New Wave":"Alternativa","Indie Rock":"Criativa","Progressive Rock":"Viajeira",
+                "Samba Rock":"Brasileira","Nu Metal":"Moderna"
+            };
+            const eras = {
+                "Rock and Roll":"1950s","Heavy Metal":"1970s","Punk Rock":"1970s","Grunge":"1990s",
+                "New Wave":"1980s","Indie Rock":"2000s","Nu Metal":"2000s","Samba Rock":"1960s"
+            };
+            document.getElementById("profileVibe").textContent = vibes[estilo] || "Alternativa";
+            document.getElementById("profileIntensity").textContent = intensidade;
+            document.getElementById("profileEra").textContent = eras[estilo] || "Várias eras";
+
+            const rec = recomendacoes[estilo] || ["The Rolling Stones — (I Can't Get No) Satisfaction","Uma porta de entrada clássica para continuar sua viagem."];
+            document.getElementById("recommendedSong").textContent = rec[0];
+            document.getElementById("recommendedText").textContent = rec[1];
+
+            desbloquear("achProfile");
+        }
+
+        /* =========================
+           ROCK CURIOSIDADES
+        ========================== */
+
+        const curiosidades = [
+            ["VOCÊ SABIA?", "Dave Grohl entrou para o Nirvana como baterista em 1990. Depois do fim da banda, ele criou o Foo Fighters."],
+            ["NIRVANA", "Nevermind, lançado em 1991, levou o Nirvana a um enorme sucesso mainstream e ajudou a colocar o rock alternativo no centro da cultura pop dos anos 1990."],
+            ["BLACK SABBATH", "O Black Sabbath é amplamente associado à formação do som do heavy metal, especialmente pelo peso e pela atmosfera sombria de seus primeiros trabalhos."],
+            ["QUEEN", "Queen misturou rock pesado, elementos progressivos, harmonias vocais e influências clássicas, criando uma identidade muito própria."],
+            ["ROCK NACIONAL", "Nos anos 1980, o rock brasileiro ganhou enorme visibilidade com bandas como Legião Urbana, Titãs e Os Paralamas do Sucesso."],
+            ["GUITARRA", "Riffs simples podem ser extremamente marcantes: poucas notas, quando bem colocadas, podem virar a assinatura de uma música."],
+            ["BATERIA", "Antes de ser conhecido mundialmente pelo Foo Fighters, Dave Grohl já tinha uma trajetória no punk e no hardcore."],
+            ["ESTÚDIO", "Muitas gravações clássicas do rock usam camadas de guitarras, efeitos e diferentes técnicas de estúdio para criar sons maiores que o palco."]
+        ];
+
+        function outraCuriosidade() {
+            const item = curiosidades[Math.floor(Math.random() * curiosidades.length)];
+            document.getElementById("curiosityTag").textContent = item[0];
+            document.getElementById("curiosityText").textContent = item[1];
+            desbloquear("achCuriosity");
+        }
+
+        /* =========================
+           CONQUISTAS
+        ========================== */
+
+        function desbloquear(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.classList.add("unlocked");
+            const state = el.querySelector(".achievement-state");
+            if (state) state.textContent = "DESBLOQUEADA ✓";
+            try { localStorage.setItem("rw_" + id, "1"); } catch(e) {}
+        }
+
+        function carregarConquistas() {
+            document.querySelectorAll(".achievement").forEach(el => {
+                try {
+                    if (localStorage.getItem("rw_" + el.id) === "1") desbloquear(el.id);
+                } catch(e) {}
+            });
+        }
+
         /* =========================
            EASTER EGGS
         ========================== */
@@ -1333,6 +1619,7 @@
         const easterText = document.getElementById("easterText");
 
         function mostrarEasterEgg(tipo) {
+            desbloquear("achEgg");
             if (tipo === "nirvana") {
                 easterTitle.textContent = "NEVERMIND.EXE";
                 easterText.textContent = "Você encontrou o sinal de 1991. 🎸";
