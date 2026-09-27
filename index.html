@@ -21,34 +21,6 @@
             overflow-x: hidden;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            background:
-                linear-gradient(
-                    rgba(255,255,255,0.02) 1px,
-                    transparent 1px
-                );
-            background-size: 100% 4px;
-            opacity: 0.15;
-            z-index: 10;
-        }
-
-        body{background-color:#080808!important;background-image:repeating-radial-gradient(circle at 20% 30%,rgba(255,255,255,.035) 0 1px,transparent 1px 5px),repeating-linear-gradient(7deg,rgba(255,255,255,.028) 0 1px,transparent 1px 9px),repeating-linear-gradient(91deg,rgba(0,0,0,.35) 0 2px,transparent 2px 13px),radial-gradient(circle at 18% 22%,rgba(150,0,0,.22),transparent 18%),linear-gradient(135deg,#171717,#070707 38%,#121212 62%,#040404)!important;background-attachment:fixed!important;background-size:180px 180px,260px 260px,310px 310px,auto,100% 100%!important;}
-        body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.55;background:repeating-linear-gradient(17deg,transparent 0 24px,rgba(255,255,255,.025) 25px 27px,transparent 28px 52px),repeating-linear-gradient(103deg,transparent 0 37px,rgba(0,0,0,.28) 38px 43px,transparent 44px 80px);mix-blend-mode:multiply;}
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            text-align: center;
-            position: relative;
-        }
-
         .glow {
             position: absolute;
             width: 500px;
@@ -70,7 +42,15 @@
            ROCKWAVE VISUAL POLISH
         ========================== */
         body {
-            background-color:#080808; background-image:repeating-radial-gradient(circle at 20% 30%,rgba(255,255,255,.035) 0 1px,transparent 1px 5px);
+            background-color: #080808;
+            background-image:
+                repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,.035) 0 1px, transparent 1px 5px),
+                repeating-linear-gradient(7deg, rgba(255,255,255,.028) 0 1px, transparent 1px 9px),
+                repeating-linear-gradient(91deg, rgba(0,0,0,.35) 0 2px, transparent 2px 13px),
+                radial-gradient(circle at 18% 22%, rgba(150,0,0,.22), transparent 18%),
+                linear-gradient(135deg,#171717,#070707 38%,#121212 62%,#040404);
+            background-attachment: fixed;
+            background-size: 180px 180px,260px 260px,310px 310px,auto,100% 100%;
         }
         .hero::after {
             content: "ROCKWAVE • SIGNAL ONLINE";
@@ -224,18 +204,35 @@
             background: #090909;
             border: 1px solid #292929;
             padding: 25px;
+            position: relative;
+            isolation: isolate;
         }
 
         .radio-screen {
+            position: relative;
             aspect-ratio: 16 / 9;
-            background: #000;
+            background: #000 !important;
             margin-bottom: 20px;
+            overflow: hidden;
+            isolation: isolate;
+            contain: paint;
         }
 
         .radio-screen iframe {
+            display: block;
             width: 100%;
             height: 100%;
             border: 0;
+            opacity: 1 !important;
+            filter: none !important;
+            mix-blend-mode: normal !important;
+            background: #000 !important;
+            position: relative;
+            z-index: 2;
+        }
+
+        #radio {
+            background: #050505;
         }
 
         .radio-info {
@@ -777,7 +774,6 @@
            ROCKWAVE EXPANSION PACK
         ========================== */
         body.extreme-night { background:#000 !important; color:#ddd; }
-        body.extreme-night::before { opacity:.04; }
         body.extreme-night .glow { opacity:.02 !important; }
         body.extreme-night .menu button,
         body.extreme-night section,
@@ -922,7 +918,7 @@
         .rock-region-note{font-size:12px;margin-top:18px;color:#666!important}
         @media(max-width:650px){.rock-region-detail{padding:20px}.rock-region-picker{grid-template-columns:1fr 1fr}.rock-globe{width:min(300px,75vw)}}
 
-</style>
+    </style>
 </head>
 
 <body>
@@ -1866,38 +1862,63 @@ document.querySelectorAll("section").forEach(section => {
         const musicas = [
 
             {
-                titulo: "Linkin Park — In the End",
-                id: "eVTXPUF4Oz4"
+                titulo: "AC/DC — Back In Black",
+                id: "pAgnJDJN4VA"
             },
 
             {
-                titulo: "AC/DC — Thunderstruck",
-                id: "v2AC41dglnM"
+                titulo: "Guns N' Roses — Sweet Child O' Mine",
+                id: "1w7OgIMMRc4"
             },
 
             {
-                titulo: "Nirvana — Smells Like Teen Spirit",
-                id: "hTWKbfoikeg"
+                titulo: "Black Sabbath — Paranoid",
+                id: "0qanF-91aJo"
             },
 
             {
-                titulo: "System Of A Down — Toxicity",
-                id: "iywaBOMvYLI"
+                titulo: "Deep Purple — Smoke on the Water",
+                id: "Q2FzZSBD5LE"
             },
 
             {
-                titulo: "System Of A Down — Chop Suey!",
-                id: "CSvFpBOe8eY"
+                titulo: "Nirvana — Come As You Are",
+                id: "vabnZ9-ex7o"
             },
 
             {
-                titulo: "Rage Against The Machine — Killing in the Name",
-                id: "bWXazVhlyxQ"
+                titulo: "Evanescence — Bring Me to Life",
+                id: "3YxaaGgTQYM"
             },
 
             {
-                titulo: "Slipknot — Psychosocial",
-                id: "5abamRO41fE"
+                titulo: "Green Day — American Idiot",
+                id: "Ee_uujKuJMI"
+            },
+
+            {
+                titulo: "Legião Urbana — Tempo Perdido",
+                id: "GWmtdgdip5Y"
+            },
+
+            {
+                titulo: "Cássia Eller — Malandragem",
+                id: "3g9ULvFEA1s"
+            },
+
+            {
+                titulo: "Cazuza — Exagerado",
+                id: "KmVmoHg9zuU"
+            },
+
+            {
+                titulo: "The Cranberries — Zombie",
+                id: "6Ejga4kJUts"
+            },
+
+            {
+                titulo: "Arctic Monkeys — Do I Wanna Know?",
+                id: "bpOSxM0rNPM"
             }
 
         ];
