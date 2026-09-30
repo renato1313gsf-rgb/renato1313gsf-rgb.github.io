@@ -223,21 +223,12 @@
             z-index: 2;
         }
 
-        #radio {
-            position: relative;
-            z-index: 1;
-            isolation: isolate;
-            background: #050505 !important;
-            background-image: none !important;
-        }
-        #radio::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            z-index: -1;
-            background: #050505;
-            pointer-events: none;
-        }
+        #radio { position:relative; z-index:1; isolation:isolate; background:#050505 !important; background-image:none !important; background-attachment:initial !important; }
+        #radio::before { content:""; position:absolute; inset:0; z-index:0; background:#050505; pointer-events:none; }
+        #radio > * { position:relative; z-index:1; }
+        #radio .radio-box { background:#090909 !important; isolation:isolate; }
+        #radio .radio-screen { background:#000 !important; isolation:isolate; overflow:hidden; }
+        #radio .radio-screen iframe { background:#000 !important; opacity:1 !important; mix-blend-mode:normal !important; filter:none !important; }
         #radio .radio-box,
         #radio .radio-screen {
             position: relative;
