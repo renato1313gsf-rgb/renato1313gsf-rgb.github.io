@@ -856,24 +856,33 @@
 .band-members{color:#aaa;line-height:1.8;}
 @media(max-width:650px){.band-builder-form{grid-template-columns:1fr;}}
 
-        .rock-globe-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;margin:0 auto 28px}
-        .rock-globe{width:min(390px,78vw);aspect-ratio:1;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 30% 25%,#3b9bd4 0%,#15527e 32%,#061626 72%,#02070d 100%);box-shadow:inset -28px -18px 45px #000b,inset 12px 8px 25px #a6e5ff44,0 0 55px #0d5d9933;animation:globeFloat 5s ease-in-out infinite}
-        .globe-grid{position:absolute;inset:-12%;border-radius:50%;background:repeating-linear-gradient(0deg,transparent 0 27px,#a7e8ff44 28px 29px),repeating-linear-gradient(90deg,transparent 0 35px,#a7e8ff35 36px 37px);transform:rotate(-13deg) scaleX(.78);border:1px solid #a7e8ff55}
-        .globe-land{position:absolute;width:100%;height:100%;inset:0;color:#65bd72;filter:drop-shadow(0 0 5px #092d1b);animation:globeSpin 22s linear infinite;transform-origin:center}
-        .globe-glow{position:absolute;inset:0;border-radius:50%;background:linear-gradient(115deg,transparent 40%,#fff2 52%,transparent 66%);pointer-events:none}
-        .globe-caption{font:900 10px/1 Arial,sans-serif;letter-spacing:4px;color:#777;text-align:center}
-        @keyframes globeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-        @keyframes globeSpin{from{transform:rotate(0deg) scale(1.02)}to{transform:rotate(360deg) scale(1.02)}}
+        .rock-globe-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;margin:8px auto 32px;perspective:1000px}
+        .rock-globe{width:min(430px,80vw);aspect-ratio:1;border-radius:50%;position:relative;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 28% 22%,#65c8f0 0%,#237db0 20%,#0b426e 48%,#031629 76%,#01050b 100%);box-shadow:inset -42px -25px 60px #000e,inset 14px 10px 28px #b9efff66,0 22px 45px #000b,0 0 0 2px #4c9dc544,0 0 65px #1679bd33;transform:rotateX(7deg);animation:globeFloat 6s ease-in-out infinite}
+        .rock-globe::before{content:"";position:absolute;inset:0;border-radius:50%;z-index:4;pointer-events:none;background:linear-gradient(110deg,transparent 25%,#fff1 42%,#fff5 48%,#fff1 54%,transparent 72%),radial-gradient(ellipse at 75% 50%,transparent 35%,#0009 100%);box-shadow:inset 8px 5px 18px #d5f5ff55,inset -24px -10px 35px #000b}
+        .rock-globe::after{content:"";position:absolute;inset:-2%;border-radius:50%;z-index:5;pointer-events:none;border:1px solid #7bd8ff66;box-shadow:0 0 18px #42baff22}
+        .globe-grid{position:absolute;inset:-5%;z-index:1;border-radius:50%;background:repeating-linear-gradient(0deg,transparent 0 29px,#a7e8ff2b 30px 31px);pointer-events:none}
+        .globe-grid::before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(ellipse at 50% 50%,transparent 0 27px,#a7e8ff2a 28px 29px);transform:scaleX(.48)}
+        .globe-land{position:absolute;width:100%;height:100%;inset:0;z-index:2;color:#76d28a;filter:drop-shadow(2px 3px 2px #00150b) drop-shadow(0 0 8px #1b9b5b66);pointer-events:none;animation:globeDrift 28s ease-in-out infinite alternate;transform-origin:center}
+        .globe-glow{position:absolute;inset:0;z-index:3;border-radius:50%;background:linear-gradient(115deg,transparent 35%,#fff2 49%,transparent 63%);pointer-events:none}
+        .globe-pin{position:absolute;z-index:6;width:17px;height:17px;border-radius:50%;border:2px solid #fff;background:#c90000;box-shadow:0 0 0 5px #ff222233,0 0 18px #ff3434;transform:translate(-50%,-50%);cursor:pointer;padding:0;transition:transform .2s,background .2s}
+        .globe-pin:hover,.globe-pin:focus-visible{background:#fff;transform:translate(-50%,-50%) scale(1.35);outline:2px solid #fff;outline-offset:4px}
+        .globe-pin[aria-pressed="true"]{background:#fff;box-shadow:0 0 0 7px #ff333344,0 0 24px #fff}
+        .globe-pin::after{content:"";position:absolute;inset:-8px;border:1px solid #ff666688;border-radius:50%;animation:pinPulse 2s ease-out infinite}
+        .globe-caption{font:900 10px/1 Arial,sans-serif;letter-spacing:4px;color:#888;text-align:center}
+        @keyframes globeFloat{0%,100%{transform:rotateX(7deg) translateY(0)}50%{transform:rotateX(7deg) translateY(-8px)}}
+        @keyframes globeDrift{from{transform:translateX(-8px) scale(1.03)}to{transform:translateX(8px) scale(1.03)}}
+        @keyframes pinPulse{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.8);opacity:0}}
         .rock-region-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:24px 0}
-        .rock-region{background:#101010;color:#ddd;border:1px solid #333;padding:14px 12px;cursor:pointer;font:700 14px Arial,sans-serif;transition:.2s}
-        .rock-region:hover,.rock-region.active{background:#300000;border-color:#b00000;color:#fff;transform:translateY(-2px)}
-        .rock-region-detail{background:#0a0a0a;border:1px solid #333;border-left:4px solid #a00000;padding:28px}
+        .rock-region{background:linear-gradient(145deg,#171717,#080808);color:#ddd;border:1px solid #333;padding:14px 12px;cursor:pointer;font:700 14px Arial,sans-serif;transition:.2s;box-shadow:inset 0 1px #ffffff08,0 5px 0 #000}
+        .rock-region:hover,.rock-region.active{background:linear-gradient(145deg,#390707,#160000);border-color:#d21b1b;color:#fff;transform:translateY(-2px);box-shadow:0 0 20px #b0000033}
+        .rock-region-detail{background:linear-gradient(145deg,#101010,#070707);border:1px solid #333;border-left:4px solid #a00000;padding:28px;box-shadow:0 18px 35px #0007,inset 0 1px #ffffff08}
         .rock-region-detail h2{font-size:clamp(24px,4vw,38px);margin:8px 0 14px}
         .rock-region-detail p{color:#aaa;line-height:1.65}
-        .rock-region-styles,.rock-region-bands{margin-top:20px;padding:17px;background:#111;border:1px solid #252525}
+        .rock-region-styles,.rock-region-bands{margin-top:20px;padding:17px;background:linear-gradient(145deg,#151515,#0b0b0b);border:1px solid #292929}
         .rock-region-styles strong,.rock-region-bands strong{display:block;margin-bottom:8px}
         .rock-region-note{font-size:12px;margin-top:18px;color:#666!important}
-        @media(max-width:650px){.rock-region-detail{padding:20px}.rock-region-picker{grid-template-columns:1fr 1fr}.rock-globe{width:min(300px,75vw)}}
+        @media(prefers-reduced-motion:reduce){.rock-globe,.globe-land,.globe-pin::after{animation:none!important}}
+        @media(max-width:650px){.rock-region-detail{padding:20px}.rock-region-picker{grid-template-columns:1fr 1fr}.rock-globe{width:min(320px,78vw)}}
 
     </style>
 </head>
@@ -1547,9 +1556,15 @@
                 <svg class="globe-land" viewBox="0 0 500 250" role="img" aria-label="Continentes estilizados">
                     <path d="M44 53 L78 32 119 40 139 61 126 83 103 91 91 116 70 109 60 86 39 77 Z M119 117 L148 126 165 155 153 185 141 220 123 197 117 163 101 142 Z M215 47 L242 31 270 42 281 60 265 72 242 68 230 89 209 77 Z M245 92 L276 88 297 109 288 137 270 161 260 195 241 175 233 141 218 119 Z M300 52 L347 35 397 49 431 71 416 92 384 97 365 117 338 106 320 86 293 80 Z M357 125 L386 119 403 139 392 168 371 181 357 158 Z" fill="currentColor" opacity=".82"/>
                 </svg>
+                <button class="globe-pin" style="left:25%;top:37%" type="button" aria-label="Selecionar Estados Unidos" aria-pressed="true" onclick="selecionarRegiaoRock('eua')" title="Estados Unidos"></button>
+                <button class="globe-pin" style="left:49%;top:28%" type="button" aria-label="Selecionar Reino Unido" aria-pressed="false" onclick="selecionarRegiaoRock('reino-unido')" title="Reino Unido"></button>
+                <button class="globe-pin" style="left:34%;top:67%" type="button" aria-label="Selecionar Brasil" aria-pressed="false" onclick="selecionarRegiaoRock('brasil')" title="Brasil"></button>
+                <button class="globe-pin" style="left:53%;top:34%" type="button" aria-label="Selecionar Alemanha" aria-pressed="false" onclick="selecionarRegiaoRock('alemanha')" title="Alemanha"></button>
+                <button class="globe-pin" style="left:84%;top:72%" type="button" aria-label="Selecionar Austrália" aria-pressed="false" onclick="selecionarRegiaoRock('australia')" title="Austrália"></button>
+                <button class="globe-pin" style="left:84%;top:43%" type="button" aria-label="Selecionar Japão" aria-pressed="false" onclick="selecionarRegiaoRock('japao')" title="Japão"></button>
                 <span class="globe-glow"></span>
             </div>
-            <div class="globe-caption">ROCK SCENES • WORLDWIDE</div>
+            <div class="globe-caption">● PONTOS VERMELHOS: CENAS DO ROCK • CLIQUE PARA EXPLORAR</div>
         </div>
         <div class="rock-region-picker" role="group" aria-label="Escolha uma região do mapa">
             <button class="rock-region active" type="button" onclick="selecionarRegiaoRock('eua')">🇺🇸 Estados Unidos</button>
@@ -2159,6 +2174,7 @@ desbloquear("achQuiz");
         function selecionarRegiaoRock(id){
             const r=regioesRock[id]; if(!r)return;
             document.querySelectorAll(".rock-region").forEach(b=>b.classList.toggle("active",b.getAttribute("onclick").includes("'"+id+"'")));
+            document.querySelectorAll(".globe-pin").forEach(b=>b.setAttribute("aria-pressed",String(b.getAttribute("onclick").includes("'"+id+"'"))));
             document.getElementById("rockRegionTag").textContent=r.tag;
             document.getElementById("rockRegionTitle").textContent=r.titulo;
             document.getElementById("rockRegionHistory").textContent=r.historia;
