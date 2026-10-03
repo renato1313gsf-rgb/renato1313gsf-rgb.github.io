@@ -1365,7 +1365,7 @@
         <h1 class="section-title">RockWave Radio</h1>
 
         <p class="section-subtitle">
-            Uma rádio de verdade. Aperte play e deixe o rock tocar. 🤘
+            Rádio de verdade. 24/7, com o rock tocando direto do servidor. 🤘
         </p>
 
         <div class="radio-box">
@@ -1381,7 +1381,7 @@
                 <div id="radioNowPlaying" class="radio-now-playing">Pronto para tocar</div>
             </div>
 
-            <div class="radio-live"><span class="live-dot"></span> ROCKWAVE RADIO • ONLINE</div>
+            <div class="radio-live"><span class="live-dot"></span> ROCKWAVE RADIO • STREAM AO VIVO</div>
 
             <div class="radio-info">
                 <div>
@@ -1391,17 +1391,19 @@
                 <div id="radioVolumeLabel" class="radio-volume-label">Volume 80%</div>
             </div>
 
-            <audio id="rockwaveAudio" preload="none"></audio>
+            <audio id="rockwaveAudio" preload="none">
+                <source src="https://eu8.fastcast4u.com/proxy/rock/stream" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
 
             <div class="radio-progress">
                 <div id="radioProgressFill"></div>
             </div>
-            <div class="radio-meta" id="radioMeta">Faixa 1 de 28</div>
+            <div class="radio-meta" id="radioMeta">STREAM AO VIVO • 24/7 ROCK</div>
 
             <div class="radio-controls">
-                <button type="button" onclick="ligarRadio()">▶ TOCAR</button>
+                <button type="button" onclick="ligarRadio()">▶ TOCAR RÁDIO</button>
                 <button type="button" onclick="pausarRadio()">⏸ PAUSAR</button>
-                <button type="button" onclick="proximaMusica()">⏭ PRÓXIMA</button>
             </div>
 
             <div class="radio-volume">
@@ -1413,7 +1415,7 @@
 
             <div class="radio-history">
                 <div class="radio-history-title">HISTÓRICO DA RÁDIO</div>
-                <div id="radioHistory">A rádio ainda não tocou nenhuma faixa.</div>
+                <div id="radioHistory">Clique em TOCAR RÁDIO para entrar no stream ao vivo. 🤘</div>
             </div>
 
         </div>
@@ -1857,46 +1859,15 @@ desbloquear("achQuiz");
 
 
         /* =========================
-           ROCKWAVE RADIO
+           ROCKWAVE RADIO — STREAM REAL 24/7
         ========================== */
 
-        const musicas = [
-            {titulo:"Linkin Park — In the End",id:"eVTXPUF4Oz4"},
-            {titulo:"AC/DC — Thunderstruck",id:"v2AC41dglnM"},
-            {titulo:"Nirvana — Smells Like Teen Spirit",id:"hTWKbfoikeg"},
-            {titulo:"System Of A Down — Toxicity",id:"iywaBOMvYLI"},
-            {titulo:"System Of A Down — Chop Suey!",id:"CSvFpBOe8eY"},
-            {titulo:"Rage Against The Machine — Killing in the Name",id:"bWXazVhlyxQ"},
-            {titulo:"Slipknot — Psychosocial",id:"5abamRO41fE"},
-            {titulo:"AC/DC — Back In Black",id:"pAgnJDJN4VA"},
-            {titulo:"Guns N' Roses — Sweet Child O' Mine",id:"1w7OgIMMRc4"},
-            {titulo:"Black Sabbath — Paranoid",id:"0qanF-91aJo"},
-            {titulo:"Deep Purple — Smoke on the Water",id:"Q2FzZSBD5LE"},
-            {titulo:"Nirvana — Come As You Are",id:"vabnZ9-ex7o"},
-            {titulo:"Evanescence — Bring Me to Life",id:"3YxaaGgTQYM"},
-            {titulo:"Green Day — American Idiot",id:"Ee_uujKuJMI"},
-            {titulo:"Legião Urbana — Tempo Perdido",id:"LqmRIG1plVU"},
-            {titulo:"Cássia Eller — Malandragem",id:"mJ3IS1rj5uM"},
-            {titulo:"Cazuza — Exagerado",id:"47ZKNyqn2RU"},
-            {titulo:"The Cranberries — Zombie",id:"6Ejga4kJUts"},
-            {titulo:"Arctic Monkeys — Do I Wanna Know?",id:"bpOSxM0rNPM"},
-            {titulo:"Pitty — Máscara",id:"W4-G-itMgjI"},
-            {titulo:"Skillet — Monster",id:"1mjlM_RnsVE"},
-            {titulo:"Mamonas Assassinas — Vira-Vira",id:"1WjI3DLOk4c"},
-            {titulo:"Mamonas Assassinas — Jumento Celestino",id:"-JNBATGUJOQ"},
-            {titulo:"KISS — I Was Made for Lovin' You",id:"ZhIsAZO5gl0"},
-            {titulo:"Charlie Brown Jr. — Tamo Aí na Atividade",id:"HSOSaCzTtoU"},
-            {titulo:"Charlie Brown Jr. — Falar, Falar",id:"OY72eiwOYBM"},
-            {titulo:"Charlie Brown Jr. — Gimme o Anel",id:"0YNO56ObVQ4"},
-            {titulo:"Ozzy Osbourne — No More Tears",id:"CprfjfN5PRs"}
-        ];
+        const ROCKWAVE_STREAM = "https://eu8.fastcast4u.com/proxy/rock/stream";
 
-        let musicaAtual = 0;
         let radioLigada = false;
         let radioHistorico = [];
 
         function atualizarRadio() {
-            const faixa = musicas[musicaAtual];
             const title = document.getElementById("radioTitle");
             const status = document.getElementById("radioStatus");
             const fill = document.getElementById("radioProgressFill");
@@ -1904,95 +1875,86 @@ desbloquear("achQuiz");
             const now = document.getElementById("radioNowPlaying");
             const audio = document.getElementById("rockwaveAudio");
 
-            if (title) title.textContent = faixa.titulo;
-            if (now) now.textContent = radioLigada ? "▶ TOCANDO AGORA" : "PRONTO PARA TOCAR";
-            if (status) status.textContent = radioLigada
-                ? "RockWave Radio • tocando"
-                : "RockWave Radio • pausada";
-            if (fill) fill.style.width = ((musicaAtual + 1) / musicas.length * 100) + "%";
-            if (meta) meta.textContent = "Faixa " + (musicaAtual + 1) + " de " + musicas.length;
-            if (audio && audio.volume !== undefined) {
+            if (title) title.textContent = "RockWave Radio";
+
+            if (now) {
+                now.textContent = radioLigada
+                    ? "▶ TRANSMITINDO AO VIVO"
+                    : "PRONTO PARA TOCAR";
+            }
+
+            if (status) {
+                status.textContent = radioLigada
+                    ? "RockWave Radio • stream ao vivo"
+                    : "RockWave Radio • pausada";
+            }
+
+            if (fill) fill.style.width = radioLigada ? "100%" : "0%";
+
+            if (meta) meta.textContent = "STREAM AO VIVO • 24/7 ROCK";
+
+            if (audio) {
                 const label = document.getElementById("radioVolumeLabel");
-                if (label) label.textContent = "Volume " + Math.round(audio.volume * 100) + "%";
+                if (label) {
+                    label.textContent = "Volume " + Math.round(audio.volume * 100) + "%";
+                }
             }
         }
 
-        function tocarFaixaRadio() {
+        function ligarRadio() {
             const audio = document.getElementById("rockwaveAudio");
             if (!audio) return;
 
-            const faixa = musicas[musicaAtual];
+            audio.src = ROCKWAVE_STREAM;
 
-            /*
-             * A fonte continua sendo o vídeo oficial do YouTube, mas o player
-             * fica escondido. A reprodução real é controlada pelo elemento
-             * <audio> quando houver uma URL de áudio direta configurada.
-             *
-             * Sem um servidor de streaming/URL de áudio direto, o navegador
-             * não consegue transformar um ID do YouTube em um stream <audio>.
-             */
-            if (!faixa.audio) {
-                atualizarRadio();
-                if (document.getElementById("radioStatus")) {
-                    document.getElementById("radioStatus").textContent =
-                        "Configure uma fonte de áudio da rádio para tocar esta faixa.";
-                }
-                return;
-            }
-
-            audio.src = faixa.audio;
             audio.play().then(() => {
                 radioLigada = true;
                 desbloquear("achRadio");
-                adicionarHistorico(faixa.titulo);
+                adicionarHistorico("RockWave Radio • LIVE");
                 atualizarRadio();
             }).catch(() => {
                 radioLigada = false;
                 atualizarRadio();
-                const status = document.getElementById("radioStatus");
-                if (status) status.textContent = "O navegador bloqueou a reprodução. Clique em TOCAR novamente.";
-            });
-        }
 
-        function ligarRadio() {
-            tocarFaixaRadio();
+                const status = document.getElementById("radioStatus");
+                if (status) {
+                    status.textContent =
+                        "Clique em TOCAR RÁDIO novamente para iniciar o stream.";
+                }
+            });
         }
 
         function pausarRadio() {
             const audio = document.getElementById("rockwaveAudio");
             if (!audio) return;
+
             audio.pause();
             radioLigada = false;
             atualizarRadio();
         }
 
-        function proximaMusica() {
-            const audio = document.getElementById("rockwaveAudio");
-            if (audio) audio.pause();
-
-            musicaAtual++;
-            if (musicaAtual >= musicas.length) musicaAtual = 0;
-
-            radioLigada = false;
-            atualizarRadio();
-            tocarFaixaRadio();
-        }
-
         function alterarVolumeRadio(valor) {
             const audio = document.getElementById("rockwaveAudio");
             const volume = Math.max(0, Math.min(100, Number(valor))) / 100;
+
             if (audio) audio.volume = volume;
 
             const label = document.getElementById("radioVolumeLabel");
-            if (label) label.textContent = "Volume " + Math.round(volume * 100) + "%";
+            if (label) {
+                label.textContent = "Volume " + Math.round(volume * 100) + "%";
+            }
         }
 
         function adicionarHistorico(titulo) {
-            if (!radioHistorico.includes(titulo)) radioHistorico.unshift(titulo);
+            if (!radioHistorico.includes(titulo)) {
+                radioHistorico.unshift(titulo);
+            }
+
             radioHistorico = radioHistorico.slice(0, 6);
 
             const box = document.getElementById("radioHistory");
             if (!box) return;
+
             box.innerHTML = radioHistorico.map((nome, i) =>
                 "<div style='padding:8px 0;border-bottom:1px solid #171717;'>" +
                 (i === 0 ? "▶ " : "• ") + nome + "</div>"
@@ -2001,24 +1963,39 @@ desbloquear("achQuiz");
 
         document.addEventListener("DOMContentLoaded", () => {
             const audio = document.getElementById("rockwaveAudio");
-            if (audio) {
-                audio.volume = 0.8;
-                audio.addEventListener("ended", () => {
-                    musicaAtual++;
-                    if (musicaAtual >= musicas.length) musicaAtual = 0;
-                    radioLigada = false;
-                    tocarFaixaRadio();
-                });
-                audio.addEventListener("play", () => {
-                    radioLigada = true;
-                    atualizarRadio();
-                });
-                audio.addEventListener("pause", () => {
-                    radioLigada = false;
-                    atualizarRadio();
-                });
+            if (!audio) return;
+
+            audio.src = ROCKWAVE_STREAM;
+            audio.volume = 0.8;
+
+            audio.addEventListener("play", () => {
+                radioLigada = true;
                 atualizarRadio();
-            }
+            });
+
+            audio.addEventListener("playing", () => {
+                radioLigada = true;
+                atualizarRadio();
+            });
+
+            audio.addEventListener("pause", () => {
+                radioLigada = false;
+                atualizarRadio();
+            });
+
+            audio.addEventListener("error", () => {
+                radioLigada = false;
+
+                const status = document.getElementById("radioStatus");
+                if (status) {
+                    status.textContent =
+                        "Não foi possível conectar ao servidor da rádio.";
+                }
+
+                atualizarRadio();
+            });
+
+            atualizarRadio();
         });
 
         /* =========================
@@ -2219,11 +2196,11 @@ desbloquear("achQuiz");
             if (tipo === "nirvana") {
                 easterTitle.textContent = "NEVERMIND.EXE";
                 easterText.textContent = "Você encontrou o sinal de 1991. 🎸";
-                musicaAtual = musicas.findIndex(m => m.id === "hTWKbfoikeg"); if (musicaAtual < 0) musicaAtual = 0;
+                // O Easter egg agora usa a RockWave Radio real 24/7.
             } else {
                 easterTitle.textContent = "ROCKWAVE.EXE";
                 easterText.textContent = "SINAL ENCONTRADO — você desbloqueou um segredo da RockWave. 🤘";
-                musicaAtual = musicas.findIndex(m => m.id === "eVTXPUF4Oz4"); if (musicaAtual < 0) musicaAtual = 0;
+                // O Easter egg agora usa a RockWave Radio real 24/7.
             }
 
             easterMessage.classList.add("show");
@@ -2291,7 +2268,7 @@ desbloquear("achQuiz");
                 mostrarEasterEgg("rockwave");
                 easterTitle.textContent = "HEADBANG.EXE";
                 easterText.textContent = "Você encontrou um sinal ainda mais fundo no RockWave. 🤘";
-                musicaAtual = musicas.findIndex(m => m.id === "3YxaaGgTQYM"); if (musicaAtual < 0) musicaAtual = 0;
+                // O código secreto agora usa a RockWave Radio real 24/7.
                 ligarRadio();
             }
         });/* =========================
