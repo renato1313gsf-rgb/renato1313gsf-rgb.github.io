@@ -2453,6 +2453,106 @@ function outraCuriosidade(){
 resetarCuriosidades();
 
 /* =========================
+   ADIVINHE A MÚSICA
+========================= */
+const perguntasMusicaRockWave = [
+    ["“I'm gonna fight 'em off...”",["Seven Nation Army","Smells Like Teen Spirit","Back In Black","Enter Sandman"],"Seven Nation Army"],
+    ["“With the lights out, it's less dangerous...”",["Come As You Are","Smells Like Teen Spirit","Lithium","In the End"],"Smells Like Teen Spirit"],
+    ["“Is this the real life? Is this just fantasy?”",["Bohemian Rhapsody","Imagine","Dream On","Stairway to Heaven"],"Bohemian Rhapsody"],
+    ["“We will, we will rock you!”",["We Are the Champions","Rock You","Another One Bites the Dust","We Will Rock You"],"We Will Rock You"],
+    ["“Back in black, I hit the sack...”",["Highway to Hell","Back In Black","Thunderstruck","T.N.T."],"Back In Black"],
+    ["“Hello, hello, hello, how low?”",["Come As You Are","Heart-Shaped Box","Lithium","All Apologies"],"Come As You Are"],
+    ["“We're not gonna take it anymore!”",["I Love Rock 'n' Roll","We're Not Gonna Take It","Paranoid","Breaking the Law"],"We're Not Gonna Take It"],
+    ["“Wake me up inside...”",["Bring Me to Life","My Immortal","Going Under","Call Me When You're Sober"],"Bring Me to Life"],
+    ["“I am the highway...”",["Like a Stone","Black Hole Sun","Be Yourself","I Am the Highway"],"I Am the Highway"],
+    ["“Hello, darkness, my old friend...”",["The Sound of Silence","Wish You Were Here","Hurt","Creep"],"The Sound of Silence"]
+];
+
+let musicaAtual = 0;
+let musicaAcertos = 0;
+let musicaRespondida = false;
+
+function renderPerguntaMusica(){
+    const pergunta = perguntasMusicaRockWave[musicaAtual];
+    const progress = document.getElementById("songGuessProgress");
+    const clue = document.getElementById("songGuessClue");
+    const options = document.getElementById("songGuessOptions");
+    const result = document.getElementById("songGuessResult");
+    const next = document.getElementById("songGuessNext");
+    if(!progress || !clue || !options || !result || !next) return;
+
+    musicaRespondida = false;
+    progress.textContent = "PERGUNTA " + (musicaAtual + 1) + " DE " + perguntasMusicaRockWave.length;
+    clue.innerHTML = "<h2>🎤 Pista: " + pergunta[0] + "</h2>";
+    result.textContent = "";
+    options.innerHTML = "";
+    next.style.display = "none";
+
+    pergunta[1].forEach(opcao => {
+        const botao = document.createElement("button");
+        botao.type = "button";
+        botao.textContent = opcao;
+        botao.addEventListener("click", () => responderMusica(opcao));
+        options.appendChild(botao);
+    });
+}
+
+function responderMusica(resposta){
+    if(musicaRespondida) return;
+    musicaRespondida = true;
+
+    const pergunta = perguntasMusicaRockWave[musicaAtual];
+    const options = document.getElementById("songGuessOptions");
+    const result = document.getElementById("songGuessResult");
+    const next = document.getElementById("songGuessNext");
+    if(!result || !next) return;
+
+    document.querySelectorAll("#songGuessOptions button").forEach(botao => {
+        botao.disabled = true;
+        if(botao.textContent === pergunta[2]) botao.style.borderColor = "#168a16";
+        if(botao.textContent === resposta && resposta !== pergunta[2]) botao.style.borderColor = "#a00000";
+    });
+
+    if(resposta === pergunta[2]){
+        musicaAcertos++;
+        result.textContent = "🤘 ACERTOU! " + pergunta[2] + "!";
+        if(typeof desbloquear === "function") desbloquear("achSongGuess");
+    }else{
+        result.textContent = "❌ ERROU! A resposta era: " + pergunta[2];
+    }
+
+    if(musicaAtual < perguntasMusicaRockWave.length - 1){
+        next.textContent = "PRÓXIMA →";
+        next.style.display = "inline-block";
+    }else{
+        next.textContent = "🔄 JOGAR NOVAMENTE";
+        next.style.display = "inline-block";
+    }
+}
+
+function proximaPerguntaMusica(){
+    if(musicaAtual >= perguntasMusicaRockWave.length - 1){
+        musicaAtual = 0;
+        musicaAcertos = 0;
+    }else{
+        musicaAtual++;
+    }
+    renderPerguntaMusica();
+}
+
+function iniciarAdivinheMusica(){
+    const section = document.getElementById("adivinhe");
+    if(!section) return;
+    renderPerguntaMusica();
+}
+
+if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", iniciarAdivinheMusica);
+}else{
+    iniciarAdivinheMusica();
+}
+
+/* =========================
    COPA ROCKWAVE — MATA-MATA
 ========================= */
 (() => {
