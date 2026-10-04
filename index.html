@@ -2538,9 +2538,12 @@ function renderPerguntaMusica(){
 
     musicaRespondida = false;
     progress.textContent = "PERGUNTA " + (musicaAtual + 1) + " DE " + perguntasMusicaRockWave.length;
-    clue.innerHTML = "<h2>🎤 Pista: " + pergunta[0] + "</h2>";
+    clue.replaceChildren();
+    const h2 = document.createElement("h2");
+    h2.textContent = "🎤 Pista: " + pergunta[0];
+    clue.appendChild(h2);
     result.textContent = "";
-    options.innerHTML = "";
+    options.replaceChildren();
     next.style.display = "none";
 
     pergunta[1].forEach(opcao => {
@@ -2780,7 +2783,7 @@ if(document.readyState === "loading"){
     function renderChave(){
         const box=document.getElementById("battleBracket");
         if(!box) return;
-        box.innerHTML="";
+        box.replaceChildren();
 
         chave.forEach((round,index)=>{
             const col=document.createElement("div");
@@ -2798,7 +2801,15 @@ if(document.readyState === "loading"){
                 round.pares.forEach(match=>{
                     const el=document.createElement("div");
                     el.className="battle-match winner";
-                    el.innerHTML="<strong>"+match.vencedora+"</strong><small>✓ avançou</small><small class='battle-loser'>✕ "+match.perdedora+" eliminado</small>";
+                    el.replaceChildren();
+                    const winner = document.createElement("strong");
+                    winner.textContent = match.vencedora;
+                    const advanced = document.createElement("small");
+                    advanced.textContent = "✓ avançou";
+                    const loser = document.createElement("small");
+                    loser.className = "battle-loser";
+                    loser.textContent = "✕ " + match.perdedora + " eliminado";
+                    el.append(winner, advanced, loser);
                     col.appendChild(el);
                 });
             }
