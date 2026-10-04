@@ -2031,13 +2031,13 @@ desbloquear("achQuiz");
         let radioReconectando = false;
         let radioReconexaoTimer = null;
 
-        function reconectarRadio(motivo) {
+        function reconectarRadio() {
             const audio = document.getElementById("rockwaveAudio");
             if (!audio || !radioLigada || radioReconectando) return;
 
             radioReconectando = true;
             const status = document.getElementById("radioStatus");
-            if (status) status.textContent = "Reconectando ao stream...";
+            if (status) status.textContent = "Conexão perdida. Reconectando...";
 
             clearTimeout(radioReconexaoTimer);
             radioReconexaoTimer = setTimeout(() => {
@@ -2045,15 +2045,20 @@ desbloquear("achQuiz");
                     radioReconectando = false;
                     return;
                 }
+
                 const volume = audio.volume;
-                audio.pause();
+
                 audio.removeAttribute("src");
                 audio.load();
                 audio.src = ROCKWAVE_STREAM;
                 audio.volume = volume;
-                audio.play().catch(() => {});
-                radioReconectando = false;
-            }, 2500);
+
+                audio.play()
+                    .catch(() => {})
+                    .finally(() => {
+                        radioReconectando = false;
+                    });
+            }, 4000);
         }
 
         function ligarRadio() {
@@ -2140,7 +2145,7 @@ desbloquear("achQuiz");
 
             audio.addEventListener("error", () => {
                 if (radioLigada) {
-                    reconectarRadio("error");
+                    reconectarRadio();
                 } else {
                     const status = document.getElementById("radioStatus");
                     if (status) status.textContent = "Não foi possível conectar ao servidor da rádio.";
@@ -2148,12 +2153,20 @@ desbloquear("achQuiz");
                 }
             });
 
-            audio.addEventListener("stalled", () => {
-                if (radioLigada) reconectarRadio("stalled");
+            // "waiting" e "stalled" podem acontecer normalmente em um stream ao vivo.
+            // Não reiniciamos o áudio nesses eventos para evitar o efeito ▶️⏸️▶️⏸️.
+            audio.addEventListener("waiting", () => {
+                if (radioLigada) {
+                    const status = document.getElementById("radioStatus");
+                    if (status) status.textContent = "Buffering do stream...";
+                }
             });
 
-            audio.addEventListener("waiting", () => {
-                if (radioLigada) reconectarRadio("waiting");
+            audio.addEventListener("playing", () => {
+                radioReconectando = false;
+                clearTimeout(radioReconexaoTimer);
+                radioLigada = true;
+                atualizarRadio();
             });
 
             atualizarRadio();
