@@ -1193,7 +1193,7 @@
             <button onclick="abrir('guitarra')"><span>🎮</span>MINIGAME DE GUITARRA</button>
             <button onclick="abrir('riffguess')"><span>🎶</span>ADIVINHE O RIFF</button><button onclick="alternarNoiteExtrema()"><span>🌑</span>NOITE EXTREMA</button>
 
-<button style="border-color:#a00000;box-shadow:0 0 18px #a0000033;" onclick="abrir('batalha')"><span>⚔️</span>BATALHA DE BANDAS</button>
+<button type="button" onclick="abrir('batalha')"><span>⚔️</span>BATALHA DE BANDAS</button>
 
 <button onclick="abrir('galeria')">
                 <span>🖼️</span>
@@ -2213,28 +2213,43 @@ const batalhaBandas=[
  ["Slipknot","Metal • EUA"],["Evanescence","Alternative metal • EUA"],["Rage Against the Machine","Rap metal • EUA"],
  ["Legião Urbana","Rock brasileiro • Brasil"],["Deep Purple","Hard rock • Reino Unido"],["Kiss","Hard rock • EUA"]
 ];
-let batalhaAtual=[],batalhaScore=0;
+
+let batalhaAtual=[];
+let batalhaScore=0;
+
 function novaBatalha(){
-    let pool=[...batalhaBandas];
+    const left=document.getElementById("battleLeft");
+    const right=document.getElementById("battleRight");
+    const result=document.getElementById("battleResult");
+    if(!left||!right)return;
+
+    const pool=[...batalhaBandas];
     const pick=()=>pool.splice(Math.floor(Math.random()*pool.length),1)[0];
     batalhaAtual=[pick(),pick()];
-    document.querySelector("#battleLeft h2").textContent=batalhaAtual[0][0];
-    document.querySelector("#battleLeft p").textContent=batalhaAtual[0][1];
-    document.querySelector("#battleRight h2").textContent=batalhaAtual[1][0];
-    document.querySelector("#battleRight p").textContent=batalhaAtual[1][1];
-    document.getElementById("battleResult").textContent="Escolha seu lado.";
+
+    left.querySelector("h2").textContent=batalhaAtual[0][0];
+    left.querySelector("p").textContent=batalhaAtual[0][1];
+    right.querySelector("h2").textContent=batalhaAtual[1][0];
+    right.querySelector("p").textContent=batalhaAtual[1][1];
+    if(result)result.textContent="Escolha seu lado. 🤘";
 }
+
 function votarBatalha(lado){
+    if(!batalhaAtual.length) novaBatalha();
     if(!batalhaAtual.length)return;
+
     batalhaScore++;
-    document.getElementById("battleScore").textContent=batalhaScore;
-    const vencedor=batalhaAtual[lado];
-    document.getElementById("battleResult").textContent="🔥 Você escolheu "+vencedor[0]+"! Próxima batalha?";
-    desbloquear("achBattle");
+    const score=document.getElementById("battleScore");
+    const result=document.getElementById("battleResult");
+    if(score)score.textContent=batalhaScore;
+
+    const escolhida=batalhaAtual[lado];
+    if(result)result.textContent="🤘 Você escolheu "+escolhida[0]+"! Próxima batalha?";
 }
 
-
-window.addEventListener('load',()=>{ if(document.getElementById("battleLeft")) novaBatalha(); });
+window.addEventListener("load",()=>{
+    if(document.getElementById("battleLeft"))novaBatalha();
+});
 </script>
 
 
