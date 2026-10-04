@@ -1101,19 +1101,40 @@
 .radio-player-screen.is-playing .radio-visualizer span{animation-duration:.45s}
 .radio-player-screen:not(.is-playing) .radio-visualizer span{animation-play-state:paused;opacity:.28}
 .radio-connection{margin-top:12px;color:#666;font-size:11px;letter-spacing:2px;text-align:center}
-.battle-box{max-width:1050px;margin:0 auto}
+.battle-box{max-width:1100px;margin:0 auto}
+.battle-tournament-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:22px;padding:24px;background:#090909;border:1px solid #292929}
+.battle-tournament-head h2{font-size:clamp(25px,4vw,42px);margin:9px 0 5px}
+.battle-tournament-head p{color:#888;line-height:1.5}
+.battle-edition{font-size:12px;letter-spacing:3px;color:#666;white-space:nowrap}
+.battle-edition strong{color:#fff;font-size:22px}
 .battle-arena{display:grid;grid-template-columns:1fr 90px 1fr;gap:16px;align-items:stretch}
-.battle-card{background:#090909;border:1px solid #292929;padding:30px;text-align:center;min-height:250px;display:flex;flex-direction:column;justify-content:center;transition:.2s}
-.battle-card:hover{border-color:#a00000;transform:translateY(-4px)}
+.battle-card{background:#090909;border:1px solid #292929;padding:30px;text-align:center;min-height:250px;display:flex;flex-direction:column;justify-content:center;transition:.2s;cursor:pointer;color:#fff}
+.battle-card:hover{border-color:#a00000;transform:translateY(-4px);background:#100000}
+.battle-card:disabled{cursor:not-allowed;opacity:.55}
 .battle-card h2{font-size:clamp(28px,5vw,52px);margin:10px 0}
 .battle-card p{color:#888;line-height:1.5}
 .battle-vs{display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;color:#a00000}
-.battle-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.battle-result{text-align:center;margin-top:16px;min-height:30px;color:#ff5555;font-weight:900}
+.battle-bracket{margin-top:35px}
+.battle-bracket-title{font-size:12px;letter-spacing:3px;color:#666;margin-bottom:12px}
+.battle-bracket-grid{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:10px;overflow-x:auto;padding-bottom:8px}
+.battle-round{background:#090909;border:1px solid #222;padding:12px;min-width:130px}
+.battle-round h3{font-size:11px;letter-spacing:2px;color:#aaa;margin-bottom:10px}
+.battle-match{border:1px solid #242424;background:#0d0d0d;padding:9px;margin-bottom:7px;font-size:12px;line-height:1.3}
+.battle-match:last-child{margin-bottom:0}
+.battle-match.winner{border-color:#6f0000;color:#fff}
+.battle-match.eliminated{opacity:.35;text-decoration:line-through}
+.battle-match small{display:block;color:#666;margin-top:3px;text-decoration:none}
+.battle-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:25px}
 .battle-actions button{background:#111;color:#fff;border:1px solid #444;padding:14px 20px;cursor:pointer;font-weight:900}
 .battle-actions button:hover{background:#300000;border-color:#b00000}
-.battle-score{text-align:center;margin-top:20px;color:#888;letter-spacing:2px}
-.battle-result{text-align:center;margin-top:16px;min-height:24px;color:#ff5555;font-weight:900}
-@media(max-width:700px){.battle-arena{grid-template-columns:1fr}.battle-vs{min-height:20px}.battle-card{min-height:180px}}
+@media(max-width:700px){
+    .battle-tournament-head{align-items:flex-start;flex-direction:column}
+    .battle-arena{grid-template-columns:1fr}
+    .battle-vs{min-height:20px}
+    .battle-card{min-height:180px}
+    .battle-bracket-grid{grid-template-columns:repeat(5,150px)}
+}
 
         </style>
 </head>
@@ -1919,23 +1940,43 @@
 
 <section id="batalha">
     <button class="back" onclick="voltar()">← VOLTAR</button>
-    <h1 class="section-title">BATALHA DE BANDAS</h1>
-    <p class="section-subtitle">Duas bandas entram. Uma sai com o riff mais pesado. Escolha seu lado. ⚔️🤘</p>
+    <h1 class="section-title">COPA ROCKWAVE</h1>
+    <p class="section-subtitle">Mata-mata de bandas. Quem vencer avança. Quem perder está eliminado da edição de 2026. ⚔️🤘</p>
+
     <div class="battle-box">
+        <div class="battle-tournament-head">
+            <div>
+                <span id="battleRoundTag" class="rock-map-tag">FASE PRELIMINAR</span>
+                <h2 id="battleRoundTitle">O campeonato vai começar</h2>
+                <p id="battleMatchInfo">Escolha uma banda para fazê-la avançar.</p>
+            </div>
+            <div class="battle-edition">EDIÇÃO <strong>2026</strong></div>
+        </div>
+
         <div class="battle-arena">
-            <button id="battleLeft" class="battle-card" type="button" onclick="votarBatalha(0)">
-                <span class="rock-map-tag">DESAFIANTE A</span><h2>—</h2><p>—</p>
+            <button id="battleLeft" class="battle-card" type="button">
+                <span class="rock-map-tag">DESAFIANTE A</span>
+                <h2>—</h2>
+                <p>—</p>
             </button>
             <div class="battle-vs">VS</div>
-            <button id="battleRight" class="battle-card" type="button" onclick="votarBatalha(1)">
-                <span class="rock-map-tag">DESAFIANTE B</span><h2>—</h2><p>—</p>
+            <button id="battleRight" class="battle-card" type="button">
+                <span class="rock-map-tag">DESAFIANTE B</span>
+                <h2>—</h2>
+                <p>—</p>
             </button>
         </div>
-        <div class="battle-actions">
-            <button type="button" onclick="novaBatalha()">🔀 NOVA BATALHA</button>
+
+        <div id="battleResult" class="battle-result" aria-live="polite"></div>
+
+        <div class="battle-bracket">
+            <div class="battle-bracket-title">CAMINHO ATÉ A FINAL</div>
+            <div id="battleBracket" class="battle-bracket-grid"></div>
         </div>
-        <div id="battleResult" class="battle-result"></div>
-        <div class="battle-score">VITÓRIAS DO SEU LADO: <strong id="battleScore">0</strong></div>
+
+        <div class="battle-actions">
+            <button id="battleNew" type="button">↻ NOVO CAMPEONATO 2026</button>
+        </div>
     </div>
 </section>
 
@@ -2340,7 +2381,7 @@ function selecionarRegiaoRock(id){
         })();
 
 /* =========================
-   BATALHA DE BANDAS — INICIALIZAÇÃO ISOLADA
+   COPA ROCKWAVE — MATA-MATA
 ========================= */
 (() => {
     const bandas = [
@@ -2351,45 +2392,209 @@ function selecionarRegiaoRock(id){
         ["Slipknot","Metal • EUA"],["Evanescence","Alternative metal • EUA"],["Rage Against the Machine","Rap metal • EUA"],
         ["Legião Urbana","Rock brasileiro • Brasil"],["Deep Purple","Hard rock • Reino Unido"],["Kiss","Hard rock • EUA"]
     ];
-    let atual=[];
-    let score=0;
 
-    function nova() {
+    const nomesFases = ["PRELIMINAR","OITAVAS DE FINAL","QUARTAS DE FINAL","SEMIFINAL","FINAL"];
+    let jogadores = [];
+    let fase = 0;
+    let indice = 0;
+    let confronto = [];
+    let chave = [];
+    let campeonatoEncerrado = false;
+
+    function embaralhar(lista){
+        const arr=[...lista];
+        for(let i=arr.length-1;i>0;i--){
+            const j=Math.floor(Math.random()*(i+1));
+            [arr[i],arr[j]]=[arr[j],arr[i]];
+        }
+        return arr;
+    }
+
+    function salvar(){
+        try{
+            localStorage.setItem("rw_copa_rockwave_2026",JSON.stringify({
+                jogadores,fase,indice,confronto,chave,campeonatoEncerrado
+            }));
+        }catch(e){}
+    }
+
+    function carregar(){
+        try{
+            const salvo=JSON.parse(localStorage.getItem("rw_copa_rockwave_2026")||"null");
+            if(!salvo || !Array.isArray(salvo.jogadores)) return false;
+            jogadores=salvo.jogadores;
+            fase=Number(salvo.fase)||0;
+            indice=Number(salvo.indice)||0;
+            confronto=Array.isArray(salvo.confronto)?salvo.confronto:[];
+            chave=Array.isArray(salvo.chave)?salvo.chave:[];
+            campeonatoEncerrado=!!salvo.campeonatoEncerrado;
+            return true;
+        }catch(e){ return false; }
+    }
+
+    function novaPartida(){
+        if(campeonatoEncerrado) return;
+        confronto=[jogadores[indice],jogadores[indice+1]];
+        if(!confronto[0]||!confronto[1]){
+            avancarFase();
+            return;
+        }
+        render();
+    }
+
+    function iniciarCampeonato(){
+        jogadores=embaralhar(bandas);
+        fase=0;
+        indice=0;
+        confronto=[];
+        chave=[];
+        campeonatoEncerrado=false;
+
+        // Com 18 bandas, quatro jogam a fase preliminar.
+        // Os outros 14 recebem vaga direta nas oitavas.
+        chave.push({nome:"Preliminar",pares:[]});
+        chave.push({nome:"Oitavas de final",pares:[]});
+        chave.push({nome:"Quartas de final",pares:[]});
+        chave.push({nome:"Semifinal",pares:[]});
+        chave.push({nome:"Final",pares:[]});
+
+        novaPartida();
+        salvar();
+    }
+
+    function render(){
         const left=document.getElementById("battleLeft");
         const right=document.getElementById("battleRight");
         const result=document.getElementById("battleResult");
-        if(!left||!right) return;
-        const pool=[...bandas];
-        const pick=()=>pool.splice(Math.floor(Math.random()*pool.length),1)[0];
-        atual=[pick(),pick()];
-        left.querySelector("h2").textContent=atual[0][0];
-        left.querySelector("p").textContent=atual[0][1];
-        right.querySelector("h2").textContent=atual[1][0];
-        right.querySelector("p").textContent=atual[1][1];
-        if(result) result.textContent="Escolha seu lado. 🤘";
+        const tag=document.getElementById("battleRoundTag");
+        const title=document.getElementById("battleRoundTitle");
+        const info=document.getElementById("battleMatchInfo");
+
+        if(campeonatoEncerrado){
+            left.disabled=true;
+            right.disabled=true;
+            tag.textContent="🏆 CAMPEONATO ENCERRADO";
+            title.textContent=jogadores[0]?.[0]||"Campeã do RockWave";
+            info.textContent="A campeã venceu todos os confrontos da edição de 2026.";
+            result.textContent="🏆 "+(jogadores[0]?.[0]||"CAMPEÃ")+" É A CAMPEÃ DA COPA ROCKWAVE 2026!";
+            renderChave();
+            return;
+        }
+
+        const nomeFase=nomesFases[fase]||"FASE";
+        tag.textContent=nomeFase;
+        title.textContent=(confronto[0]?.[0]||"—")+"  VS  "+(confronto[1]?.[0]||"—");
+        info.textContent="Confronto "+(Math.floor(indice/2)+1)+" • Escolha quem avança.";
+        left.disabled=false;
+        right.disabled=false;
+
+        left.querySelector("h2").textContent=confronto[0]?.[0]||"—";
+        left.querySelector("p").textContent=confronto[0]?.[1]||"—";
+        right.querySelector("h2").textContent=confronto[1]?.[0]||"—";
+        right.querySelector("p").textContent=confronto[1]?.[1]||"—";
+        result.textContent="Quem perder está eliminado desta edição. Quem ganhar segue para a próxima rodada.";
+        renderChave();
     }
 
-    function votar(lado) {
-        if(!atual.length) nova();
-        if(!atual.length) return;
-        score++;
-        const scoreEl=document.getElementById("battleScore");
+    function registrarConfronto(vencedora,perdedora){
+        if(!chave[fase]) chave[fase]={nome:nomesFases[fase],pares:[]};
+        chave[fase].pares.push({a:confronto[0]?.[0],b:confronto[1]?.[0],vencedora:vencedora[0],perdedora:perdedora[0]});
+    }
+
+    function votar(lado){
+        if(campeonatoEncerrado || !confronto[0] || !confronto[1]) return;
+
+        const vencedora=confronto[lado];
+        const perdedora=confronto[lado===0?1:0];
+        registrarConfronto(vencedora,perdedora);
+
         const result=document.getElementById("battleResult");
-        if(scoreEl) scoreEl.textContent=score;
-        if(result) result.textContent="🤘 Você escolheu "+atual[lado][0]+"!";
-        setTimeout(nova, 350);
+        if(result) result.textContent="🤘 "+vencedora[0]+" venceu! "+perdedora[0]+" está eliminada.";
+
+        // O perdedor sai definitivamente do campeonato.
+        jogadores.splice(indice,2);
+        jogadores.push(vencedora);
+        indice=0;
+
+        // Monta a próxima rodada com os sobreviventes.
+        setTimeout(avancarFase,500);
     }
 
-    function iniciar() {
+    function avancarFase(){
+        if(jogadores.length===1){
+            campeonatoEncerrado=true;
+            render();
+            salvar();
+            return;
+        }
+
+        if(fase===0){
+            // Após duas preliminares, os 16 sobreviventes formam as oitavas.
+            fase=1;
+        }else{
+            fase++;
+        }
+
+        // Organiza a lista para que a próxima rodada tenha confrontos sequenciais.
+        jogadores=embaralhar(jogadores);
+
+        // Se estamos saindo da preliminar, 18 -> 16.
+        // Se ainda houver número ímpar por alguma razão, a última banda recebe bye.
+        if(jogadores.length%2!==0){
+            const bye=jogadores.pop();
+            jogadores.push(bye);
+        }
+
+        indice=0;
+        novaPartida();
+        salvar();
+    }
+
+    function renderChave(){
+        const box=document.getElementById("battleBracket");
+        if(!box) return;
+        box.innerHTML="";
+
+        chave.forEach((round,index)=>{
+            const col=document.createElement("div");
+            col.className="battle-round";
+            const h=document.createElement("h3");
+            h.textContent=round.nome;
+            col.appendChild(h);
+
+            if(!round.pares.length){
+                const empty=document.createElement("div");
+                empty.className="battle-match";
+                empty.textContent=index===fase?"EM ANDAMENTO":"—";
+                col.appendChild(empty);
+            }else{
+                round.pares.forEach(match=>{
+                    const el=document.createElement("div");
+                    el.className="battle-match winner";
+                    el.innerHTML="<strong>"+match.vencedora+"</strong><small>✓ avançou</small><small class='battle-loser'>✕ "+match.perdedora+" eliminado</small>";
+                    col.appendChild(el);
+                });
+            }
+            box.appendChild(col);
+        });
+    }
+
+    function iniciar(){
         const section=document.getElementById("batalha");
         const left=document.getElementById("battleLeft");
         const right=document.getElementById("battleRight");
-        const novo=section && section.querySelector(".battle-actions button");
+        const novo=document.getElementById("battleNew");
         if(!section||!left||!right) return;
+
         left.addEventListener("click",()=>votar(0));
         right.addEventListener("click",()=>votar(1));
-        if(novo) novo.addEventListener("click",nova);
-        nova();
+        if(novo) novo.addEventListener("click",iniciarCampeonato);
+
+        if(!carregar() || !jogadores.length){
+            iniciarCampeonato();
+        }else{
+            render();
+        }
     }
 
     if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",iniciar);
