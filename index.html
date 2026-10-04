@@ -2381,6 +2381,78 @@ function selecionarRegiaoRock(id){
         })();
 
 /* =========================
+   ROCK CURIOSIDADES — SEM REPETIÇÃO
+========================= */
+const rockCuriosidades = [
+    ["Nirvana","O álbum Nevermind ajudou a levar o grunge de Seattle ao grande público no início dos anos 1990."],
+    ["AC/DC","Back in Black foi lançado em 1980 e se tornou um dos álbuns de rock mais vendidos da história."],
+    ["Black Sabbath","A banda é frequentemente apontada como uma das principais criadoras do heavy metal."],
+    ["Guns N’ Roses","Sweet Child o’ Mine surgiu a partir de um riff que Slash estava tocando durante um ensaio."],
+    ["Queen","Bohemian Rhapsody mistura várias seções musicais em uma única faixa, fugindo bastante do formato pop tradicional."],
+    ["Pink Floyd","The Dark Side of the Moon permaneceu por décadas entre os álbuns mais longevos das paradas da Billboard."],
+    ["The Beatles","A última apresentação paga dos Beatles aconteceu no Candlestick Park, em San Francisco, em 1966."],
+    ["Led Zeppelin","O quarto álbum da banda não traz o nome Led Zeppelin na capa: ele é conhecido por vários apelidos, incluindo Led Zeppelin IV."],
+    ["Deep Purple","Smoke on the Water foi inspirada por um incêndio no cassino de Montreux, na Suíça, em 1971."],
+    ["Metallica","Master of Puppets foi o primeiro álbum do Metallica a receber certificação de platina nos Estados Unidos."],
+    ["Iron Maiden","O mascote Eddie aparece em capas de álbuns, singles e shows da banda desde os primeiros anos."],
+    ["The Cure","Robert Smith é conhecido por seu visual marcante, que se tornou parte da identidade visual do The Cure."],
+    ["The Clash","London Calling mistura punk com elementos de reggae, ska, rockabilly e outros estilos."],
+    ["Ramones","Os integrantes originais adotaram o sobrenome artístico Ramone, mesmo sem serem parentes."],
+    ["Green Day","Dookie foi o álbum que colocou o Green Day definitivamente no centro do punk rock mainstream nos anos 1990."],
+    ["Red Hot Chili Peppers","A banda incorporou elementos de funk ao rock e ajudou a popularizar essa mistura em grande escala."],
+    ["Rage Against the Machine","A banda ficou conhecida por combinar riffs de rock pesado com influências de hip-hop e letras políticas."],
+    ["Linkin Park","Hybrid Theory foi o álbum de estreia do Linkin Park e se tornou um enorme sucesso comercial."],
+    ["System Of A Down","A música da banda combina metal com influências de rock alternativo, música armênia e outras sonoridades."],
+    ["Slipknot","Os integrantes do Slipknot são associados a máscaras e personagens visuais que mudaram ao longo das eras da banda."],
+    ["Evanescence","Fallen foi o álbum que apresentou o Evanescence a uma enorme audiência internacional em 2003."],
+    ["Arctic Monkeys","Whatever People Say I Am, That’s What I’m Not foi lançado em 2006 como o álbum de estreia da banda."],
+    ["Legião Urbana","Faroeste Caboclo é uma das músicas mais conhecidas da banda e conta uma longa história em formato narrativo."],
+    ["Charlie Brown Jr.","A banda ficou conhecida por misturar rock com elementos de skate punk, rap e reggae."],
+    ["Pitty","Admirável Chip Novo foi o álbum de estreia de Pitty e marcou a cena do rock brasileiro nos anos 2000."],
+    ["Mamonas Assassinas","O único álbum de estúdio da banda, lançado em 1995, tornou-se um fenômeno de vendas no Brasil."],
+    ["Kiss","A maquiagem e os personagens de palco do Kiss ajudaram a transformar os shows da banda em um espetáculo visual."],
+    ["Ozzy Osbourne","Depois de sair do Black Sabbath, Ozzy construiu uma longa carreira solo com vários álbuns de sucesso."],
+    ["The Cranberries","Zombie foi escrita por Dolores O’Riordan como reação à violência associada ao conflito na Irlanda do Norte."],
+    ["Foo Fighters","Dave Grohl gravou praticamente todos os instrumentos do primeiro álbum do Foo Fighters, lançado em 1995."]
+];
+
+let rockCuriosidadesRestantes = [];
+
+function embaralharCuriosidades(lista){
+    const arr = [...lista];
+    for(let i = arr.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function resetarCuriosidades(){
+    rockCuriosidadesRestantes = embaralharCuriosidades(rockCuriosidades);
+}
+
+function outraCuriosidade(){
+    const texto = document.getElementById("curiosityText");
+    const tag = document.getElementById("curiosityTag");
+    if(!texto || !tag) return;
+
+    if(!rockCuriosidadesRestantes.length){
+        resetarCuriosidades();
+        texto.textContent = "Você zerou o arquivo de curiosidades! 🔥 Todas foram vistas. A coleção foi embaralhada para começar uma nova rodada.";
+        tag.textContent = "ARQUIVO COMPLETO";
+        if(typeof desbloquear === "function") desbloquear("achCuriosity");
+        return;
+    }
+
+    const curiosidade = rockCuriosidadesRestantes.pop();
+    tag.textContent = curiosidade[0].toUpperCase();
+    texto.textContent = curiosidade[1];
+    if(typeof desbloquear === "function") desbloquear("achCuriosity");
+}
+
+resetarCuriosidades();
+
+/* =========================
    COPA ROCKWAVE — MATA-MATA
 ========================= */
 (() => {
