@@ -1083,6 +1083,38 @@
             .radio-visualizer{bottom:26px}
         }
 
+        
+/* =========================
+   ROCKWAVE 2026 — MEGA EXPANSION
+========================= */
+.rock-map-controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 auto 20px}
+.rock-map-controls button,.rock-map-search{background:#0d0d0d;color:#fff;border:1px solid #444;padding:12px 16px;font:inherit}
+.rock-map-controls button{cursor:pointer;font-weight:900}
+.rock-map-controls button:hover{background:#300000;border-color:#b00000}
+.rock-map-search{width:min(360px,90vw);outline:none}
+.rock-map-search:focus{border-color:#a00000;box-shadow:0 0 0 2px #a0000022}
+.hall-card{position:relative;overflow:hidden}
+.hall-card::after{content:"🤘";position:absolute;right:14px;bottom:10px;opacity:.07;font-size:52px;transform:rotate(-12deg)}
+.hall-card:hover::after{opacity:.16}
+.hall-era{display:inline-block;margin-top:10px;padding:5px 8px;border:1px solid #333;color:#777;font-size:10px;letter-spacing:2px}
+.radio-history{display:none!important}
+.radio-player-screen.is-playing .radio-visualizer span{animation-duration:.45s}
+.radio-player-screen:not(.is-playing) .radio-visualizer span{animation-play-state:paused;opacity:.28}
+.radio-connection{margin-top:12px;color:#666;font-size:11px;letter-spacing:2px;text-align:center}
+.battle-box{max-width:1050px;margin:0 auto}
+.battle-arena{display:grid;grid-template-columns:1fr 90px 1fr;gap:16px;align-items:stretch}
+.battle-card{background:#090909;border:1px solid #292929;padding:30px;text-align:center;min-height:250px;display:flex;flex-direction:column;justify-content:center;transition:.2s}
+.battle-card:hover{border-color:#a00000;transform:translateY(-4px)}
+.battle-card h2{font-size:clamp(28px,5vw,52px);margin:10px 0}
+.battle-card p{color:#888;line-height:1.5}
+.battle-vs{display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;color:#a00000}
+.battle-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.battle-actions button{background:#111;color:#fff;border:1px solid #444;padding:14px 20px;cursor:pointer;font-weight:900}
+.battle-actions button:hover{background:#300000;border-color:#b00000}
+.battle-score{text-align:center;margin-top:20px;color:#888;letter-spacing:2px}
+.battle-result{text-align:center;margin-top:16px;min-height:24px;color:#ff5555;font-weight:900}
+@media(max-width:700px){.battle-arena{grid-template-columns:1fr}.battle-vs{min-height:20px}.battle-card{min-height:180px}}
+
         </style>
 </head>
 
@@ -1160,6 +1192,8 @@
             <button onclick="abrir('adivinhe')"><span>🎵</span>ADIVINHE A MÚSICA</button>
             <button onclick="abrir('guitarra')"><span>🎮</span>MINIGAME DE GUITARRA</button>
             <button onclick="abrir('riffguess')"><span>🎶</span>ADIVINHE O RIFF</button><button onclick="alternarNoiteExtrema()"><span>🌑</span>NOITE EXTREMA</button>
+
+<button onclick="abrir('batalha')"><span>⚔️</span>BATALHA DE BANDAS</button>
 
 <button onclick="abrir('galeria')">
                 <span>🖼️</span>
@@ -1526,10 +1560,7 @@
                        oninput="alterarVolumeRadio(this.value)">
             </div>
 
-            <div class="radio-history">
-                <div class="radio-history-title">HISTÓRICO DA RÁDIO</div>
-                <div id="radioHistory">Clique em TOCAR RÁDIO para entrar no stream ao vivo. 🤘</div>
-            </div>
+            <div class="radio-connection" id="radioConnection">● SERVIDOR ONLINE • STREAM 24/7</div>
 
         </div>
 
@@ -1757,6 +1788,11 @@
     <p class="section-subtitle">Gire pelo mundo do rock: escolha uma região para descobrir as cenas que marcaram — e ainda marcam — aquele lugar. 🌍</p>
     <div class="rock-map-box">
         <div class="rock-map-help">🖱️ Arraste o globo para girar • clique nos pontos vermelhos para explorar cenas do rock</div>
+<div class="rock-map-controls">
+    <button type="button" onclick="resetarGloboRock()">↺ CENTRALIZAR GLOBO</button>
+    <button type="button" onclick="girarGloboRock()">⟳ GIRAR 360°</button>
+    <input id="rockMapSearch" class="rock-map-search" type="search" placeholder="🔎 Procurar país/cena..." oninput="filtrarMapaRock(this.value)" aria-label="Procurar região no mapa">
+</div>
         <div class="rock-globe-wrap" aria-label="Globo 3D ilustrativo do mundo do rock">
             <div class="rock-globe">
                 <div class="globe-grid"></div>
@@ -1773,6 +1809,10 @@
                 <button class="globe-pin" style="left:40%;top:50%" type="button" aria-label="Selecionar Argentina" aria-pressed="false" onclick="selecionarRegiaoRock('argentina')" title="Argentina"></button>
                 <button class="globe-pin" style="left:55%;top:48%" type="button" aria-label="Selecionar França" aria-pressed="false" onclick="selecionarRegiaoRock('franca')" title="França"></button>
                 <button class="globe-pin" style="left:70%;top:46%" type="button" aria-label="Selecionar Coreia do Sul" aria-pressed="false" onclick="selecionarRegiaoRock('coreia')" title="Coreia do Sul"></button>
+                <button class="globe-pin" style="left:31%;top:31%" type="button" aria-label="Selecionar Canadá" aria-pressed="false" onclick="selecionarRegiaoRock('canada')" title="Canadá"></button>
+                <button class="globe-pin" style="left:50%;top:54%" type="button" aria-label="Selecionar Itália" aria-pressed="false" onclick="selecionarRegiaoRock('italia')" title="Itália"></button>
+                <button class="globe-pin" style="left:48%;top:39%" type="button" aria-label="Selecionar Espanha" aria-pressed="false" onclick="selecionarRegiaoRock('espanha')" title="Espanha"></button>
+                <button class="globe-pin" style="left:29%;top:56%" type="button" aria-label="Selecionar México" aria-pressed="false" onclick="selecionarRegiaoRock('mexico')" title="México"></button>
                 <span class="globe-glow"></span>
             </div>
             <div class="globe-caption">● PONTOS VERMELHOS: CENAS DO ROCK • CLIQUE PARA EXPLORAR</div>
@@ -1788,6 +1828,10 @@
             <button class="rock-region" type="button" onclick="selecionarRegiaoRock('argentina')">🇦🇷 Argentina</button>
             <button class="rock-region" type="button" onclick="selecionarRegiaoRock('franca')">🇫🇷 França</button>
             <button class="rock-region" type="button" onclick="selecionarRegiaoRock('coreia')">🇰🇷 Coreia do Sul</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('canada')">🇨🇦 Canadá</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('italia')">🇮🇹 Itália</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('espanha')">🇪🇸 Espanha</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('mexico')">🇲🇽 México</button>
         </div>
         <article class="rock-region-detail" aria-live="polite">
             <span id="rockRegionTag" class="rock-map-tag">ESTADOS UNIDOS</span>
@@ -1837,7 +1881,21 @@
             <div class="hall-card"><div class="hall-rank">29 • BANDA</div><div class="hall-name">Os Paralamas do Sucesso</div><div class="hall-meta">Rock brasileiro • Rio de Janeiro</div></div>
             <div class="hall-card"><div class="hall-rank">30 • BANDA</div><div class="hall-name">Charlie Brown Jr.</div><div class="hall-meta">Rock brasileiro • Santos</div></div>
         </div>
-    </div>
+    
+            <div class="hall-card"><div class="hall-rank">28 • BANDA</div><div class="hall-name">Kiss</div><div class="hall-meta">Hard rock • Nova York</div><span class="hall-era">ANOS 70 →</span></div>
+            <div class="hall-card"><div class="hall-rank">29 • BANDA</div><div class="hall-name">Deep Purple</div><div class="hall-meta">Hard rock • Reino Unido</div><span class="hall-era">ANOS 60 →</span></div>
+            <div class="hall-card"><div class="hall-rank">30 • BANDA</div><div class="hall-name">Black Flag</div><div class="hall-meta">Hardcore punk • Califórnia</div><span class="hall-era">ANOS 80 →</span></div>
+            <div class="hall-card"><div class="hall-rank">31 • BANDA</div><div class="hall-name">Ramones</div><div class="hall-meta">Punk rock • Nova York</div><span class="hall-era">ANOS 70 →</span></div>
+            <div class="hall-card"><div class="hall-rank">32 • BANDA</div><div class="hall-name">System Of A Down</div><div class="hall-meta">Alternative metal • Califórnia</div><span class="hall-era">ANOS 90 →</span></div>
+            <div class="hall-card"><div class="hall-rank">33 • BANDA</div><div class="hall-name">Slipknot</div><div class="hall-meta">Nu metal • Iowa</div><span class="hall-era">ANOS 90 →</span></div>
+            <div class="hall-card"><div class="hall-rank">34 • BANDA</div><div class="hall-name">Evanescence</div><div class="hall-meta">Alternative metal • Arkansas</div><span class="hall-era">ANOS 90 →</span></div>
+            <div class="hall-card"><div class="hall-rank">35 • BANDA</div><div class="hall-name">Green Day</div><div class="hall-meta">Punk rock • Califórnia</div><span class="hall-era">ANOS 90 →</span></div>
+            <div class="hall-card"><div class="hall-rank">36 • BANDA</div><div class="hall-name">Foo Fighters</div><div class="hall-meta">Rock alternativo • EUA</div><span class="hall-era">ANOS 90 →</span></div>
+            <div class="hall-card"><div class="hall-rank">37 • BANDA</div><div class="hall-name">The Cranberries</div><div class="hall-meta">Alternative rock • Irlanda</div><span class="hall-era">ANOS 90 →</span></div>
+            <div class="hall-card"><div class="hall-rank">38 • BANDA</div><div class="hall-name">Arctic Monkeys</div><div class="hall-meta">Indie rock • Sheffield</div><span class="hall-era">ANOS 2000 →</span></div>
+            <div class="hall-card"><div class="hall-rank">39 • ARTISTA</div><div class="hall-name">Pitty</div><div class="hall-meta">Rock brasileiro • Bahia</div><span class="hall-era">ANOS 2000 →</span></div>
+            <div class="hall-card"><div class="hall-rank">40 • BANDA</div><div class="hall-name">Charlie Brown Jr.</div><div class="hall-meta">Rock brasileiro • Santos</div><span class="hall-era">ANOS 90 →</span></div>
+</div>
 </section>
 
 <section id="createband">
@@ -1860,6 +1918,29 @@
             </div>
             <div id="bandResult" class="band-result"></div>
         </div>
+    </div>
+</section>
+
+
+<section id="batalha">
+    <button class="back" onclick="voltar()">← VOLTAR</button>
+    <h1 class="section-title">BATALHA DE BANDAS</h1>
+    <p class="section-subtitle">Duas bandas entram. Uma sai com o riff mais pesado. Escolha seu lado. ⚔️🤘</p>
+    <div class="battle-box">
+        <div class="battle-arena">
+            <button id="battleLeft" class="battle-card" type="button" onclick="votarBatalha(0)">
+                <span class="rock-map-tag">DESAFIANTE A</span><h2>—</h2><p>—</p>
+            </button>
+            <div class="battle-vs">VS</div>
+            <button id="battleRight" class="battle-card" type="button" onclick="votarBatalha(1)">
+                <span class="rock-map-tag">DESAFIANTE B</span><h2>—</h2><p>—</p>
+            </button>
+        </div>
+        <div class="battle-actions">
+            <button type="button" onclick="novaBatalha()">🔀 NOVA BATALHA</button>
+        </div>
+        <div id="battleResult" class="battle-result"></div>
+        <div class="battle-score">VITÓRIAS DO SEU LADO: <strong id="battleScore">0</strong></div>
     </div>
 </section>
 
@@ -2070,7 +2151,6 @@ desbloquear("achQuiz");
             audio.play().then(() => {
                 radioLigada = true;
                 desbloquear("achRadio");
-                adicionarHistorico("RockWave Radio • LIVE");
                 atualizarRadio();
             }).catch(() => {
                 radioLigada = false;
@@ -2105,645 +2185,7 @@ desbloquear("achQuiz");
             }
         }
 
-        function adicionarHistorico(titulo) {
-            if (!radioHistorico.includes(titulo)) {
-                radioHistorico.unshift(titulo);
-            }
-
-            radioHistorico = radioHistorico.slice(0, 6);
-
-            const box = document.getElementById("radioHistory");
-            if (!box) return;
-
-            box.innerHTML = radioHistorico.map((nome, i) =>
-                "<div style='padding:8px 0;border-bottom:1px solid #171717;'>" +
-                (i === 0 ? "▶ " : "• ") + nome + "</div>"
-            ).join("");
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const audio = document.getElementById("rockwaveAudio");
-            if (!audio) return;
-
-            audio.src = ROCKWAVE_STREAM;
-            audio.volume = 0.8;
-
-            audio.addEventListener("play", () => {
-                radioLigada = true;
-                atualizarRadio();
-            });
-
-            audio.addEventListener("playing", () => {
-                radioLigada = true;
-                atualizarRadio();
-            });
-
-            audio.addEventListener("pause", () => {
-                radioLigada = false;
-                atualizarRadio();
-            });
-
-            audio.addEventListener("error", () => {
-                if (radioLigada) {
-                    reconectarRadio();
-                } else {
-                    const status = document.getElementById("radioStatus");
-                    if (status) status.textContent = "Não foi possível conectar ao servidor da rádio.";
-                    atualizarRadio();
-                }
-            });
-
-            // "waiting" e "stalled" podem acontecer normalmente em um stream ao vivo.
-            // Não reiniciamos o áudio nesses eventos para evitar o efeito ▶️⏸️▶️⏸️.
-            audio.addEventListener("waiting", () => {
-                if (radioLigada) {
-                    const status = document.getElementById("radioStatus");
-                    if (status) status.textContent = "Buffering do stream...";
-                }
-            });
-
-            audio.addEventListener("playing", () => {
-                radioReconectando = false;
-                clearTimeout(radioReconexaoTimer);
-                radioLigada = true;
-                atualizarRadio();
-            });
-
-            atualizarRadio();
-        });
-
-        /* =========================
-           MÁQUINA DO TEMPO
-        ========================== */
-
-        const decadasRock = {
-            "1950": {
-                titulo: "OS ANOS 50",
-                resumo: "O nascimento do rock'n'roll colocou guitarras elétricas, ritmo e atitude no centro da cultura jovem.",
-                estilos: "Rock and Roll • Rockabilly • Blues",
-                destaques: [
-                    ["🎸 Rock and Roll", "Chuck Berry — Johnny B. Goode"],
-                    ["🔥 Elvis Presley", "Jailhouse Rock"],
-                    ["🎙️ Little Richard", "Tutti Frutti"],
-                    ["🕺 Rockabilly", "Carl Perkins — Blue Suede Shoes"]
-                ]
-            },
-            "1960": {
-                titulo: "OS ANOS 60",
-                resumo: "O rock ficou mais experimental: psicodelia, blues rock e novas formas de gravação começaram a dominar a cena.",
-                estilos: "Psychedelic Rock • Blues Rock • Garage Rock",
-                destaques: [
-                    ["🌈 The Beatles", "Come Together"],
-                    ["⚡ The Rolling Stones", "(I Can't Get No) Satisfaction"],
-                    ["🎸 Jimi Hendrix", "Purple Haze"],
-                    ["🌊 The Beach Boys", "Good Vibrations"]
-                ]
-            },
-            "1970": {
-                titulo: "OS ANOS 70",
-                resumo: "Hard rock, heavy metal e progressive rock ganharam enorme espaço, enquanto o rock de arena crescia.",
-                estilos: "Hard Rock • Heavy Metal • Progressive Rock • Glam Rock",
-                destaques: [
-                    ["🤘 Led Zeppelin", "Stairway to Heaven"],
-                    ["🖤 Black Sabbath", "Paranoid"],
-                    ["🚀 Pink Floyd", "Another Brick in the Wall, Pt. 2"],
-                    ["✨ Queen", "Bohemian Rhapsody"]
-                ]
-            },
-            "1980": {
-                titulo: "OS ANOS 80",
-                resumo: "O rock ficou gigantesco nas rádios e na MTV, misturando arena rock, hard rock, metal, new wave e sons alternativos.",
-                estilos: "Hard Rock • Heavy Metal • New Wave • Thrash Metal",
-                destaques: [
-                    ["🔥 Bon Jovi", "Livin' on a Prayer"],
-                    ["🎸 Guns N' Roses", "Sweet Child o' Mine"],
-                    ["⚡ Joan Jett", "I Love Rock 'n Roll"],
-                    ["🕶️ The Police", "Every Breath You Take"]
-                ]
-            },
-            "1990": {
-                titulo: "OS ANOS 90",
-                resumo: "Grunge e alternative rock explodiram, enquanto britpop, nu metal e outras cenas mudavam o som das guitarras.",
-                estilos: "Grunge • Alternative Rock • Britpop • Industrial Rock",
-                destaques: [
-                    ["🌲 Nirvana", "Smells Like Teen Spirit"],
-                    ["🇬🇧 Oasis", "Wonderwall"],
-                    ["🎸 Pearl Jam", "Alive"],
-                    ["🖤 The Smashing Pumpkins", "1979"]
-                ]
-            },
-            "2000": {
-                titulo: "OS ANOS 2000",
-                resumo: "O rock alternativo, emo, pop punk, nu metal e indie ganharam grande presença enquanto a internet mudava a forma de descobrir música.",
-                estilos: "Alternative Rock • Nu Metal • Pop Punk • Indie Rock",
-                destaques: [
-                    ["🎧 Linkin Park", "In the End"],
-                    ["🔥 The White Stripes", "Seven Nation Army"],
-                    ["🖤 Evanescence", "Bring Me to Life"],
-                    ["⚡ The Strokes", "Last Nite"]
-                ]
-            },
-            "2010": {
-                titulo: "OS ANOS 2010",
-                resumo: "O streaming mudou o jogo e o rock passou a dividir espaço com muitos gêneros, enquanto novas bandas mantinham as guitarras vivas.",
-                estilos: "Indie Rock • Alternative Rock • Post-Punk Revival",
-                destaques: [
-                    ["🎸 Arctic Monkeys", "Do I Wanna Know?"],
-                    ["⚡ Royal Blood", "Figure It Out"],
-                    ["🖤 Tame Impala", "The Less I Know the Better"],
-                    ["🔥 Foo Fighters", "The Pretender"]
-                ]
-            }
-        };
-
-        function mostrarDecada(decada) {
-            desbloquear("achTime");
-            const dados = decadasRock[decada];
-            const display = document.getElementById("decadeDisplay");
-
-            document.querySelectorAll(".decade-buttons button").forEach(botao => {
-                botao.classList.toggle("selected", botao.textContent.includes(decada));
-            });
-
-            display.innerHTML = `
-                <div class="time-kicker">ARQUIVO ROCKWAVE • ${decada}</div>
-                <h2>${dados.titulo}</h2>
-                <p>${dados.resumo}</p>
-                <p><strong>🎸 Estilos em destaque:</strong> ${dados.estilos}</p>
-                <div class="time-grid">
-                    ${dados.destaques.map(item => `
-                        <div class="time-item">
-                            <strong>${item[0]}</strong>
-                            <span>${item[1]}</span>
-                        </div>
-                    `).join("")}
-                </div>
-            `;
-        }
-
-
-
-        /* =========================
-           PERFIL + NÍVEL + RECOMENDAÇÃO
-        ========================== */
-
-        /* =========================
-           ROCK CURIOSIDADES
-        ========================== */
-
-        const curiosidades = [
-            ["VOCÊ SABIA?", "Dave Grohl entrou para o Nirvana como baterista em 1990. Depois do fim da banda, ele criou o Foo Fighters."],
-            ["NIRVANA", "Nevermind, lançado em 1991, levou o Nirvana a um enorme sucesso mainstream e ajudou a colocar o rock alternativo no centro da cultura pop dos anos 1990."],
-            ["BLACK SABBATH", "O Black Sabbath é amplamente associado à formação do som do heavy metal, especialmente pelo peso e pela atmosfera sombria de seus primeiros trabalhos."],
-            ["QUEEN", "Queen misturou rock pesado, elementos progressivos, harmonias vocais e influências clássicas, criando uma identidade muito própria."],
-            ["ROCK NACIONAL", "Nos anos 1980, o rock brasileiro ganhou enorme visibilidade com bandas como Legião Urbana, Titãs e Os Paralamas do Sucesso."],
-            ["GUITARRA", "Riffs simples podem ser extremamente marcantes: poucas notas, quando bem colocadas, podem virar a assinatura de uma música."],
-            ["BATERIA", "Antes de ser conhecido mundialmente pelo Foo Fighters, Dave Grohl já tinha uma trajetória no punk e no hardcore."],
-            ["ESTÚDIO", "Muitas gravações clássicas do rock usam camadas de guitarras, efeitos e diferentes técnicas de estúdio para criar sons maiores que o palco."]
-        ];
-
-        function outraCuriosidade() {
-            const item = curiosidades[Math.floor(Math.random() * curiosidades.length)];
-            document.getElementById("curiosityTag").textContent = item[0];
-            document.getElementById("curiosityText").textContent = item[1];
-            desbloquear("achCuriosity");
-        }
-
-        /* =========================
-           CONQUISTAS
-        ========================== */
-
-        function desbloquear(id) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            el.classList.add("unlocked");
-            const state = el.querySelector(".achievement-state");
-            if (state) state.textContent = "DESBLOQUEADA ✓";
-            try { localStorage.setItem("rw_" + id, "1"); } catch(e) {}
-        }
-
-        function carregarConquistas() {
-            document.querySelectorAll(".achievement").forEach(el => {
-                try {
-                    if (localStorage.getItem("rw_" + el.id) === "1") desbloquear(el.id);
-                } catch(e) {}
-            });
-        }
-
-
-        /* =========================
-           MODO SHOW + NOVOS SEGREDOS
-        ========================== */
-        let modoShow = false;
-
-        function alternarModoShow() {
-            modoShow = !modoShow;
-            document.body.classList.toggle("show-mode", modoShow);
-            const botao = document.getElementById("showModeButton");
-            botao.textContent = modoShow ? "🛑 SAIR DO SHOW" : "🎸 MODO SHOW";
-            desbloquear("achShow");
-        }
-
-        /* =========================
-           EASTER EGGS
-        ========================== */
-
-        let codigoSecreto = "";
-        const easterMessage = document.getElementById("easterMessage");
-        const easterTitle = document.getElementById("easterTitle");
-        const easterText = document.getElementById("easterText");
-
-        let easterEggTimer = null;
-        let easterMusicTimer = null;
-
-        function mostrarEasterEgg(tipo) {
-            desbloquear("achEgg");
-
-            if (easterEggTimer) {
-                clearTimeout(easterEggTimer);
-            }
-            if (easterMusicTimer) {
-                clearTimeout(easterMusicTimer);
-                easterMusicTimer = null;
-            }
-
-            if (tipo === "nirvana") {
-                easterTitle.textContent = "NEVERMIND.EXE";
-                easterText.textContent = "Você encontrou o sinal de 1991. 🎸";
-                // O Easter egg agora usa a RockWave Radio real 24/7.
-            } else {
-                easterTitle.textContent = "ROCKWAVE.EXE";
-                easterText.textContent = "SINAL ENCONTRADO — você desbloqueou um segredo da RockWave. 🤘";
-                // O Easter egg agora usa a RockWave Radio real 24/7.
-            }
-
-            easterMessage.classList.add("show");
-
-            if (tipo === "rockwave") {
-                easterMusicTimer = setTimeout(() => {
-                    ligarRadio();
-                    easterMusicTimer = null;
-                }, 500);
-            } else {
-                ligarRadio();
-            }
-
-            easterEggTimer = setTimeout(() => {
-                fecharEasterEgg();
-            }, 10000);
-        }
-
-        function fecharEasterEgg() {
-            easterMessage.classList.remove("show");
-
-            if (easterMusicTimer) {
-                clearTimeout(easterMusicTimer);
-                easterMusicTimer = null;
-            }
-
-            pausarRadio();
-
-            if (easterEggTimer) {
-                clearTimeout(easterEggTimer);
-                easterEggTimer = null;
-            }
-        }
-
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Escape") {
-                if (easterMessage.classList.contains("show")) {
-                    fecharEasterEgg();
-                }
-                codigoSecreto = "";
-                return;
-            }
-
-            if (event.key.length !== 1) return;
-            codigoSecreto = (codigoSecreto + event.key.toLowerCase()).slice(-30);
-
-            if (codigoSecreto.includes("nirvana")) {
-                codigoSecreto = "";
-                mostrarEasterEgg("nirvana");
-            } else if (codigoSecreto.includes("rockwave")) {
-                codigoSecreto = "";
-                mostrarEasterEgg("rockwave");
-            } else if (codigoSecreto.includes("showtime")) {
-                codigoSecreto = "";
-                alternarModoShow();
-                desbloquear("achCodes");
-            } else if (codigoSecreto.includes("underground")) {
-                codigoSecreto = "";
-                desbloquear("achCodes");
-                desbloquear("achUnderground");
-                abrir("underground");
-            } else if (codigoSecreto.includes("headbang")) {
-                codigoSecreto = "";
-                desbloquear("achCodes");
-                mostrarEasterEgg("rockwave");
-                easterTitle.textContent = "HEADBANG.EXE";
-                easterText.textContent = "Você encontrou um sinal ainda mais fundo no RockWave. 🤘";
-                // O código secreto agora usa a RockWave Radio real 24/7.
-                ligarRadio();
-            }
-        });/* =========================
-           NOITE EXTREMA
-        ========================== */
-        let noiteExtrema=false;
-        function alternarNoiteExtrema(){
-            noiteExtrema=!noiteExtrema;
-            document.body.classList.toggle("extreme-night",noiteExtrema);
-            desbloquear("achNight");
-
-        }
-
-
-        const regioesRock = {
-            "eua": {tag:"ESTADOS UNIDOS",titulo:"Seattle, Detroit e Los Angeles",historia:"O grunge marcou Seattle no fim dos anos 1980 e início dos 1990; Detroit tem raízes fortes no garage rock, enquanto Los Angeles ficou ligada ao punk e ao hard rock.",estilos:"Grunge • Garage rock • Punk • Hard rock",bandas:"Nirvana, Pearl Jam, Soundgarden, The Stooges, MC5, Guns N’ Roses e Red Hot Chili Peppers."},
-            "reino-unido": {tag:"REINO UNIDO",titulo:"Londres, Liverpool e Manchester",historia:"O Reino Unido foi central para a British Invasion dos anos 1960, o punk dos anos 1970, a new wave e cenas indie e britpop nas décadas seguintes.",estilos:"Rock clássico • Punk • New wave • Britpop • Indie",bandas:"The Beatles, The Rolling Stones, The Clash, The Cure, Oasis, Blur e Joy Division."},
-            "brasil": {tag:"BRASIL",titulo:"Brasília, São Paulo, Rio e além",historia:"O rock brasileiro ganhou grande projeção nos anos 1980 e seguiu diverso, com cenas punk, alternativa, metal e misturas com ritmos locais.",estilos:"Rock brasileiro • Punk • Alternativo • Metal • Manguebeat",bandas:"Legião Urbana, Titãs, Os Paralamas do Sucesso, Barão Vermelho, Sepultura, Raimundos e Charlie Brown Jr."},
-            "alemanha": {tag:"ALEMANHA",titulo:"Düsseldorf, Berlim e Frankfurt",historia:"A Alemanha ficou associada ao krautrock experimental dos anos 1970 e, mais tarde, a importantes vertentes do metal e do rock industrial.",estilos:"Krautrock • Metal • Industrial rock",bandas:"Kraftwerk, Can, Scorpions, Rammstein e Helloween."},
-            "australia": {tag:"AUSTRÁLIA",titulo:"Sydney, Melbourne e Perth",historia:"A cena australiana combina hard rock de arena, punk e rock alternativo, com bandas que alcançaram público internacional desde os anos 1970.",estilos:"Hard rock • Pub rock • Punk • Alternativo",bandas:"AC/DC, INXS, Midnight Oil, The Saints e Silverchair."},
-            "japao": {tag:"JAPÃO",titulo:"Tóquio e Osaka",historia:"O Japão desenvolveu cenas próprias que vão do hard rock e metal ao visual kei, punk e rock alternativo, com forte cultura de shows.",estilos:"Hard rock • Metal • Punk • Visual kei • Alternativo",bandas:"X Japan, B’z, Loudness, Shonen Knife e One OK Rock."},
-            "suecia": {tag:"SUÉCIA",titulo:"Estocolmo e Gotemburgo",historia:"A Suécia construiu cenas importantes de metal e rock alternativo, além de uma forte tradição de bandas com alcance internacional.",estilos:"Death metal melódico • Hard rock • Punk • Alternativo",bandas:"Europe, In Flames, Opeth, Refused e The Hives."},
-            "argentina": {tag:"ARGENTINA",titulo:"Buenos Aires e La Plata",historia:"O rock argentino se tornou uma das cenas mais influentes da América Latina, com identidade própria desde os anos 1960.",estilos:"Rock nacional • Hard rock • Alternativo • Punk",bandas:"Soda Stereo, Charly García, Luis Alberto Spinetta, Patricio Rey y sus Redonditos de Ricota e Riff."},
-            "franca": {tag:"FRANÇA",titulo:"Paris e Lyon",historia:"A França desenvolveu cenas que atravessam rock progressivo, punk, pós-punk, alternativo e metal.",estilos:"Progressivo • Punk • Alternativo • Metal",bandas:"Téléphone, Trust, Phoenix, Gojira e Noir Désir."},
-            "coreia": {tag:"COREIA DO SUL",titulo:"Seul e Busan",historia:"A Coreia do Sul possui uma cena de rock que vai do indie e punk ao metal, com clubes e festivais que sustentam novas bandas.",estilos:"Indie rock • Punk • Metal • Alternative",bandas:"Seo Taiji and Boys, Jaurim, Nell, YB e Day6."}
-        };
-        function selecionarRegiaoRock(id){
-            const r=regioesRock[id]; if(!r)return;
-            document.querySelectorAll(".rock-region").forEach(b=>b.classList.toggle("active",b.getAttribute("onclick").includes("'"+id+"'")));
-            document.querySelectorAll(".globe-pin").forEach(b=>b.setAttribute("aria-pressed",String(b.getAttribute("onclick").includes("'"+id+"'"))));
-            document.getElementById("rockRegionTag").textContent=r.tag;
-            document.getElementById("rockRegionTitle").textContent=r.titulo;
-            document.getElementById("rockRegionHistory").textContent=r.historia;
-            document.getElementById("rockRegionStyles").textContent=r.estilos;
-            document.getElementById("rockRegionBands").textContent=r.bandas;
-        }
-
-        /* =========================
-           NAVEGAÇÃO DO MAPA
-        ========================== */
-        function abrirMapa(id){
-            const alvo=document.getElementById(id);
-            if(!alvo){
-                console.error("Área do mapa não encontrada:", id);
-                return;
-            }
-            abrir(id);
-        }
-
-        /* =========================
-           QUIZ DE BANDAS — 10 PERGUNTAS
-        ========================== */
-        const perguntasBandas=[
-            {q:"Qual banda lançou “Nevermind”?",o:["Nirvana","Queen","AC/DC","Metallica"],a:0},
-            {q:"Quem gravou “Back in Black”?",o:["AC/DC","Nirvana","Oasis","The Police"],a:0},
-            {q:"Qual banda é associada ao álbum “The Dark Side of the Moon”?",o:["Pink Floyd","Queen","Metallica","Green Day"],a:0},
-            {q:"Quem lançou “Hybrid Theory”?",o:["Linkin Park","Slipknot","Foo Fighters","Pearl Jam"],a:0},
-            {q:"Qual banda lançou “Paranoid” em 1970?",o:["Black Sabbath","Iron Maiden","Judas Priest","Megadeth"],a:0},
-            {q:"Qual banda tem Freddie Mercury como vocalista clássico?",o:["Queen","Nirvana","The Clash","R.E.M."],a:0},
-            {q:"Qual banda lançou “Master of Puppets”?",o:["Metallica","Slayer","Anthrax","Korn"],a:0},
-            {q:"Qual banda é ligada ao álbum “Ten”?",o:["Pearl Jam","Nirvana","Oasis","Muse"],a:0},
-            {q:"Qual banda gravou “Seven Nation Army”?",o:["The White Stripes","The Strokes","Arctic Monkeys","Foo Fighters"],a:0},
-            {q:"Qual banda ficou conhecida por “Chop Suey!”?",o:["System Of A Down","Slipknot","Korn","Rage Against the Machine"],a:0}
-        ];
-        let bandaAtual=0, bandaPontos=0, bandaRespondida=false;
-
-        function carregarPerguntaBanda(){
-            const p=perguntasBandas[bandaAtual];
-            document.getElementById("bandQuizProgress").textContent="PERGUNTA "+(bandaAtual+1)+" DE "+perguntasBandas.length;
-            document.getElementById("bandQuizQuestion").innerHTML="<h2>"+p.q+"</h2>";
-            document.getElementById("bandQuizOptions").innerHTML=p.o.map((op,i)=>"<button type='button' onclick='responderBanda("+i+")'>"+op+"</button>").join("");
-            document.getElementById("bandQuizResult").textContent="";
-            document.getElementById("bandQuizNext").style.display="none";
-            bandaRespondida=false;
-        }
-        function responderBanda(indice){
-            if(bandaRespondida)return;
-            bandaRespondida=true;
-            const p=perguntasBandas[bandaAtual];
-            const certo=indice===p.a;
-            const box=document.getElementById("bandQuizResult");
-            if(certo){ bandaPontos++; box.textContent="ACERTOU! 🤘"; desbloquear("achBandQuiz"); }
-            else { box.textContent="Quase! A resposta era "+p.o[p.a]+"."; }
-            document.querySelectorAll("#bandQuizOptions button").forEach((b,i)=>{b.disabled=true;b.style.opacity=i===p.a?"1":".55";});
-            document.getElementById("bandQuizNext").style.display=bandaAtual<perguntasBandas.length-1?"inline-block":"none";
-            if(bandaAtual===perguntasBandas.length-1){
-                box.textContent+=(certo?" ":" ")+"Fim do quiz: "+bandaPontos+"/"+perguntasBandas.length+" acertos. 🎸";
-
-            }
-        }
-        function proximaPerguntaBanda(){
-            if(bandaAtual>=perguntasBandas.length-1)return;
-            bandaAtual++;
-            carregarPerguntaBanda();
-        }
-
-        /* =========================
-           ADIVINHE A MÚSICA — 10 PERGUNTAS
-        ========================== */
-        const perguntasMusicas=[
-            {p:"“I'm gonna fight 'em off...”",o:["Seven Nation Army","In the End","Psychosocial","Thunderstruck"],a:0},
-            {p:"“I tried so hard and got so far...”",o:["In the End","Numb","Crawling","Breaking the Habit"],a:0},
-            {p:"“Oh, we're halfway there...”",o:["Livin' on a Prayer","Paradise City","Jump","Dream On"],a:0},
-            {p:"“Is this the real life? Is this just fantasy?”",o:["Bohemian Rhapsody","We Will Rock You","Don't Stop Me Now","Radio Ga Ga"],a:0},
-            {p:"“Hello, hello, hello, how low?”",o:["Smells Like Teen Spirit","Come as You Are","Lithium","Heart-Shaped Box"],a:0},
-            {p:"“Are you gonna go my way?”",o:["Are You Gonna Go My Way","Fly Away","Again","Always on the Run"],a:0},
-            {p:"“We're not gonna take it!”",o:["We're Not Gonna Take It","I Wanna Rock","Cum On Feel the Noize","Cherry Pie"],a:0},
-            {p:"“I can't get no satisfaction”",o:["(I Can't Get No) Satisfaction","Paint It, Black","Start Me Up","Gimme Shelter"],a:0},
-            {p:"“I walk alone...”",o:["Boulevard of Broken Dreams","Holiday","Basket Case","21 Guns"],a:0},
-            {p:"“Back in black, I hit the sack...”",o:["Back in Black","Thunderstruck","Highway to Hell","T.N.T."],a:0}
-        ];
-        let musicaAdivAtual=0, musicaPontos=0, musicaRespondida=false;
-
-        function carregarPerguntaMusica(){
-            const p=perguntasMusicas[musicaAdivAtual];
-            document.getElementById("songGuessProgress").textContent="PERGUNTA "+(musicaAdivAtual+1)+" DE "+perguntasMusicas.length;
-            document.getElementById("songGuessClue").innerHTML="<h2>🎤 Pista: "+p.p+"</h2>";
-            document.getElementById("songGuessOptions").innerHTML=p.o.map((op,i)=>"<button type='button' onclick='responderMusica("+i+")'>"+op+"</button>").join("");
-            document.getElementById("songGuessResult").textContent="";
-            document.getElementById("songGuessNext").style.display="none";
-            musicaRespondida=false;
-        }
-        function responderMusica(indice){
-            if(musicaRespondida)return;
-            musicaRespondida=true;
-            const p=perguntasMusicas[musicaAdivAtual];
-            const certo=indice===p.a;
-            const box=document.getElementById("songGuessResult");
-            if(certo){ musicaPontos++; box.textContent="ACERTOU! 🔥"; desbloquear("achSongGuess"); }
-            else { box.textContent="Não foi dessa vez. Era "+p.o[p.a]+"."; }
-            document.querySelectorAll("#songGuessOptions button").forEach((b,i)=>{b.disabled=true;b.style.opacity=i===p.a?"1":".55";});
-            document.getElementById("songGuessNext").style.display=musicaAdivAtual<perguntasMusicas.length-1?"inline-block":"none";
-            if(musicaAdivAtual===perguntasMusicas.length-1){
-                box.textContent+=(certo?" ":" ")+"Fim do desafio: "+musicaPontos+"/"+perguntasMusicas.length+" acertos. 🎵";
-
-            }
-        }
-        function proximaPerguntaMusica(){
-            if(musicaAdivAtual>=perguntasMusicas.length-1)return;
-            musicaAdivAtual++;
-            carregarPerguntaMusica();
-        }
-
-        /* =========================
-           ADIVINHE O RIFF
-        ========================== */
-        const riffsRockWave = [
-            {nome:"Smoke on the Water", artista:"Deep Purple", notas:[196,220,246.94,196,220,261.63,246.94]},
-            {nome:"Seven Nation Army", artista:"The White Stripes", notas:[164.81,164.81,196,164.81,146.83,130.81,123.47]},
-            {nome:"Iron Man", artista:"Black Sabbath", notas:[130.81,130.81,164.81,196,220,196,164.81]},
-            {nome:"(I Can't Get No) Satisfaction", artista:"The Rolling Stones", notas:[146.83,146.83,164.81,196,164.81,146.83]},
-            {nome:"Come as You Are", artista:"Nirvana", notas:[164.81,196,246.94,196,164.81,146.83,164.81]}
-        ];
-        let riffAtual=0, riffPontos=0, riffTocando=false, riffRespondido=false, riffAudioContext=null;
-
-        function tocarNotaRiff(freq, inicio, duracao){
-            if(!riffAudioContext)return;
-            const osc=riffAudioContext.createOscillator();
-            const gain=riffAudioContext.createGain();
-            osc.type="sawtooth";
-            osc.frequency.setValueAtTime(freq,inicio);
-            gain.gain.setValueAtTime(.0001,inicio);
-            gain.gain.exponentialRampToValueAtTime(.16,inicio+.015);
-            gain.gain.exponentialRampToValueAtTime(.0001,inicio+duracao);
-            osc.connect(gain);
-            gain.connect(riffAudioContext.destination);
-            osc.start(inicio);
-            osc.stop(inicio+duracao+.03);
-        }
-
-        function tocarRiff(){
-            if(riffTocando)return;
-            try{
-                const AudioCtx=window.AudioContext||window.webkitAudioContext;
-                if(!AudioCtx)return;
-                if(!riffAudioContext)riffAudioContext=new AudioCtx();
-                if(riffAudioContext.state==="suspended")riffAudioContext.resume();
-                riffTocando=true;
-                riffRespondido=false;
-                const botao=document.getElementById("riffPlay");
-                botao.disabled=true;
-                document.getElementById("riffStatus").textContent="🎸 Ouvindo o riff...";
-                const riff=riffsRockWave[riffAtual];
-                let inicio=riffAudioContext.currentTime+.05;
-                riff.notas.forEach((freq,i)=>{
-                    tocarNotaRiff(freq,inicio+i*.22,.19);
-                });
-                setTimeout(()=>{
-                    riffTocando=false;
-                    botao.disabled=false;
-                    botao.textContent="🔁 OUVIR DE NOVO";
-                    document.getElementById("riffStatus").textContent="Qual música é essa?";
-                },riff.notas.length*220+120);
-            }catch(e){
-                riffTocando=false;
-                console.warn("Áudio do riff indisponível:",e);
-            }
-        }
-
-        function carregarRiff(){
-            const riff=riffsRockWave[riffAtual];
-            document.getElementById("riffRound").textContent="RIFF "+(riffAtual+1)+" DE "+riffsRockWave.length;
-            document.getElementById("riffScore").textContent=riffPontos;
-            document.getElementById("riffStatus").textContent="Aumente o volume e tente reconhecer as notas.";
-            const opcoes=riffsRockWave.map(r=>r.nome).sort(()=>Math.random()-.5);
-            document.getElementById("riffOptions").innerHTML=opcoes.map(nome=>
-                "<button type='button' onclick='responderRiff("+JSON.stringify(nome)+")'>"+nome+"</button>"
-            ).join("");
-            riffRespondido=false;
-            document.getElementById("riffPlay").disabled=false;
-            document.getElementById("riffPlay").textContent="▶ OUVIR RIFF";
-        }
-
-        function responderRiff(nome){
-            if(riffRespondido || riffTocando)return;
-            riffRespondido=true;
-            const certo=nome===riffsRockWave[riffAtual].nome;
-            const box=document.getElementById("riffStatus");
-            if(certo){
-                riffPontos++;
-                box.textContent="ACERTOU! 🤘 "+riffsRockWave[riffAtual].artista;
-
-            }else{
-                box.textContent="Quase! Era "+riffsRockWave[riffAtual].nome+" — "+riffsRockWave[riffAtual].artista+".";
-
-            }
-            document.getElementById("riffScore").textContent=riffPontos;
-            document.querySelectorAll("#riffOptions button").forEach(b=>{
-                b.disabled=true;
-                if(b.textContent===riffsRockWave[riffAtual].nome)b.style.borderColor="#b00000";
-            });
-            if(riffAtual<riffsRockWave.length-1){
-                setTimeout(()=>{
-                    riffAtual++;
-                    carregarRiff();
-                },1100);
-            }else{
-                box.textContent+="  Fim do desafio: "+riffPontos+"/"+riffsRockWave.length+" acertos. 🎶";
-
-            }
-        }
-
-        /* =========================
-           MINIGAME DE GUITARRA — SOM REAL
-        ========================== */
-        let guitarScore=0;
-        let guitarAudioContext=null;
-        const guitarFrequencies=[82.41,110,146.83,196,246.94,329.63];
-
-        function tocarSomCorda(freq){
-            try{
-                const AudioCtx=window.AudioContext||window.webkitAudioContext;
-                if(!AudioCtx)return;
-                if(!guitarAudioContext)guitarAudioContext=new AudioCtx();
-                if(guitarAudioContext.state==="suspended")guitarAudioContext.resume();
-                const osc=guitarAudioContext.createOscillator();
-                const gain=guitarAudioContext.createGain();
-                const now=guitarAudioContext.currentTime;
-                osc.type="sawtooth";
-                osc.frequency.setValueAtTime(freq,now);
-                osc.frequency.exponentialRampToValueAtTime(Math.max(40,freq*.72),now+.55);
-                gain.gain.setValueAtTime(.0001,now);
-                gain.gain.exponentialRampToValueAtTime(.22,now+.012);
-                gain.gain.exponentialRampToValueAtTime(.0001,now+.62);
-                osc.connect(gain);
-                gain.connect(guitarAudioContext.destination);
-                osc.start(now);
-                osc.stop(now+.65);
-            }catch(e){ console.warn("Áudio da guitarra indisponível:",e); }
-        }
-
-        function tocarCorda(el){
-            if(guitarScore>=8)guitarScore=0;
-            guitarScore++;
-            const indice=[...document.querySelectorAll(".guitar-string")].indexOf(el);
-            tocarSomCorda(guitarFrequencies[Math.max(0,indice)]);
-            el.classList.add("hit");
-            setTimeout(()=>el.classList.remove("hit"),120);
-            document.getElementById("guitarScore").textContent=guitarScore;
-            if(guitarScore===8){
-                document.getElementById("guitarMessage").textContent="RIFF COMPLETO! Você fez barulho. 🤘";
-                desbloquear("achGuitar");
-
-            }else{
-                document.getElementById("guitarMessage").textContent="Boa! Continue o riff...";
-            }
-        }
-        carregarPerguntaBanda();
-        carregarPerguntaMusica();
-        carregarRiff();
-
-        const rwBandNames=["Black Wolves","Red Voltage","Midnight Riot","Broken Strings","Static Hearts","Crimson Echo","Neon Skulls","Last Amplifier"];
-const rwBandStyles=["Grunge","Hard rock","Heavy metal","Rock alternativo","Punk rock","Rock clássico","Nu metal"];
-const rwMembers=["Alex","Rafa","Dani","Leo","Kai","Nina","Max","Bia","Chris","Sam"];
-function mostrarBanda(nome,estilo,vocal,guitarra,baixo,bateria){
-    const box=document.getElementById("bandResult");
-    if(!box)return;
-    box.innerHTML="<h2>"+nome.replace(/</g,"&lt;")+"</h2><p><strong>"+estilo+"</strong></p><div class='band-members'>🎤 "+vocal+"<br>🎸 "+guitarra+"<br>🎸 "+baixo+"<br>🥁 "+bateria+"</div>";
-    box.classList.add("show");
-}
-function criarMinhaBanda(){
+        function criarMinhaBanda(){
     const nome=document.getElementById("bandName").value.trim()||"Minha Banda";
     const estilo=document.getElementById("bandStyle").value;
     const vocal=document.getElementById("bandSinger").value.trim()||"Vocalista misterioso";
@@ -2764,6 +2206,38 @@ function gerarBanda(){
     document.getElementById("bandDrums").value=pick(rwMembers);
     criarMinhaBanda();
 }
+
+/* =========================
+   BATALHA DE BANDAS
+========================= */
+const batalhaBandas=[
+ ["Nirvana","Grunge • EUA"],["AC/DC","Hard rock • Austrália"],["Guns N’ Roses","Hard rock • EUA"],
+ ["Black Sabbath","Heavy metal • Reino Unido"],["Linkin Park","Nu metal • EUA"],["System Of A Down","Alternative metal • EUA"],
+ ["Metallica","Thrash metal • EUA"],["Green Day","Punk rock • EUA"],["Pitty","Rock brasileiro • Brasil"],
+ ["Charlie Brown Jr.","Rock brasileiro • Brasil"],["The Cure","Gothic rock • Reino Unido"],["Arctic Monkeys","Indie rock • Reino Unido"],
+ ["Slipknot","Metal • EUA"],["Evanescence","Alternative metal • EUA"],["Rage Against the Machine","Rap metal • EUA"],
+ ["Legião Urbana","Rock brasileiro • Brasil"],["Deep Purple","Hard rock • Reino Unido"],["Kiss","Hard rock • EUA"]
+];
+let batalhaAtual=[],batalhaScore=0;
+function novaBatalha(){
+    let pool=[...batalhaBandas];
+    const pick=()=>pool.splice(Math.floor(Math.random()*pool.length),1)[0];
+    batalhaAtual=[pick(),pick()];
+    document.querySelector("#battleLeft h2").textContent=batalhaAtual[0][0];
+    document.querySelector("#battleLeft p").textContent=batalhaAtual[0][1];
+    document.querySelector("#battleRight h2").textContent=batalhaAtual[1][0];
+    document.querySelector("#battleRight p").textContent=batalhaAtual[1][1];
+    document.getElementById("battleResult").textContent="Escolha seu lado.";
+}
+function votarBatalha(lado){
+    if(!batalhaAtual.length)return;
+    batalhaScore++;
+    document.getElementById("battleScore").textContent=batalhaScore;
+    const vencedor=batalhaAtual[lado];
+    document.getElementById("battleResult").textContent="🔥 Você escolheu "+vencedor[0]+"! Próxima batalha?";
+    desbloquear("achBattle");
+}
+
 </script>
 
 
@@ -2799,6 +2273,29 @@ function copiarPixRockWave(){
         status.textContent="Selecione e copie a chave acima.";
     }
 }
+
+        function resetarGloboRock(){
+            const globe=document.querySelector(".rock-globe");
+            if(!globe)return;
+            globe.style.setProperty("--globe-x","7deg");
+            globe.style.setProperty("--globe-y","0deg");
+            globe.classList.remove("dragging");
+        }
+        function girarGloboRock(){
+            const globe=document.querySelector(".rock-globe");
+            if(!globe)return;
+            globe.animate([
+                {transform:"rotateX(7deg) rotateY(0deg)"},
+                {transform:"rotateX(7deg) rotateY(360deg)"}
+            ],{duration:1600,easing:"cubic-bezier(.2,.8,.2,1)"});
+            setTimeout(resetarGloboRock,1650);
+        }
+        function filtrarMapaRock(termo){
+            const q=(termo||"").trim().toLowerCase();
+            document.querySelectorAll(".rock-region").forEach(btn=>{
+                btn.style.display=!q||btn.textContent.toLowerCase().includes(q)?"":"none";
+            });
+        }
 
         /* =========================
            GLOBO DO MAPA — ARRASTAR PARA GIRAR
