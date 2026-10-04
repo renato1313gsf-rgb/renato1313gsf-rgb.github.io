@@ -2202,69 +2202,7 @@ function gerarBanda(){
     criarMinhaBanda();
 }
 
-/* =========================
-   BATALHA DE BANDAS
-========================= */
-const batalhaBandas=[
- ["Nirvana","Grunge • EUA"],["AC/DC","Hard rock • Austrália"],["Guns N’ Roses","Hard rock • EUA"],
- ["Black Sabbath","Heavy metal • Reino Unido"],["Linkin Park","Nu metal • EUA"],["System Of A Down","Alternative metal • EUA"],
- ["Metallica","Thrash metal • EUA"],["Green Day","Punk rock • EUA"],["Pitty","Rock brasileiro • Brasil"],
- ["Charlie Brown Jr.","Rock brasileiro • Brasil"],["The Cure","Gothic rock • Reino Unido"],["Arctic Monkeys","Indie rock • Reino Unido"],
- ["Slipknot","Metal • EUA"],["Evanescence","Alternative metal • EUA"],["Rage Against the Machine","Rap metal • EUA"],
- ["Legião Urbana","Rock brasileiro • Brasil"],["Deep Purple","Hard rock • Reino Unido"],["Kiss","Hard rock • EUA"]
-];
 
-let batalhaAtual=[];
-let batalhaScore=0;
-
-function novaBatalha(){
-    const left=document.getElementById("battleLeft");
-    const right=document.getElementById("battleRight");
-    const result=document.getElementById("battleResult");
-    if(!left||!right)return;
-
-    const pool=[...batalhaBandas];
-    const pick=()=>pool.splice(Math.floor(Math.random()*pool.length),1)[0];
-    batalhaAtual=[pick(),pick()];
-
-    left.querySelector("h2").textContent=batalhaAtual[0][0];
-    left.querySelector("p").textContent=batalhaAtual[0][1];
-    right.querySelector("h2").textContent=batalhaAtual[1][0];
-    right.querySelector("p").textContent=batalhaAtual[1][1];
-    if(result)result.textContent="Escolha seu lado. 🤘";
-}
-
-function votarBatalha(lado){
-    if(!batalhaAtual.length) novaBatalha();
-    if(!batalhaAtual.length)return;
-
-    batalhaScore++;
-    const score=document.getElementById("battleScore");
-    const result=document.getElementById("battleResult");
-    if(score)score.textContent=batalhaScore;
-
-    const escolhida=batalhaAtual[lado];
-    if(result)result.textContent="🤘 Você escolheu "+escolhida[0]+"! Próxima batalha?";
-}
-
-function iniciarBatalhaRockWave(){
-    const left=document.getElementById("battleLeft");
-    const right=document.getElementById("battleRight");
-    const novo=document.querySelector("#batalha .battle-actions button");
-    if(!left||!right)return;
-
-    novaBatalha();
-
-    left.onclick=()=>votarBatalha(0);
-    right.onclick=()=>votarBatalha(1);
-    if(novo)novo.onclick=()=>novaBatalha();
-}
-
-if(document.readyState==="loading"){
-    document.addEventListener("DOMContentLoaded",iniciarBatalhaRockWave);
-}else{
-    iniciarBatalhaRockWave();
-}
 </script>
 
 
@@ -2400,6 +2338,62 @@ function selecionarRegiaoRock(id){
             globe.addEventListener("pointercancel", stopDrag);
             setRotation();
         })();
+
+/* =========================
+   BATALHA DE BANDAS — INICIALIZAÇÃO ISOLADA
+========================= */
+(() => {
+    const bandas = [
+        ["Nirvana","Grunge • EUA"],["AC/DC","Hard rock • Austrália"],["Guns N’ Roses","Hard rock • EUA"],
+        ["Black Sabbath","Heavy metal • Reino Unido"],["Linkin Park","Nu metal • EUA"],["System Of A Down","Alternative metal • EUA"],
+        ["Metallica","Thrash metal • EUA"],["Green Day","Punk rock • EUA"],["Pitty","Rock brasileiro • Brasil"],
+        ["Charlie Brown Jr.","Rock brasileiro • Brasil"],["The Cure","Gothic rock • Reino Unido"],["Arctic Monkeys","Indie rock • Reino Unido"],
+        ["Slipknot","Metal • EUA"],["Evanescence","Alternative metal • EUA"],["Rage Against the Machine","Rap metal • EUA"],
+        ["Legião Urbana","Rock brasileiro • Brasil"],["Deep Purple","Hard rock • Reino Unido"],["Kiss","Hard rock • EUA"]
+    ];
+    let atual=[];
+    let score=0;
+
+    function nova() {
+        const left=document.getElementById("battleLeft");
+        const right=document.getElementById("battleRight");
+        const result=document.getElementById("battleResult");
+        if(!left||!right) return;
+        const pool=[...bandas];
+        const pick=()=>pool.splice(Math.floor(Math.random()*pool.length),1)[0];
+        atual=[pick(),pick()];
+        left.querySelector("h2").textContent=atual[0][0];
+        left.querySelector("p").textContent=atual[0][1];
+        right.querySelector("h2").textContent=atual[1][0];
+        right.querySelector("p").textContent=atual[1][1];
+        if(result) result.textContent="Escolha seu lado. 🤘";
+    }
+
+    function votar(lado) {
+        if(!atual.length) nova();
+        if(!atual.length) return;
+        score++;
+        const scoreEl=document.getElementById("battleScore");
+        const result=document.getElementById("battleResult");
+        if(scoreEl) scoreEl.textContent=score;
+        if(result) result.textContent="🤘 Você escolheu "+atual[lado][0]+"! Próxima batalha?";
+    }
+
+    function iniciar() {
+        const section=document.getElementById("batalha");
+        const left=document.getElementById("battleLeft");
+        const right=document.getElementById("battleRight");
+        const novo=section && section.querySelector(".battle-actions button");
+        if(!section||!left||!right) return;
+        left.addEventListener("click",()=>votar(0));
+        right.addEventListener("click",()=>votar(1));
+        if(novo) novo.addEventListener("click",nova);
+        nova();
+    }
+
+    if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",iniciar);
+    else iniciar();
+})();
 
 </script>
 
