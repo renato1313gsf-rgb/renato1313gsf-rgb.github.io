@@ -2247,9 +2247,24 @@ function votarBatalha(lado){
     if(result)result.textContent="🤘 Você escolheu "+escolhida[0]+"! Próxima batalha?";
 }
 
-window.addEventListener("load",()=>{
-    if(document.getElementById("battleLeft"))novaBatalha();
-});
+function iniciarBatalhaRockWave(){
+    const left=document.getElementById("battleLeft");
+    const right=document.getElementById("battleRight");
+    const novo=document.querySelector("#batalha .battle-actions button");
+    if(!left||!right)return;
+
+    novaBatalha();
+
+    left.onclick=()=>votarBatalha(0);
+    right.onclick=()=>votarBatalha(1);
+    if(novo)novo.onclick=()=>novaBatalha();
+}
+
+if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",iniciarBatalhaRockWave);
+}else{
+    iniciarBatalhaRockWave();
+}
 </script>
 
 
