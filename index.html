@@ -970,6 +970,119 @@
             margin-bottom:8px;
         }
 
+        
+        /* =========================
+           ROCKWAVE POLISH + INTERAÇÕES
+        ========================== */
+        .radio-player-screen{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            min-height:260px;
+            background:
+                radial-gradient(circle at center,#220000 0%,#070707 42%,#000 100%) !important;
+        }
+        .radio-player-screen::after{
+            content:"LIVE";
+            position:absolute;
+            top:16px;
+            right:18px;
+            color:#ff4b4b;
+            border:1px solid #7a0000;
+            padding:6px 9px;
+            font:900 10px/1 Arial,sans-serif;
+            letter-spacing:2px;
+            animation:radioLivePulse 1.5s ease-in-out infinite;
+        }
+        .radio-onair{
+            position:relative;
+            z-index:2;
+            font-size:clamp(38px,8vw,76px);
+            font-weight:900;
+            letter-spacing:5px;
+            text-shadow:0 0 28px #b00000;
+        }
+        .radio-onair-sub{
+            position:relative;
+            z-index:2;
+            color:#777;
+            letter-spacing:4px;
+            font-size:11px;
+            margin-top:8px;
+        }
+        .radio-now-playing{
+            position:relative;
+            z-index:2;
+            margin-top:24px;
+            color:#fff;
+            font-weight:800;
+            letter-spacing:2px;
+        }
+        .radio-visualizer{
+            position:absolute;
+            left:50%;
+            bottom:34px;
+            transform:translateX(-50%);
+            display:flex;
+            align-items:flex-end;
+            gap:5px;
+            height:48px;
+            opacity:.8;
+        }
+        .radio-visualizer span{
+            display:block;
+            width:5px;
+            height:18px;
+            background:#b00000;
+            box-shadow:0 0 10px #b00000;
+            animation:radioBars .8s ease-in-out infinite alternate;
+        }
+        .radio-visualizer span:nth-child(2n){animation-delay:.12s}
+        .radio-visualizer span:nth-child(3n){animation-delay:.24s}
+        .radio-visualizer span:nth-child(4n){animation-delay:.36s}
+        @keyframes radioBars{from{height:8px;opacity:.45}to{height:42px;opacity:1}}
+        @keyframes radioLivePulse{50%{opacity:.45;box-shadow:0 0 18px #b00000}}
+        #radioProgressFill{animation:radioProgressPulse 1.4s ease-in-out infinite alternate}
+        @keyframes radioProgressPulse{from{opacity:.55}to{opacity:1}}
+        .radio-controls button:focus-visible,
+        .radio-volume input:focus-visible,
+        .rock-region:focus-visible,
+        .globe-pin:focus-visible{
+            outline:2px solid #fff;
+            outline-offset:3px;
+        }
+
+        /* Mapa: globo realmente arrastável */
+        .rock-globe{
+            --globe-x:7deg;
+            --globe-y:0deg;
+            cursor:grab;
+            touch-action:none;
+        }
+        .rock-globe.dragging{
+            cursor:grabbing;
+            animation:none !important;
+        }
+        @keyframes globeFloat{
+            0%,100%{transform:rotateX(var(--globe-x)) rotateY(var(--globe-y)) translateY(0)}
+            50%{transform:rotateX(var(--globe-x)) rotateY(var(--globe-y)) translateY(-8px)}
+        }
+        .rock-map-help{
+            max-width:700px;
+            margin:0 auto 18px;
+            color:#666;
+            text-align:center;
+            font-size:12px;
+            letter-spacing:1px;
+        }
+        @media(max-width:650px){
+            .radio-player-screen{min-height:230px}
+            .radio-onair{letter-spacing:2px}
+            .radio-visualizer{bottom:26px}
+        }
+
         </style>
 </head>
 
@@ -1365,7 +1478,7 @@
         <h1 class="section-title">RockWave Radio</h1>
 
         <p class="section-subtitle">
-            Rádio de verdade. 24/7, com o rock tocando direto do servidor. 🤘
+            24/7, com o rock tocando direto do servidor. 🤘
         </p>
 
         <div class="radio-box">
@@ -1485,6 +1598,10 @@
         <div class="style-card"><h3>🎹 Piano Rock</h3><p><strong>Surgimento:</strong> anos 1960–1970</p><p><strong>Artistas/bandas:</strong> Elton John, Billy Joel, Ben Folds Five.</p></div>
         <div class="style-card"><h3>🇧🇷 Rock Brasileiro</h3><p><strong>Surgimento:</strong> anos 1980 em grande expansão</p><p><strong>Bandas:</strong> Legião Urbana, Titãs, Os Paralamas do Sucesso, Barão Vermelho.</p></div>
         <div class="style-card"><h3>🎛️ Electronic Rock</h3><p><strong>Surgimento:</strong> anos 1970 em diante</p><p><strong>Bandas:</strong> Depeche Mode, New Order, Muse.</p></div>
+        <div class="style-card"><h3>🛹 Pop Punk</h3><p><strong>Surgimento:</strong> anos 1990</p><p><strong>Bandas:</strong> Green Day, Blink-182, The Offspring, Sum 41.</p></div>
+        <div class="style-card"><h3>⚙️ Alternative Metal</h3><p><strong>Surgimento:</strong> anos 1990</p><p><strong>Bandas:</strong> Tool, Helmet, Faith No More, Deftones.</p></div>
+        <div class="style-card"><h3>🏭 Industrial Metal</h3><p><strong>Surgimento:</strong> anos 1980–1990</p><p><strong>Bandas:</strong> Rammstein, Ministry, Fear Factory, Static-X.</p></div>
+        <div class="style-card"><h3>🌃 Garage Punk</h3><p><strong>Surgimento:</strong> várias ondas; destaque nos anos 1960 e 2000</p><p><strong>Bandas:</strong> The Sonics, MC5, The Hives, The Strokes.</p></div>
     </div>
 </section>
 
@@ -1639,6 +1756,7 @@
     <h1 class="section-title">MAPA DO ROCK</h1>
     <p class="section-subtitle">Gire pelo mundo do rock: escolha uma região para descobrir as cenas que marcaram — e ainda marcam — aquele lugar. 🌍</p>
     <div class="rock-map-box">
+        <div class="rock-map-help">🖱️ Arraste o globo para girar • clique nos pontos vermelhos para explorar cenas do rock</div>
         <div class="rock-globe-wrap" aria-label="Globo 3D ilustrativo do mundo do rock">
             <div class="rock-globe">
                 <div class="globe-grid"></div>
@@ -1651,6 +1769,10 @@
                 <button class="globe-pin" style="left:53%;top:34%" type="button" aria-label="Selecionar Alemanha" aria-pressed="false" onclick="selecionarRegiaoRock('alemanha')" title="Alemanha"></button>
                 <button class="globe-pin" style="left:84%;top:72%" type="button" aria-label="Selecionar Austrália" aria-pressed="false" onclick="selecionarRegiaoRock('australia')" title="Austrália"></button>
                 <button class="globe-pin" style="left:84%;top:43%" type="button" aria-label="Selecionar Japão" aria-pressed="false" onclick="selecionarRegiaoRock('japao')" title="Japão"></button>
+                <button class="globe-pin" style="left:59%;top:31%" type="button" aria-label="Selecionar Suécia" aria-pressed="false" onclick="selecionarRegiaoRock('suecia')" title="Suécia"></button>
+                <button class="globe-pin" style="left:40%;top:50%" type="button" aria-label="Selecionar Argentina" aria-pressed="false" onclick="selecionarRegiaoRock('argentina')" title="Argentina"></button>
+                <button class="globe-pin" style="left:55%;top:48%" type="button" aria-label="Selecionar França" aria-pressed="false" onclick="selecionarRegiaoRock('franca')" title="França"></button>
+                <button class="globe-pin" style="left:70%;top:46%" type="button" aria-label="Selecionar Coreia do Sul" aria-pressed="false" onclick="selecionarRegiaoRock('coreia')" title="Coreia do Sul"></button>
                 <span class="globe-glow"></span>
             </div>
             <div class="globe-caption">● PONTOS VERMELHOS: CENAS DO ROCK • CLIQUE PARA EXPLORAR</div>
@@ -1662,6 +1784,10 @@
             <button class="rock-region" type="button" onclick="selecionarRegiaoRock('alemanha')">🇩🇪 Alemanha</button>
             <button class="rock-region" type="button" onclick="selecionarRegiaoRock('australia')">🇦🇺 Austrália</button>
             <button class="rock-region" type="button" onclick="selecionarRegiaoRock('japao')">🇯🇵 Japão</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('suecia')">🇸🇪 Suécia</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('argentina')">🇦🇷 Argentina</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('franca')">🇫🇷 França</button>
+            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('coreia')">🇰🇷 Coreia do Sul</button>
         </div>
         <article class="rock-region-detail" aria-live="polite">
             <span id="rockRegionTag" class="rock-map-tag">ESTADOS UNIDOS</span>
@@ -1901,6 +2027,35 @@ desbloquear("achQuiz");
             }
         }
 
+
+        let radioReconectando = false;
+        let radioReconexaoTimer = null;
+
+        function reconectarRadio(motivo) {
+            const audio = document.getElementById("rockwaveAudio");
+            if (!audio || !radioLigada || radioReconectando) return;
+
+            radioReconectando = true;
+            const status = document.getElementById("radioStatus");
+            if (status) status.textContent = "Reconectando ao stream...";
+
+            clearTimeout(radioReconexaoTimer);
+            radioReconexaoTimer = setTimeout(() => {
+                if (!radioLigada) {
+                    radioReconectando = false;
+                    return;
+                }
+                const volume = audio.volume;
+                audio.pause();
+                audio.removeAttribute("src");
+                audio.load();
+                audio.src = ROCKWAVE_STREAM;
+                audio.volume = volume;
+                audio.play().catch(() => {});
+                radioReconectando = false;
+            }, 2500);
+        }
+
         function ligarRadio() {
             const audio = document.getElementById("rockwaveAudio");
             if (!audio) return;
@@ -1984,15 +2139,21 @@ desbloquear("achQuiz");
             });
 
             audio.addEventListener("error", () => {
-                radioLigada = false;
-
-                const status = document.getElementById("radioStatus");
-                if (status) {
-                    status.textContent =
-                        "Não foi possível conectar ao servidor da rádio.";
+                if (radioLigada) {
+                    reconectarRadio("error");
+                } else {
+                    const status = document.getElementById("radioStatus");
+                    if (status) status.textContent = "Não foi possível conectar ao servidor da rádio.";
+                    atualizarRadio();
                 }
+            });
 
-                atualizarRadio();
+            audio.addEventListener("stalled", () => {
+                if (radioLigada) reconectarRadio("stalled");
+            });
+
+            audio.addEventListener("waiting", () => {
+                if (radioLigada) reconectarRadio("waiting");
             });
 
             atualizarRadio();
@@ -2289,7 +2450,11 @@ desbloquear("achQuiz");
             "brasil": {tag:"BRASIL",titulo:"Brasília, São Paulo, Rio e além",historia:"O rock brasileiro ganhou grande projeção nos anos 1980 e seguiu diverso, com cenas punk, alternativa, metal e misturas com ritmos locais.",estilos:"Rock brasileiro • Punk • Alternativo • Metal • Manguebeat",bandas:"Legião Urbana, Titãs, Os Paralamas do Sucesso, Barão Vermelho, Sepultura, Raimundos e Charlie Brown Jr."},
             "alemanha": {tag:"ALEMANHA",titulo:"Düsseldorf, Berlim e Frankfurt",historia:"A Alemanha ficou associada ao krautrock experimental dos anos 1970 e, mais tarde, a importantes vertentes do metal e do rock industrial.",estilos:"Krautrock • Metal • Industrial rock",bandas:"Kraftwerk, Can, Scorpions, Rammstein e Helloween."},
             "australia": {tag:"AUSTRÁLIA",titulo:"Sydney, Melbourne e Perth",historia:"A cena australiana combina hard rock de arena, punk e rock alternativo, com bandas que alcançaram público internacional desde os anos 1970.",estilos:"Hard rock • Pub rock • Punk • Alternativo",bandas:"AC/DC, INXS, Midnight Oil, The Saints e Silverchair."},
-            "japao": {tag:"JAPÃO",titulo:"Tóquio e Osaka",historia:"O Japão desenvolveu cenas próprias que vão do hard rock e metal ao visual kei, punk e rock alternativo, com forte cultura de shows.",estilos:"Hard rock • Metal • Punk • Visual kei • Alternativo",bandas:"X Japan, B’z, Loudness, Shonen Knife e One OK Rock."}
+            "japao": {tag:"JAPÃO",titulo:"Tóquio e Osaka",historia:"O Japão desenvolveu cenas próprias que vão do hard rock e metal ao visual kei, punk e rock alternativo, com forte cultura de shows.",estilos:"Hard rock • Metal • Punk • Visual kei • Alternativo",bandas:"X Japan, B’z, Loudness, Shonen Knife e One OK Rock."},
+            "suecia": {tag:"SUÉCIA",titulo:"Estocolmo e Gotemburgo",historia:"A Suécia construiu cenas importantes de metal e rock alternativo, além de uma forte tradição de bandas com alcance internacional.",estilos:"Death metal melódico • Hard rock • Punk • Alternativo",bandas:"Europe, In Flames, Opeth, Refused e The Hives."},
+            "argentina": {tag:"ARGENTINA",titulo:"Buenos Aires e La Plata",historia:"O rock argentino se tornou uma das cenas mais influentes da América Latina, com identidade própria desde os anos 1960.",estilos:"Rock nacional • Hard rock • Alternativo • Punk",bandas:"Soda Stereo, Charly García, Luis Alberto Spinetta, Patricio Rey y sus Redonditos de Ricota e Riff."},
+            "franca": {tag:"FRANÇA",titulo:"Paris e Lyon",historia:"A França desenvolveu cenas que atravessam rock progressivo, punk, pós-punk, alternativo e metal.",estilos:"Progressivo • Punk • Alternativo • Metal",bandas:"Téléphone, Trust, Phoenix, Gojira e Noir Désir."},
+            "coreia": {tag:"COREIA DO SUL",titulo:"Seul e Busan",historia:"A Coreia do Sul possui uma cena de rock que vai do indie e punk ao metal, com clubes e festivais que sustentam novas bandas.",estilos:"Indie rock • Punk • Metal • Alternative",bandas:"Seo Taiji and Boys, Jaurim, Nell, YB e Day6."}
         };
         function selecionarRegiaoRock(id){
             const r=regioesRock[id]; if(!r)return;
@@ -2621,6 +2786,56 @@ function copiarPixRockWave(){
         status.textContent="Selecione e copie a chave acima.";
     }
 }
+
+        /* =========================
+           GLOBO DO MAPA — ARRASTAR PARA GIRAR
+        ========================== */
+        (() => {
+            const globe = document.querySelector(".rock-globe");
+            if (!globe) return;
+
+            let dragging = false;
+            let startX = 0;
+            let startY = 0;
+            let rotX = 7;
+            let rotY = 0;
+
+            function setRotation() {
+                globe.style.setProperty("--globe-x", rotX + "deg");
+                globe.style.setProperty("--globe-y", rotY + "deg");
+            }
+
+            globe.addEventListener("pointerdown", (event) => {
+                if (event.target.closest(".globe-pin")) return;
+                dragging = true;
+                startX = event.clientX;
+                startY = event.clientY;
+                globe.classList.add("dragging");
+                globe.setPointerCapture(event.pointerId);
+            });
+
+            globe.addEventListener("pointermove", (event) => {
+                if (!dragging) return;
+                rotY += (event.clientX - startX) * 0.45;
+                rotX -= (event.clientY - startY) * 0.25;
+                rotX = Math.max(-35, Math.min(35, rotX));
+                startX = event.clientX;
+                startY = event.clientY;
+                setRotation();
+            });
+
+            function stopDrag(event) {
+                if (!dragging) return;
+                dragging = false;
+                globe.classList.remove("dragging");
+                try { globe.releasePointerCapture(event.pointerId); } catch (e) {}
+            }
+
+            globe.addEventListener("pointerup", stopDrag);
+            globe.addEventListener("pointercancel", stopDrag);
+            setRotation();
+        })();
+
 </script>
 
 </body>
