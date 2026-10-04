@@ -2297,6 +2297,34 @@ function copiarPixRockWave(){
             });
         }
 
+/* =========================
+   MAPA DO ROCK — DADOS E INTERAÇÃO
+========================= */
+const regioesRockWave={
+ eua:{tag:"ESTADOS UNIDOS",titulo:"Seattle, Detroit e Los Angeles",historia:"O grunge marcou Seattle; Detroit tem raízes fortes no garage rock; Los Angeles ficou ligada ao punk e ao hard rock.",estilos:"Grunge • Garage rock • Punk • Hard rock",bandas:"Nirvana, Pearl Jam, Soundgarden, The Stooges, MC5 e Guns N’ Roses."},
+ "reino-unido":{tag:"REINO UNIDO",titulo:"Londres, Liverpool e Manchester",historia:"O Reino Unido foi central para a British Invasion, o punk, a new wave, o indie e o britpop.",estilos:"Rock clássico • Punk • New wave • Britpop • Indie",bandas:"The Beatles, The Rolling Stones, The Clash, The Cure, Oasis e Joy Division."},
+ brasil:{tag:"BRASIL",titulo:"Brasília, São Paulo, Rio e além",historia:"O rock brasileiro ganhou grande projeção nos anos 1980 e seguiu diverso entre punk, alternativo, metal e misturas locais.",estilos:"Rock brasileiro • Punk • Alternativo • Metal • Manguebeat",bandas:"Legião Urbana, Titãs, Sepultura, Raimundos, Pitty e Charlie Brown Jr."},
+ alemanha:{tag:"ALEMANHA",titulo:"Düsseldorf, Berlim e Frankfurt",historia:"A Alemanha passou pelo krautrock experimental e por cenas importantes de metal e rock industrial.",estilos:"Krautrock • Metal • Industrial rock",bandas:"Kraftwerk, Can, Scorpions, Rammstein e Helloween."},
+ australia:{tag:"AUSTRÁLIA",titulo:"Sydney, Melbourne e Perth",historia:"A cena australiana combina hard rock de arena, punk e rock alternativo.",estilos:"Hard rock • Punk • Alternativo",bandas:"AC/DC, INXS, Silverchair, Midnight Oil e Tame Impala."},
+ japao:{tag:"JAPÃO",titulo:"Tóquio e Osaka",historia:"O Japão desenvolveu cenas próprias de rock, punk, metal, visual kei e alternative rock.",estilos:"J-rock • Punk • Metal • Visual kei",bandas:"X Japan, B’z, One Ok Rock, Babymetal e Dir en grey."},
+ suecia:{tag:"SUÉCIA",titulo:"Estocolmo e Gotemburgo",historia:"A Suécia construiu cenas importantes de metal, punk e rock alternativo com alcance internacional.",estilos:"Death metal melódico • Hard rock • Punk • Alternativo",bandas:"Europe, In Flames, Opeth, Refused e The Hives."},
+ argentina:{tag:"ARGENTINA",titulo:"Buenos Aires e La Plata",historia:"O rock argentino se tornou uma das cenas mais influentes da América Latina, com identidade própria desde os anos 1960.",estilos:"Rock nacional • Hard rock • Alternativo • Punk",bandas:"Soda Stereo, Charly García, Spinetta, Los Redondos e Riff."},
+ franca:{tag:"FRANÇA",titulo:"Paris e Lyon",historia:"A França desenvolveu cenas de rock progressivo, punk, pós-punk, alternativo e metal.",estilos:"Progressivo • Punk • Alternativo • Metal",bandas:"Téléphone, Trust, Phoenix, Gojira e Noir Désir."},
+ coreia:{tag:"COREIA DO SUL",titulo:"Seul e Busan",historia:"A Coreia do Sul possui uma cena que vai do indie e punk ao metal, sustentada por clubes e festivais.",estilos:"Indie rock • Punk • Metal • Alternative",bandas:"Seo Taiji and Boys, Jaurim, Nell, YB e Day6."},
+ canada:{tag:"CANADÁ",titulo:"Toronto, Vancouver e Montreal",historia:"O Canadá reúne cenas fortes de rock alternativo, punk, indie e metal.",estilos:"Indie • Punk • Alternative • Metal",bandas:"Rush, Arcade Fire, Billy Talent, Nickelback e Danko Jones."},
+ italia:{tag:"ITÁLIA",titulo:"Milão, Roma e Bolonha",historia:"A Itália desenvolveu cenas de rock progressivo, hard rock, punk e rock alternativo.",estilos:"Progressivo • Hard rock • Punk • Alternativo",bandas:"Goblin, Litfiba, Måneskin, Lacuna Coil e Afterhours."},
+ espanha:{tag:"ESPANHA",titulo:"Madri, Barcelona e Bilbao",historia:"O rock espanhol reúne rock urbano, punk, indie e metal em cenas locais muito diferentes.",estilos:"Rock urbano • Punk • Indie • Metal",bandas:"Héroes del Silencio, Extremoduro, Ska-P, Barón Rojo e MClan."},
+ mexico:{tag:"MÉXICO",titulo:"Cidade do México e Monterrey",historia:"O México construiu uma grande cena de rock latino, alternativo, punk e metal.",estilos:"Rock latino • Alternativo • Punk • Metal",bandas:"Caifanes, Café Tacvba, Molotov, Maná e Zoé."}
+};
+function selecionarRegiaoRock(id){
+ const r=regioesRockWave[id]||regioesRockWave.eua;
+ const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+ set("rockRegionTag",r.tag);set("rockRegionTitle",r.titulo);set("rockRegionHistory",r.historia);set("rockRegionStyles",r.estilos);set("rockRegionBands",r.bandas);
+ document.querySelectorAll(".rock-region").forEach(b=>b.classList.toggle("active",b.getAttribute("onclick")===("selecionarRegiaoRock('"+id+"')")));
+ document.querySelectorAll(".globe-pin").forEach(b=>b.setAttribute("aria-pressed",b.getAttribute("onclick")===("selecionarRegiaoRock('"+id+"')")?"true":"false"));
+ if(typeof desbloquear==="function")desbloquear("achMap");
+}
+
         /* =========================
            GLOBO DO MAPA — ARRASTAR PARA GIRAR
         ========================== */
