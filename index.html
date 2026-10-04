@@ -1986,6 +1986,61 @@
 <script>
 
         /* =========================
+           CONQUISTAS — SISTEMA
+        ========================== */
+        const rockwaveConquistas = [
+            "achGuitar","achBandQuiz","achSongGuess","achMap","achNight","achShow",
+            "achCodes","achUnderground","achQuiz","achRadio","achCuriosity","achTime",
+            "achEgg","achGallery","achGalleryFilter","achMobile","achExplorer"
+        ];
+
+        function carregarConquistas(){
+            let salvas = {};
+            try {
+                salvas = JSON.parse(localStorage.getItem("rockwave_conquistas") || "{}") || {};
+            } catch(e) {}
+
+            rockwaveConquistas.forEach(id => {
+                const el = document.getElementById(id);
+                if(!el) return;
+                const desbloqueada = salvas[id] === true;
+                el.classList.toggle("unlocked", desbloqueada);
+                const estado = el.querySelector(".achievement-state");
+                if(estado) estado.textContent = desbloqueada ? "DESBLOQUEADA ✓" : "BLOQUEADA";
+            });
+        }
+
+        function desbloquear(id){
+            if(!rockwaveConquistas.includes(id)) return;
+            let salvas = {};
+            try {
+                salvas = JSON.parse(localStorage.getItem("rockwave_conquistas") || "{}") || {};
+            } catch(e) {}
+
+            if(salvas[id] === true){
+                carregarConquistas();
+                return;
+            }
+
+            salvas[id] = true;
+            try {
+                localStorage.setItem("rockwave_conquistas", JSON.stringify(salvas));
+            } catch(e) {}
+
+            const el = document.getElementById(id);
+            if(el){
+                el.classList.add("unlocked");
+                const estado = el.querySelector(".achievement-state");
+                if(estado) estado.textContent = "DESBLOQUEADA ✓";
+            }
+        }
+
+        function resetarConquistas(){
+            try { localStorage.removeItem("rockwave_conquistas"); } catch(e) {}
+            carregarConquistas();
+        }
+
+        /* =========================
            NAVEGAÇÃO
         ========================== */
 
