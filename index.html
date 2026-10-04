@@ -2376,7 +2376,8 @@ function selecionarRegiaoRock(id){
         const scoreEl=document.getElementById("battleScore");
         const result=document.getElementById("battleResult");
         if(scoreEl) scoreEl.textContent=score;
-        if(result) result.textContent="🤘 Você escolheu "+atual[lado][0]+"! Próxima batalha?";
+        if(result) result.textContent="🤘 Você escolheu "+atual[lado][0]+"!";
+        setTimeout(nova, 350);
     }
 
     function iniciar() {
