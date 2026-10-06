@@ -368,6 +368,15 @@
             line-height: 1.6;
         }
 
+        .easter-media:empty { display: none; }
+        .easter-media iframe {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            margin-top: 18px;
+            border: 0;
+        }
+
         .easter-hint {
             margin-top: 24px;
             color: #777 !important;
@@ -1811,6 +1820,7 @@ body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.radio-onair):not(svg)
         <div class="easter-card">
             <h2 id="easterTitle">SINAL ENCONTRADO</h2>
             <p id="easterText">Você encontrou um Easter egg da RockWave! 🤘</p>
+            <div id="easterMedia" class="easter-media"></div>
             <p class="easter-hint">APERTE ESC PARA FECHAR</p>
         </div>
     </div>
@@ -2971,18 +2981,28 @@ if(document.readyState === "loading"){
     let easterMusicTimer = null;
     const easterModal = document.getElementById("easterMessage");
 
-    function mostrarEasterEgg(titulo, mensagem, atrasoMusica = 0) {
+    function mostrarEasterEgg(titulo, mensagem, atrasoMusica = 0, videoId = null) {
         const tituloModal = document.getElementById("easterTitle");
         const textoModal = document.getElementById("easterText");
-        if (!easterModal || !tituloModal || !textoModal) return;
+        const mediaModal = document.getElementById("easterMedia");
+        if (!easterModal || !tituloModal || !textoModal || !mediaModal) return;
 
         clearTimeout(easterEggTimer);
         clearTimeout(easterMusicTimer);
+        mediaModal.replaceChildren();
         tituloModal.textContent = titulo;
         textoModal.textContent = mensagem;
         easterModal.classList.add("show");
         if (typeof desbloquear === "function") desbloquear("achEgg");
-        if (typeof window.ligarRadio === "function") {
+        if (videoId) {
+            const video = document.createElement("iframe");
+            video.title = "Nirvana - Smells Like Teen Spirit";
+            video.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&playsinline=1`;
+            video.allow = "autoplay; encrypted-media; picture-in-picture";
+            video.referrerPolicy = "strict-origin-when-cross-origin";
+            video.allowFullscreen = true;
+            mediaModal.appendChild(video);
+        } else if (typeof window.ligarRadio === "function") {
             if (atrasoMusica > 0) {
                 easterMusicTimer = setTimeout(() => {
                     easterMusicTimer = null;
@@ -2998,6 +3018,7 @@ if(document.readyState === "loading"){
     function fecharEasterEgg() {
         const estavaAberto = easterModal?.classList.contains("show");
         if (easterModal) easterModal.classList.remove("show");
+        document.getElementById("easterMedia")?.replaceChildren();
         clearTimeout(easterEggTimer);
         clearTimeout(easterMusicTimer);
         easterEggTimer = null;
@@ -3023,13 +3044,13 @@ if(document.readyState === "loading"){
 
         if (typeof desbloquear === "function") desbloquear("achCodes");
         const easterEggs = {
-            nirvana: ["NEVERMIND.EXE", "Você encontrou o sinal de 1991. 🎸", 0],
+            nirvana: ["NEVERMIND.EXE", "Você encontrou o sinal de 1991. 🎸", 0, "hTWKbfoikeg"],
             rockwave: ["ROCKWAVE.EXE", "Sinal encontrado: um segredo da RockWave. 🤘", 0],
             headbang: ["HEADBANG.EXE", "Você encontrou um sinal ainda mais fundo no RockWave. 🤘", 0],
             feedback: ["FEEDBACK.EXE", "Sinal oculto encontrado. Aumente o volume e siga o ruído. 🎚️", 0]
         };
-        const [titulo, mensagem, atrasoMusica] = easterEggs[codigo] || [];
-        if (titulo) mostrarEasterEgg(titulo, mensagem, atrasoMusica);
+        const [titulo, mensagem, atrasoMusica, videoId] = easterEggs[codigo] || [];
+        if (titulo) mostrarEasterEgg(titulo, mensagem, atrasoMusica, videoId);
     }
 
     document.addEventListener("keydown", event => {
