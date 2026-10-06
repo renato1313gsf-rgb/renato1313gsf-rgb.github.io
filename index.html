@@ -376,6 +376,20 @@
             margin-top: 18px;
             border: 0;
         }
+        .easter-media.audio-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+            white-space: nowrap;
+        }
+        .easter-media.audio-only iframe {
+            width: 1px;
+            height: 1px;
+            aspect-ratio: auto;
+            margin: 0;
+        }
 
         .easter-hint {
             margin-top: 24px;
@@ -3031,6 +3045,7 @@ if(document.readyState === "loading"){
         clearTimeout(easterEggTimer);
         clearTimeout(easterMusicTimer);
         mediaModal.replaceChildren();
+        mediaModal.classList.toggle("audio-only", titulo === "NEVERMIND.EXE");
         tituloModal.textContent = titulo;
         textoModal.textContent = mensagem;
         easterModal.classList.add("show");
@@ -3042,6 +3057,10 @@ if(document.readyState === "loading"){
             video.allow = "autoplay; encrypted-media; picture-in-picture";
             video.referrerPolicy = "strict-origin-when-cross-origin";
             video.allowFullscreen = true;
+            if (titulo === "NEVERMIND.EXE") {
+                video.setAttribute("aria-hidden", "true");
+                video.tabIndex = -1;
+            }
             mediaModal.appendChild(video);
         } else if (typeof window.ligarRadio === "function") {
             if (atrasoMusica > 0) {
@@ -3059,7 +3078,9 @@ if(document.readyState === "loading"){
     function fecharEasterEgg() {
         const estavaAberto = easterModal?.classList.contains("show");
         if (easterModal) easterModal.classList.remove("show");
-        document.getElementById("easterMedia")?.replaceChildren();
+        const mediaModal = document.getElementById("easterMedia");
+        mediaModal?.replaceChildren();
+        mediaModal?.classList.remove("audio-only");
         clearTimeout(easterEggTimer);
         clearTimeout(easterMusicTimer);
         easterEggTimer = null;
