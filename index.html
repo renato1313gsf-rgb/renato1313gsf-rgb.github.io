@@ -628,6 +628,21 @@
             border:1px dashed #500;
             color:#aaa;
         }
+        .secret-video-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));
+            gap:16px;
+            margin-top:24px;
+        }
+        .secret-video-card {
+            min-width:0;
+            padding:16px;
+            background:#080808;
+            border:1px solid #292929;
+        }
+        .secret-video-card h2 { margin-bottom:8px; font-size:20px; }
+        .secret-video-card p { margin-bottom:14px; color:#808080; }
+        .secret-video-frame { display:block; width:100%; aspect-ratio:16/9; border:0; background:#000; }
         .secret-code {
             color:#ff5555;
             font-family:monospace;
@@ -1740,6 +1755,32 @@ body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.radio-onair):not(svg)
             <div class="underground-code">
                 <strong>PRÓXIMO SINAL:</strong><br>
                 Procure pelo código <span class="secret-code">headbang</span>.
+            </div>
+        </div>
+    </section>
+
+    <section id="videoteca">
+        <button class="back" type="button" onclick="voltar()">← VOLTAR</button>
+        <h1 class="section-title">VIDEOTECA SECRETA</h1>
+        <p class="section-subtitle">Um arquivo escondido de riffs, refrões e clássicos do rock. 🎸</p>
+        <div class="underground-box">
+            <div class="time-kicker">ARQUIVO RESTRITO • ROCKWAVE.EXE</div>
+            <div class="secret-video-grid">
+                <article class="secret-video-card">
+                    <h2>Nirvana — Smells Like Teen Spirit</h2>
+                    <p>O sinal de 1991.</p>
+                    <iframe class="secret-video-frame" src="https://www.youtube-nocookie.com/embed/hTWKbfoikeg" title="Nirvana - Smells Like Teen Spirit" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </article>
+                <article class="secret-video-card">
+                    <h2>AC/DC — Thunderstruck</h2>
+                    <p>Um riff que acende qualquer palco.</p>
+                    <iframe class="secret-video-frame" src="https://www.youtube-nocookie.com/embed/v2AC41dglnM" title="AC/DC - Thunderstruck" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </article>
+                <article class="secret-video-card">
+                    <h2>Linkin Park — In the End</h2>
+                    <p>Rap, rock e um refrão inesquecível.</p>
+                    <iframe class="secret-video-frame" src="https://www.youtube-nocookie.com/embed/eVTXPUF4Oz4" title="Linkin Park - In the End" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </article>
             </div>
         </div>
     </section>
@@ -3041,6 +3082,14 @@ if(document.readyState === "loading"){
             window.abrir("underground");
             return;
         }
+        if (codigo === "videoteca") {
+            if (typeof desbloquear === "function") {
+                desbloquear("achCodes");
+                desbloquear("achEgg");
+            }
+            window.abrir("videoteca");
+            return;
+        }
 
         if (typeof desbloquear === "function") desbloquear("achCodes");
         const easterEggs = {
@@ -3064,7 +3113,7 @@ if(document.readyState === "loading"){
         if (event.target.closest("input, textarea, select, [contenteditable='true']")) return;
 
         codigoSecreto = (codigoSecreto + event.key.toLowerCase()).slice(-30);
-        const codigos = ["nirvana", "rockwave", "showtime", "underground", "headbang", "feedback"];
+        const codigos = ["nirvana", "rockwave", "showtime", "underground", "headbang", "feedback", "videoteca"];
         const encontrado = codigos.find(codigo => codigoSecreto.endsWith(codigo));
         if (encontrado) ativarCodigoSecreto(encontrado);
     });
