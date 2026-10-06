@@ -1953,7 +1953,7 @@ body.rw-locked > :not(#rw-auth):not(script){display:none!important}
     <div class="battle-box">
         <div class="battle-tournament-head">
             <div>
-                <span id="battleRoundTag" class="rock-map-tag">FASE PRELIMINAR</span>
+                <span id="battleRoundTag" class="rock-map-tag">DEZESSEIS AVOS DE FINAL</span>
                 <h2 id="battleRoundTitle">O campeonato vai começar</h2>
                 <p id="battleMatchInfo">Escolha uma banda para fazê-la avançar.</p>
             </div>
@@ -2627,11 +2627,17 @@ if(document.readyState === "loading"){
         ["Metallica","Thrash metal • EUA"],["Green Day","Punk rock • EUA"],["Pitty","Rock brasileiro • Brasil"],
         ["Charlie Brown Jr.","Rock brasileiro • Brasil"],["The Cure","Gothic rock • Reino Unido"],["Arctic Monkeys","Indie rock • Reino Unido"],
         ["Slipknot","Metal • EUA"],["Evanescence","Alternative metal • EUA"],["Rage Against the Machine","Rap metal • EUA"],
-        ["Legião Urbana","Rock brasileiro • Brasil"],["Deep Purple","Hard rock • Reino Unido"],["Kiss","Hard rock • EUA"]
+        ["Legião Urbana","Rock brasileiro • Brasil"],["Deep Purple","Hard rock • Reino Unido"],["Kiss","Hard rock • EUA"],
+        ["Foo Fighters","Alternative rock • EUA"],["Pearl Jam","Grunge • EUA"],["Radiohead","Alternative rock • Reino Unido"],
+        ["The Rolling Stones","Rock clássico • Reino Unido"],["Led Zeppelin","Hard rock • Reino Unido"],["Iron Maiden","Heavy metal • Reino Unido"],
+        ["Judas Priest","Heavy metal • Reino Unido"],["Sepultura","Thrash metal • Brasil"],["Raimundos","Punk rock • Brasil"],
+        ["Os Paralamas do Sucesso","Rock brasileiro • Brasil"],["Mamonas Assassinas","Rock brasileiro • Brasil"],
+        ["Muse","Alternative rock • Reino Unido"],["The Offspring","Punk rock • EUA"],["The Strokes","Indie rock • EUA"]
     ];
 
-    const nomesFases = ["PRELIMINAR","OITAVAS DE FINAL","QUARTAS DE FINAL","SEMIFINAL","FINAL"];
+    const nomesFases = ["DEZESSEIS AVOS DE FINAL","OITAVAS DE FINAL","QUARTAS DE FINAL","SEMIFINAL","FINAL"];
     let jogadores = [];
+    let classificados = [];
     let fase = 0;
     let indice = 0;
     let confronto = [];
@@ -2649,17 +2655,18 @@ if(document.readyState === "loading"){
 
     function salvar(){
         try{
-            localStorage.setItem("rw_copa_rockwave_2026",JSON.stringify({
-                jogadores,fase,indice,confronto,chave,campeonatoEncerrado
+            localStorage.setItem("rw_copa_rockwave_2026_v2",JSON.stringify({
+                jogadores,classificados,fase,indice,confronto,chave,campeonatoEncerrado
             }));
         }catch(e){}
     }
 
     function carregar(){
         try{
-            const salvo=JSON.parse(localStorage.getItem("rw_copa_rockwave_2026")||"null");
+            const salvo=JSON.parse(localStorage.getItem("rw_copa_rockwave_2026_v2")||"null");
             if(!salvo || !Array.isArray(salvo.jogadores)) return false;
             jogadores=salvo.jogadores;
+            classificados=Array.isArray(salvo.classificados)?salvo.classificados:[];
             fase=Number(salvo.fase)||0;
             indice=Number(salvo.indice)||0;
             confronto=Array.isArray(salvo.confronto)?salvo.confronto:[];
@@ -2671,29 +2678,36 @@ if(document.readyState === "loading"){
 
     function novaPartida(){
         if(campeonatoEncerrado) return;
-        confronto=[jogadores[indice],jogadores[indice+1]];
-        if(!confronto[0]||!confronto[1]){
-            avancarFase();
-            return;
+
+        while(jogadores.length<2){
+            if(jogadores.length===1) classificados.push(jogadores.pop());
+            jogadores=classificados;
+            classificados=[];
+            fase++;
+            if(jogadores.length===1){
+                campeonatoEncerrado=true;
+                confronto=[];
+                render();
+                salvar();
+                return;
+            }
         }
+
+        if(jogadores.length%2!==0) classificados.push(jogadores.pop());
+        confronto=[jogadores[indice],jogadores[indice+1]];
         render();
     }
 
     function iniciarCampeonato(){
         jogadores=embaralhar(bandas);
+        classificados=[];
         fase=0;
         indice=0;
         confronto=[];
         chave=[];
         campeonatoEncerrado=false;
 
-        // Com 18 bandas, quatro jogam a fase preliminar.
-        // Os outros 14 recebem vaga direta nas oitavas.
-        chave.push({nome:"Preliminar",pares:[]});
-        chave.push({nome:"Oitavas de final",pares:[]});
-        chave.push({nome:"Quartas de final",pares:[]});
-        chave.push({nome:"Semifinal",pares:[]});
-        chave.push({nome:"Final",pares:[]});
+        nomesFases.forEach(nome=>chave.push({nome,pares:[]}));
 
         novaPartida();
         salvar();
@@ -2748,43 +2762,14 @@ if(document.readyState === "loading"){
         const result=document.getElementById("battleResult");
         if(result) result.textContent="🤘 "+vencedora[0]+" venceu! "+perdedora[0]+" está eliminada.";
 
-        // O perdedor sai definitivamente do campeonato.
         jogadores.splice(indice,2);
-        jogadores.push(vencedora);
+        classificados.push(vencedora);
         indice=0;
 
-        // Monta a próxima rodada com os sobreviventes.
-        setTimeout(avancarFase,500);
-    }
-
-    function avancarFase(){
-        if(jogadores.length===1){
-            campeonatoEncerrado=true;
-            render();
+        setTimeout(()=>{
+            novaPartida();
             salvar();
-            return;
-        }
-
-        if(fase===0){
-            // Após duas preliminares, os 16 sobreviventes formam as oitavas.
-            fase=1;
-        }else{
-            fase++;
-        }
-
-        // Organiza a lista para que a próxima rodada tenha confrontos sequenciais.
-        jogadores=embaralhar(jogadores);
-
-        // Se estamos saindo da preliminar, 18 -> 16.
-        // Se ainda houver número ímpar por alguma razão, a última banda recebe bye.
-        if(jogadores.length%2!==0){
-            const bye=jogadores.pop();
-            jogadores.push(bye);
-        }
-
-        indice=0;
-        novaPartida();
-        salvar();
+        },500);
     }
 
     function renderChave(){
