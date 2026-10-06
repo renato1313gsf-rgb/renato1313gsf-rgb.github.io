@@ -2980,6 +2980,7 @@ if(document.readyState === "loading"){
         textoModal.textContent = mensagem;
         easterModal.classList.add("show");
         if (typeof desbloquear === "function") desbloquear("achEgg");
+        if (typeof window.ligarRadio === "function") window.ligarRadio();
         easterEggTimer = setTimeout(fecharEasterEgg, 10000);
     }
 
