@@ -2996,11 +2996,13 @@ if(document.readyState === "loading"){
     }
 
     function fecharEasterEgg() {
+        const estavaAberto = easterModal?.classList.contains("show");
         if (easterModal) easterModal.classList.remove("show");
         clearTimeout(easterEggTimer);
         clearTimeout(easterMusicTimer);
         easterEggTimer = null;
         easterMusicTimer = null;
+        if (estavaAberto && typeof window.pausarRadio === "function") window.pausarRadio();
     }
 
     function ativarCodigoSecreto(codigo) {
