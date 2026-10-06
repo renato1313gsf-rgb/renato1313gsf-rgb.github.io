@@ -1003,6 +1003,7 @@
             font-size:clamp(38px,8vw,76px);
             font-weight:900;
             letter-spacing:5px;
+            color:#363636;
             text-shadow:0 0 28px #b00000;
         }
         .radio-onair-sub{
@@ -1144,7 +1145,7 @@ body.rw-locked > :not(#rw-auth):not(script){display:none!important}
 #rw-auth.rw-hidden{display:none}.rw-auth-card{width:min(440px,94vw);padding:32px;background:#0d0d0d;border:1px solid #3a3a3a;border-left:5px solid #a00000;box-shadow:0 20px 70px rgba(0,0,0,.7)}
 .rw-auth-card h1{font-size:clamp(34px,8vw,58px);margin-bottom:6px;letter-spacing:-2px}.rw-auth-card .rw-sub{color:#aaa;margin-bottom:24px}.rw-auth-tabs{display:flex;gap:8px;margin-bottom:18px}.rw-auth-tabs button,.rw-auth-card button{border:1px solid #444;background:#151515;color:#fff;padding:12px 14px;cursor:pointer;font-weight:800;letter-spacing:.5px}.rw-auth-tabs button.active,.rw-auth-card .rw-primary{background:#850000;border-color:#b00000}.rw-auth-card input{width:100%;padding:13px 14px;margin:7px 0;background:#080808;color:#fff;border:1px solid #444;outline:none}.rw-auth-card input:focus{border-color:#b00000}#rw-auth-submit{width:100%;margin-top:10px}#rw-auth-message{min-height:42px;margin-top:14px;color:#bbb;line-height:1.45}#rw-auth-message.error{color:#ff7777}#rw-auth-message.success{color:#79d98a}#rw-auth-forgot{background:transparent!important;border:0!important;padding:4px 0!important;color:#aaa;text-decoration:underline}#rw-account{position:fixed;top:14px;right:14px;z-index:9000;display:none;align-items:center;gap:8px;padding:8px 10px;background:#0d0d0d;border:1px solid #333;color:#ddd;font-size:12px}#rw-account button{background:#850000;color:#fff;border:0;padding:6px 9px;cursor:pointer;font-weight:800}
 
-body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(svg):not(path):not(:has(h1,h2,h3,h4,h5,h6)){
+body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.radio-onair):not(svg):not(path):not(:has(h1,h2,h3,h4,h5,h6)){
     color:#808080!important;
 }
 </style>
@@ -1621,7 +1622,6 @@ body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(svg):not(path):not(:ha
         <div class="style-card"><h3>Ⓐ Punk Rock</h3><p><strong>Surgimento:</strong> meados dos anos 1970</p><p><strong>Bandas:</strong> Ramones, Sex Pistols, The Clash, Dead Kennedys.</p></div>
         <div class="style-card"><h3>🖤 Gothic Rock</h3><p><strong>Surgimento:</strong> fim dos anos 1970–1980</p><p><strong>Bandas:</strong> Bauhaus, The Cure, The Sisters of Mercy.</p></div>
         <div class="style-card"><h3>📡 New Wave</h3><p><strong>Surgimento:</strong> fim dos anos 1970–1980</p><p><strong>Bandas:</strong> Talking Heads, Blondie, The Police, Devo.</p></div>
-        <div class="style-card"><h3>🌑 Post-Punk</h3><p><strong>Surgimento:</strong> fim dos anos 1970</p><p><strong>Bandas:</strong> Joy Division, Siouxsie and the Banshees, Gang of Four.</p></div>
         <div class="style-card"><h3>🧨 Thrash Metal</h3><p><strong>Surgimento:</strong> início dos anos 1980</p><p><strong>Bandas:</strong> Metallica, Slayer, Megadeth, Anthrax.</p></div>
         <div class="style-card"><h3>🏴 Rock Alternativo</h3><p><strong>Surgimento:</strong> fim dos anos 1970–1980</p><p><strong>Bandas:</strong> R.E.M., Pixies, Sonic Youth, The Replacements.</p></div>
         <div class="style-card"><h3>🎤 Pop Rock</h3><p><strong>Surgimento:</strong> anos 1970–1980</p><p><strong>Bandas/artistas:</strong> Queen, The Cars, Elton John, Fleetwood Mac.</p></div>
@@ -1630,10 +1630,12 @@ body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(svg):not(path):not(:ha
         <div class="style-card"><h3>💿 Industrial Rock</h3><p><strong>Surgimento:</strong> fim dos anos 1970–1980</p><p><strong>Bandas:</strong> Nine Inch Nails, Ministry, KMFDM.</p></div>
         <div class="style-card"><h3>🎧 Shoegaze</h3><p><strong>Surgimento:</strong> fim dos anos 1980</p><p><strong>Bandas:</strong> My Bloody Valentine, Slowdive, Ride.</p></div>
         <div class="style-card"><h3>🔥 Nu Metal</h3><p><strong>Surgimento:</strong> meados dos anos 1990</p><p><strong>Bandas:</strong> Korn, Deftones, Limp Bizkit, Linkin Park.</p></div>
-        <div class="style-card"><h3>🧱 Post-Grunge</h3><p><strong>Surgimento:</strong> meados dos anos 1990</p><p><strong>Bandas:</strong> Foo Fighters, Bush, Creed, Silverchair.</p></div>
         <div class="style-card"><h3>💥 Metalcore</h3><p><strong>Surgimento:</strong> anos 1990–2000</p><p><strong>Bandas:</strong> Converge, Killswitch Engage, As I Lay Dying.</p></div>
         <div class="style-card"><h3>🎙️ Emo / Emo Rock</h3><p><strong>Surgimento:</strong> 1980s; novas ondas nos 1990–2000</p><p><strong>Bandas:</strong> Rites of Spring, Jimmy Eat World, My Chemical Romance.</p></div>
         <div class="style-card"><h3>🕶️ Indie Rock</h3><p><strong>Surgimento:</strong> anos 1980; expansão nos 1990–2000</p><p><strong>Bandas:</strong> The Smiths, Pavement, Arctic Monkeys, The Strokes.</p></div>
+        <div class="style-card"><h3>🧱 Post-Grunge</h3><p><strong>Surgimento:</strong> meados dos anos 1990</p><p><strong>Bandas:</strong> Foo Fighters, Bush, Creed, Silverchair.</p></div>
+        <div class="style-card"><h3>⚔️ Post-Hardcore</h3><p><strong>Surgimento:</strong> anos 1980; novas ondas depois</p><p><strong>Bandas:</strong> Fugazi, At the Drive-In, Thrice.</p></div>
+        <div class="style-card"><h3>🌑 Post-Punk</h3><p><strong>Surgimento:</strong> fim dos anos 1970</p><p><strong>Bandas:</strong> Joy Division, Siouxsie and the Banshees, Gang of Four.</p></div>
         <div class="style-card"><h3>🥁 Post-Rock</h3><p><strong>Surgimento:</strong> início dos anos 1990</p><p><strong>Bandas:</strong> Talk Talk, Slint, Tortoise, Mogwai.</p></div>
         <div class="style-card"><h3>🏍️ Stoner Rock</h3><p><strong>Surgimento:</strong> início dos anos 1990</p><p><strong>Bandas:</strong> Kyuss, Sleep, Monster Magnet, Queens of the Stone Age.</p></div>
         <div class="style-card"><h3>🌎 Britpop</h3><p><strong>Surgimento:</strong> início dos anos 1990</p><p><strong>Bandas:</strong> Oasis, Blur, Pulp, Suede.</p></div>
@@ -1650,7 +1652,6 @@ body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(svg):not(path):not(:ha
         <div class="style-card"><h3>🌎 Latin Rock</h3><p><strong>Surgimento:</strong> anos 1960–1970</p><p><strong>Artistas/bandas:</strong> Santana, Maná, Los Fabulosos Cadillacs.</p></div>
         <div class="style-card"><h3>🇧🇷 Samba Rock</h3><p><strong>Surgimento:</strong> anos 1960</p><p><strong>Artistas:</strong> Jorge Ben Jor, Trio Mocotó, Bebeto.</p></div>
         <div class="style-card"><h3>💣 Hardcore Punk</h3><p><strong>Surgimento:</strong> início dos anos 1980</p><p><strong>Bandas:</strong> Black Flag, Bad Brains, Minor Threat, Dead Kennedys.</p></div>
-        <div class="style-card"><h3>⚔️ Post-Hardcore</h3><p><strong>Surgimento:</strong> anos 1980; novas ondas depois</p><p><strong>Bandas:</strong> Fugazi, At the Drive-In, Thrice.</p></div>
         <div class="style-card"><h3>🧮 Math Rock</h3><p><strong>Surgimento:</strong> fim dos anos 1980–1990</p><p><strong>Bandas:</strong> Don Caballero, Slint, Battles.</p></div>
         <div class="style-card"><h3>📢 Noise Rock</h3><p><strong>Surgimento:</strong> anos 1980</p><p><strong>Bandas:</strong> Sonic Youth, Big Black, The Jesus Lizard.</p></div>
         <div class="style-card"><h3>🌋 Doom Metal</h3><p><strong>Surgimento:</strong> anos 1970</p><p><strong>Bandas:</strong> Black Sabbath, Candlemass, Saint Vitus.</p></div>
