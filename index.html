@@ -759,7 +759,8 @@
         body.extreme-night .radio-box,
         body.extreme-night .achievement,
         body.extreme-night .curiosity-box,
-        body.extreme-night .mini-game/g { background:#000; border-color:#151515; box-shadow:none; }.guitar-strings { display:grid; gap:8px; margin:25px 0; }
+        body.extreme-night .mini-game { background:#000; border-color:#151515; box-shadow:none; }
+        .guitar-strings { display:grid; gap:8px; margin:25px 0; }
         .guitar-string { height:10px; background:#555; border:0; cursor:pointer; transition:.1s; }
         .guitar-string:hover,.guitar-string.hit { background:#b00000; box-shadow:0 0 18px #b00000; }
         .game-score { font-size:28px; font-weight:900; }
@@ -1142,6 +1143,10 @@ body.rw-locked > :not(#rw-auth):not(script){display:none!important}
 #rw-auth{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(4,4,4,.97);background-image:radial-gradient(circle at 50% 20%,rgba(150,0,0,.22),transparent 42%);color:#fff}
 #rw-auth.rw-hidden{display:none}.rw-auth-card{width:min(440px,94vw);padding:32px;background:#0d0d0d;border:1px solid #3a3a3a;border-left:5px solid #a00000;box-shadow:0 20px 70px rgba(0,0,0,.7)}
 .rw-auth-card h1{font-size:clamp(34px,8vw,58px);margin-bottom:6px;letter-spacing:-2px}.rw-auth-card .rw-sub{color:#aaa;margin-bottom:24px}.rw-auth-tabs{display:flex;gap:8px;margin-bottom:18px}.rw-auth-tabs button,.rw-auth-card button{border:1px solid #444;background:#151515;color:#fff;padding:12px 14px;cursor:pointer;font-weight:800;letter-spacing:.5px}.rw-auth-tabs button.active,.rw-auth-card .rw-primary{background:#850000;border-color:#b00000}.rw-auth-card input{width:100%;padding:13px 14px;margin:7px 0;background:#080808;color:#fff;border:1px solid #444;outline:none}.rw-auth-card input:focus{border-color:#b00000}#rw-auth-submit{width:100%;margin-top:10px}#rw-auth-message{min-height:42px;margin-top:14px;color:#bbb;line-height:1.45}#rw-auth-message.error{color:#ff7777}#rw-auth-message.success{color:#79d98a}#rw-auth-forgot{background:transparent!important;border:0!important;padding:4px 0!important;color:#aaa;text-decoration:underline}#rw-account{position:fixed;top:14px;right:14px;z-index:9000;display:none;align-items:center;gap:8px;padding:8px 10px;background:#0d0d0d;border:1px solid #333;color:#ddd;font-size:12px}#rw-account button{background:#850000;color:#fff;border:0;padding:6px 9px;cursor:pointer;font-weight:800}
+
+body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(svg):not(path):not(:has(h1,h2,h3,h4,h5,h6)){
+    color:#808080!important;
+}
 </style>
 </head>
 
@@ -1154,7 +1159,7 @@ body.rw-locked > :not(#rw-auth):not(script){display:none!important}
 
     <main id="home" class="hero">
 
-        <button class="show-mode-btn" id="showModeButton" onclick="alternarModoShow()">🎸 MODO SHOW</button>
+        <button class="show-mode-btn" id="showModeButton" type="button" aria-pressed="false" onclick="alternarModoShow()">🎸 MODO SHOW</button>
 
 
         <div class="glow"></div>
@@ -1219,7 +1224,7 @@ body.rw-locked > :not(#rw-auth):not(script){display:none!important}
             </button><button onclick="abrir('quizbandas')"><span>🧠</span>QUIZ DE BANDAS</button>
             <button onclick="abrir('adivinhe')"><span>🎵</span>ADIVINHE A MÚSICA</button>
             <button onclick="abrir('guitarra')"><span>🎮</span>MINIGAME DE GUITARRA</button>
-            <button onclick="abrir('riffguess')"><span>🎶</span>ADIVINHE O RIFF</button><button onclick="alternarNoiteExtrema()"><span>🌑</span>NOITE EXTREMA</button>
+            <button onclick="abrir('riffguess')"><span>🎶</span>ADIVINHE O RIFF</button><button id="extremeNightButton" type="button" aria-pressed="false" onclick="alternarNoiteExtrema()"><span>🌑</span>NOITE EXTREMA</button>
 
 <button type="button" onclick="abrir('batalha')"><span>⚔️</span>BATALHA DE BANDAS</button>
 
@@ -1819,7 +1824,7 @@ body.rw-locked > :not(#rw-auth):not(script){display:none!important}
 <div class="rock-map-controls">
     <button type="button" onclick="resetarGloboRock()">↺ CENTRALIZAR GLOBO</button>
     <button type="button" onclick="girarGloboRock()">⟳ GIRAR 360°</button>
-    <input id="rockMapSearch" class="rock-map-search" type="search" placeholder="🔎 Procurar país/cena..." oninput="filtrarMapaRock(this.value)" aria-label="Procurar região no mapa">
+    <input id="rockMapSearch" class="rock-map-search" type="search" placeholder="🔎 Procurar país no globo..." oninput="filtrarMapaRock(this.value)" aria-label="Procurar país no globo">
 </div>
         <div class="rock-globe-wrap" aria-label="Globo 3D ilustrativo do mundo do rock">
             <div class="rock-globe">
@@ -1844,22 +1849,6 @@ body.rw-locked > :not(#rw-auth):not(script){display:none!important}
                 <span class="globe-glow"></span>
             </div>
             <div class="globe-caption">● PONTOS VERMELHOS: CENAS DO ROCK • CLIQUE PARA EXPLORAR</div>
-        </div>
-        <div class="rock-region-picker" role="group" aria-label="Escolha uma região do mapa">
-            <button class="rock-region active" type="button" onclick="selecionarRegiaoRock('eua')">🇺🇸 Estados Unidos</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('reino-unido')">🇬🇧 Reino Unido</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('brasil')">🇧🇷 Brasil</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('alemanha')">🇩🇪 Alemanha</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('australia')">🇦🇺 Austrália</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('japao')">🇯🇵 Japão</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('suecia')">🇸🇪 Suécia</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('argentina')">🇦🇷 Argentina</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('franca')">🇫🇷 França</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('coreia')">🇰🇷 Coreia do Sul</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('canada')">🇨🇦 Canadá</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('italia')">🇮🇹 Itália</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('espanha')">🇪🇸 Espanha</button>
-            <button class="rock-region" type="button" onclick="selecionarRegiaoRock('mexico')">🇲🇽 México</button>
         </div>
         <article class="rock-region-detail" aria-live="polite">
             <span id="rockRegionTag" class="rock-map-tag">ESTADOS UNIDOS</span>
@@ -2359,9 +2348,11 @@ function copiarPixRockWave(){
             setTimeout(resetarGloboRock,1650);
         }
         function filtrarMapaRock(termo){
-            const q=(termo||"").trim().toLowerCase();
-            document.querySelectorAll(".rock-region").forEach(btn=>{
-                btn.style.display=!q||btn.textContent.toLowerCase().includes(q)?"":"none";
+            const normalizar=texto=>texto.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+            const q=normalizar((termo||"").trim());
+            document.querySelectorAll(".globe-pin").forEach(pin=>{
+                const label=normalizar(pin.title+" "+pin.getAttribute("aria-label"));
+                pin.hidden=!!q&&!label.includes(q);
             });
         }
 
@@ -2388,7 +2379,6 @@ function selecionarRegiaoRock(id){
  const r=regioesRockWave[id]||regioesRockWave.eua;
  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
  set("rockRegionTag",r.tag);set("rockRegionTitle",r.titulo);set("rockRegionHistory",r.historia);set("rockRegionStyles",r.estilos);set("rockRegionBands",r.bandas);
- document.querySelectorAll(".rock-region").forEach(b=>b.classList.toggle("active",b.getAttribute("onclick")===("selecionarRegiaoRock('"+id+"')")));
  document.querySelectorAll(".globe-pin").forEach(b=>b.setAttribute("aria-pressed",b.getAttribute("onclick")===("selecionarRegiaoRock('"+id+"')")?"true":"false"));
  if(typeof desbloquear==="function")desbloquear("achMap");
 }
@@ -2834,5 +2824,149 @@ if(document.readyState === "loading"){
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>(()=>{const SUPABASE_URL="https://ofuvubylggymlmhwjeji.supabase.co",SUPABASE_PUBLISHABLE_KEY="sb_publishable_xdzOiZ3w0z4JEt9jIa98lQ_yS7If7kI",sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}),authBox=document.getElementById("rw-auth"),form=document.getElementById("rw-auth-form"),email=document.getElementById("rw-email"),password=document.getElementById("rw-password"),submit=document.getElementById("rw-auth-submit"),message=document.getElementById("rw-auth-message"),loginTab=document.getElementById("rw-tab-login"),signupTab=document.getElementById("rw-tab-signup"),forgot=document.getElementById("rw-auth-forgot"),account=document.getElementById("rw-account"),accountEmail=document.getElementById("rw-account-email"),logout=document.getElementById("rw-logout");let mode="login";document.body.classList.add("rw-locked");function msg(t,c=""){message.textContent=t;message.className=c}function setMode(m){mode=m;const s=m==="signup";loginTab.classList.toggle("active",!s);signupTab.classList.toggle("active",s);submit.textContent=s?"CRIAR MINHA CONTA":"ENTRAR NO ROCKWAVE";password.autocomplete=s?"new-password":"current-password";msg("")}function unlock(u){document.body.classList.remove("rw-locked");authBox.classList.add("rw-hidden");account.style.display="flex";accountEmail.textContent=u?.email||"Conta RockWave"}function lock(){document.body.classList.add("rw-locked");authBox.classList.remove("rw-hidden");account.style.display="none"}loginTab.addEventListener("click",()=>setMode("login"));signupTab.addEventListener("click",()=>setMode("signup"));form.addEventListener("submit",async e=>{e.preventDefault();const em=email.value.trim(),pw=password.value;submit.disabled=true;msg("Conectando ao RockWave...");try{if(mode==="signup"){const{data,error}=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:"https://rockwave.rockbr.workers.dev/"}});if(error)throw error;if(data.session)unlock(data.user);else msg("📧 Confirme seu e-mail antes de entrar. Verifique sua caixa de entrada (Gmail, Outlook, etc.) e clique no link de confirmação enviado pelo RockWave.","success")}else{const{data,error}=await sb.auth.signInWithPassword({email:em,password:pw});if(error)throw error;unlock(data.user)}}catch(err){msg(err?.message||"Não foi possível concluir o acesso.","error")}finally{submit.disabled=false}});forgot.addEventListener("click",async()=>{const em=email.value.trim();if(!em){msg("Digite seu e-mail primeiro para receber o link de recuperação.","error");email.focus();return}forgot.disabled=true;const{error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:"https://rockwave.rockbr.workers.dev/"});forgot.disabled=false;msg(error?(error.message||"Erro ao enviar recuperação."):"Se esse e-mail existir, enviamos um link para redefinir sua senha.",error?"error":"success")});logout.addEventListener("click",async()=>{await sb.auth.signOut();lock()});sb.auth.onAuthStateChange((_e,s)=>{if(s?.user)unlock(s.user);else lock()});sb.auth.getSession().then(({data})=>{if(data.session?.user)unlock(data.session.user);else lock()})})();</script>
+<script>
+(() => {
+    const perguntasQuizBandas = [
+        ["Qual banda lançou o álbum Nevermind?", ["Nirvana", "Pearl Jam", "Soundgarden", "Alice in Chains"], "Nirvana"],
+        ["Qual banda gravou Bohemian Rhapsody?", ["The Who", "Queen", "The Beatles", "The Rolling Stones"], "Queen"],
+        ["Quem lançou o riff de Seven Nation Army?", ["The Strokes", "The White Stripes", "The Hives", "The Black Keys"], "The White Stripes"],
+        ["Qual banda lançou o álbum Never Mind the Bollocks?", ["The Clash", "Ramones", "Sex Pistols", "The Damned"], "Sex Pistols"],
+        ["Quem lançou Hybrid Theory em 2000?", ["Deftones", "Linkin Park", "Korn", "System Of A Down"], "Linkin Park"],
+        ["Qual banda lançou Back in Black?", ["AC/DC", "Kiss", "Aerosmith", "Deep Purple"], "AC/DC"],
+        ["Qual grupo lançou Sgt. Pepper's Lonely Hearts Club Band?", ["The Kinks", "The Beatles", "The Who", "The Beach Boys"], "The Beatles"],
+        ["Qual banda lançou seu álbum de estreia homônimo em 1970?", ["Deep Purple", "Black Sabbath", "Led Zeppelin", "Judas Priest"], "Black Sabbath"],
+        ["Qual banda lançou seu álbum de estreia em 1995 com Dave Grohl nos vocais?", ["Foo Fighters", "Nirvana", "Green Day", "Weezer"], "Foo Fighters"],
+        ["Qual banda brasileira lançou o álbum Dois em 1986?", ["Titãs", "Legião Urbana", "Barão Vermelho", "Os Paralamas do Sucesso"], "Legião Urbana"]
+    ];
+    let perguntaAtual = 0;
+    let acertosQuizBandas = 0;
+    let quizRespondido = false;
+
+    function renderPerguntaBanda() {
+        const progresso = document.getElementById("bandQuizProgress");
+        const pergunta = document.getElementById("bandQuizQuestion");
+        const opcoes = document.getElementById("bandQuizOptions");
+        const resultado = document.getElementById("bandQuizResult");
+        const proxima = document.getElementById("bandQuizNext");
+        if (!progresso || !pergunta || !opcoes || !resultado || !proxima) return;
+
+        const [texto, alternativas] = perguntasQuizBandas[perguntaAtual];
+        quizRespondido = false;
+        progresso.textContent = `PERGUNTA ${perguntaAtual + 1} DE ${perguntasQuizBandas.length}`;
+        pergunta.replaceChildren();
+        const titulo = document.createElement("h2");
+        titulo.textContent = texto;
+        pergunta.appendChild(titulo);
+        opcoes.replaceChildren();
+        resultado.textContent = "";
+        proxima.style.display = "none";
+
+        alternativas.forEach(alternativa => {
+            const botao = document.createElement("button");
+            botao.type = "button";
+            botao.textContent = alternativa;
+            botao.addEventListener("click", () => responderQuizBanda(alternativa));
+            opcoes.appendChild(botao);
+        });
+    }
+
+    function responderQuizBanda(resposta) {
+        if (quizRespondido) return;
+        quizRespondido = true;
+        const correta = perguntasQuizBandas[perguntaAtual][2];
+        document.querySelectorAll("#bandQuizOptions button").forEach(botao => {
+            botao.disabled = true;
+            if (botao.textContent === correta) botao.style.borderColor = "#168a16";
+            if (botao.textContent === resposta && resposta !== correta) botao.style.borderColor = "#a00000";
+        });
+
+        const resultado = document.getElementById("bandQuizResult");
+        const proxima = document.getElementById("bandQuizNext");
+        if (resposta === correta) {
+            acertosQuizBandas++;
+            resultado.textContent = "🤘 Resposta certa!";
+            if (typeof desbloquear === "function") desbloquear("achBandQuiz");
+        } else {
+            resultado.textContent = `Resposta correta: ${correta}.`;
+        }
+        proxima.textContent = perguntaAtual === perguntasQuizBandas.length - 1 ? "JOGAR NOVAMENTE" : "PRÓXIMA →";
+        proxima.style.display = "inline-block";
+    }
+
+    window.proximaPerguntaBanda = () => {
+        if (!quizRespondido) return;
+        if (perguntaAtual === perguntasQuizBandas.length - 1) {
+            perguntaAtual = 0;
+            acertosQuizBandas = 0;
+        } else {
+            perguntaAtual++;
+        }
+        renderPerguntaBanda();
+    };
+
+    window.alternarNoiteExtrema = () => {
+        const ativada = document.body.classList.toggle("extreme-night");
+        const botao = document.getElementById("extremeNightButton");
+        if (botao) {
+            botao.setAttribute("aria-pressed", String(ativada));
+            botao.innerHTML = ativada ? "🌑 SAIR DA NOITE EXTREMA" : "🌑 NOITE EXTREMA";
+        }
+        if (ativada && typeof desbloquear === "function") desbloquear("achNight");
+    };
+
+    window.alternarModoShow = () => {
+        const ativado = document.body.classList.toggle("show-mode");
+        const botao = document.getElementById("showModeButton");
+        if (botao) {
+            botao.setAttribute("aria-pressed", String(ativado));
+            botao.textContent = ativado ? "🎸 SAIR DO MODO SHOW" : "🎸 MODO SHOW";
+        }
+        if (ativado && typeof desbloquear === "function") desbloquear("achShow");
+    };
+
+    const decadasRockWave = {
+        "1950": { titulo: "O nascimento do rock", texto: "O rock and roll saiu das rádios e ganhou guitarras elétricas, atitude e um público jovem.", itens: [["Artistas", "Chuck Berry, Little Richard e Elvis Presley"], ["Sons marcantes", "Rockabilly, rhythm and blues e doo-wop"], ["Faixas em destaque", "Maybellene • Tutti Frutti • Jailhouse Rock"]] },
+        "1960": { titulo: "Invasão e psicodelia", texto: "A década transformou o rock em fenômeno global e abriu espaço para experimentação de estúdio.", itens: [["Artistas", "The Beatles, The Rolling Stones e Jimi Hendrix"], ["Sons marcantes", "British Invasion, folk rock e psicodelia"], ["Faixas em destaque", "Hey Jude • Satisfaction • Purple Haze"]] },
+        "1970": { titulo: "Riffs e novos extremos", texto: "O hard rock e o heavy metal cresceram, enquanto o punk e o rock progressivo seguiram caminhos opostos.", itens: [["Artistas", "Led Zeppelin, Black Sabbath, Queen e Ramones"], ["Sons marcantes", "Hard rock, metal, punk e progressivo"], ["Faixas em destaque", "Stairway to Heaven • Paranoid • Bohemian Rhapsody"]] },
+        "1980": { titulo: "A era dos grandes palcos", texto: "Videoclipes e arenas ampliaram o alcance do rock, ao mesmo tempo que cenas independentes floresciam.", itens: [["Artistas", "AC/DC, Metallica, The Cure e Legião Urbana"], ["Sons marcantes", "Heavy metal, new wave, hardcore e rock brasileiro"], ["Faixas em destaque", "Back in Black • Master of Puppets • Será"]] },
+        "1990": { titulo: "Alternativo no centro", texto: "Grunge e rock alternativo chegaram ao grande público; novas vertentes do metal também ganharam força.", itens: [["Artistas", "Nirvana, Pearl Jam, Radiohead e Rage Against the Machine"], ["Sons marcantes", "Grunge, britpop, pop punk e nu metal"], ["Faixas em destaque", "Smells Like Teen Spirit • Creep • Killing in the Name"]] },
+        "2000": { titulo: "Indie e novas ondas", texto: "A internet mudou a descoberta musical enquanto bandas indie, emo e novas cenas brasileiras alcançavam públicos maiores.", itens: [["Artistas", "The Strokes, Arctic Monkeys, Linkin Park e Pitty"], ["Sons marcantes", "Indie rock, emo, nu metal e garage rock"], ["Faixas em destaque", "Last Nite • Do I Wanna Know? • Equalize"]] },
+        "2010": { titulo: "Rock em novas plataformas", texto: "Streaming e redes sociais mudaram o lançamento de música, sem apagar as cenas locais e a mistura de estilos.", itens: [["Artistas", "Tame Impala, Royal Blood, The 1975 e Greta Van Fleet"], ["Sons marcantes", "Indie, garage, pop rock e revival clássico"], ["Faixas em destaque", "The Less I Know the Better • Figure It Out • Chocolate"]] }
+    };
+
+    window.mostrarDecada = (decada) => {
+        const dados = decadasRockWave[decada];
+        const display = document.getElementById("decadeDisplay");
+        if (!dados || !display) return;
+
+        const kicker = document.createElement("div");
+        kicker.className = "time-kicker";
+        kicker.textContent = `${decada}–${Number(decada) + 9}`;
+        const titulo = document.createElement("h2");
+        titulo.textContent = dados.titulo;
+        const texto = document.createElement("p");
+        texto.textContent = dados.texto;
+        const grade = document.createElement("div");
+        grade.className = "time-grid";
+        dados.itens.forEach(([rotulo, conteudo]) => {
+            const item = document.createElement("div");
+            item.className = "time-item";
+            const strong = document.createElement("strong");
+            strong.textContent = rotulo;
+            const span = document.createElement("span");
+            span.textContent = conteudo;
+            item.append(strong, span);
+            grade.appendChild(item);
+        });
+        display.replaceChildren(kicker, titulo, texto, grade);
+        document.querySelectorAll(".decade-buttons button").forEach(botao => {
+            botao.classList.toggle("selected", botao.getAttribute("onclick") === `mostrarDecada('${decada}')`);
+        });
+        if (typeof desbloquear === "function") desbloquear("achTime");
+    };
+
+    renderPerguntaBanda();
+})();
+</script>
 </body>
 </html>
