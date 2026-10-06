@@ -3,5 +3,4 @@ compatibility_date = "2025-10-06"
 
 [assets]
 directory = "."
-binding = "ASSETS"
 not_found_handling = "single-page-application"
