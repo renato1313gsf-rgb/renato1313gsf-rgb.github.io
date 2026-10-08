@@ -657,6 +657,7 @@
         .secret-video-card h2 { margin-bottom:8px; font-size:20px; }
         .secret-video-card p { margin-bottom:14px; color:#808080; }
         .secret-video-frame { display:block; width:100%; aspect-ratio:16/9; border:0; background:#000; }
+        .secret-video-frame.audio-only { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
         .secret-code {
             color:#ff5555;
             font-family:monospace;
@@ -1797,8 +1798,8 @@ body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.radio-onair):not(svg)
                 </article>
                 <article class="secret-video-card">
                     <h2>Slipknot — Psychosocial</h2>
-                    <p>Um dos hinos mais explosivos do metal moderno.</p>
-                    <iframe id="psychosocialVideo" class="secret-video-frame" data-autoplay-src="https://www.youtube-nocookie.com/embed/5abamRO41fE?autoplay=1&amp;playsinline=1" title="Slipknot - Psychosocial (Official Video)" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <p>Reprodução em áudio, sem exibir o videoclipe.</p>
+                    <iframe id="psychosocialVideo" class="secret-video-frame audio-only" data-autoplay-src="https://www.youtube-nocookie.com/embed/5abamRO41fE?autoplay=1&amp;playsinline=1" title="Slipknot - Psychosocial (audio)" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" aria-hidden="true" tabindex="-1"></iframe>
                 </article>
             </div>
         </div>
