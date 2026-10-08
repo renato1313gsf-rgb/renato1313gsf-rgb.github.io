@@ -1,0 +1,4 @@
+/.git/
+/.wrangler/
+/src/
+/wrangler.toml
