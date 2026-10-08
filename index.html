@@ -3061,7 +3061,7 @@ if(document.readyState === "loading"){
         clearTimeout(easterEggTimer);
         clearTimeout(easterMusicTimer);
         mediaModal.replaceChildren();
-        mediaModal.classList.toggle("audio-only", titulo === "NEVERMIND.EXE");
+        mediaModal.classList.toggle("audio-only", titulo === "NEVERMIND.EXE" || titulo === "ROCKWAVE.EXE");
         tituloModal.textContent = titulo;
         textoModal.textContent = mensagem;
         easterModal.classList.add("show");
@@ -3073,7 +3073,7 @@ if(document.readyState === "loading"){
             video.allow = "autoplay; encrypted-media; picture-in-picture";
             video.referrerPolicy = "strict-origin-when-cross-origin";
             video.allowFullscreen = true;
-            if (titulo === "NEVERMIND.EXE") {
+            if (titulo === "NEVERMIND.EXE" || titulo === "ROCKWAVE.EXE") {
                 video.setAttribute("aria-hidden", "true");
                 video.tabIndex = -1;
             }
