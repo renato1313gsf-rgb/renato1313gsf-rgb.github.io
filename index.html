@@ -1795,6 +1795,11 @@ body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.radio-onair):not(svg)
                     <p>Rap, rock e um refrão inesquecível.</p>
                     <iframe class="secret-video-frame" src="https://www.youtube-nocookie.com/embed/eVTXPUF4Oz4" title="Linkin Park - In the End" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </article>
+                <article class="secret-video-card">
+                    <h2>Slipknot — Psychosocial</h2>
+                    <p>Um dos hinos mais explosivos do metal moderno.</p>
+                    <iframe id="psychosocialVideo" class="secret-video-frame" data-autoplay-src="https://www.youtube-nocookie.com/embed/5abamRO41fE?autoplay=1&amp;playsinline=1" title="Slipknot - Psychosocial (Official Video)" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </article>
             </div>
         </div>
     </section>
@@ -2127,6 +2132,15 @@ body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.radio-onair):not(svg)
                 section.classList.remove("active");
             });
 
+            const psychosocialVideo = document.getElementById("psychosocialVideo");
+            if (psychosocialVideo) {
+                if (id === "videoteca") {
+                    psychosocialVideo.src = psychosocialVideo.dataset.autoplaySrc;
+                } else {
+                    psychosocialVideo.removeAttribute("src");
+                }
+            }
+
             alvo.classList.add("active");
             registrarExploracao(id);
 
@@ -2138,6 +2152,7 @@ body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.radio-onair):not(svg)
 
 
         function voltar() {
+            document.getElementById("psychosocialVideo")?.removeAttribute("src");
 document.querySelectorAll("section").forEach(section => {
                 section.classList.remove("active");
             });
@@ -3036,7 +3051,7 @@ if(document.readyState === "loading"){
     let easterMusicTimer = null;
     const easterModal = document.getElementById("easterMessage");
 
-    function mostrarEasterEgg(titulo, mensagem, atrasoMusica = 0, videoId = null) {
+    function mostrarEasterEgg(titulo, mensagem, atrasoMusica = 0, videoId = null, mediaTitle = "RockWave Easter egg") {
         const tituloModal = document.getElementById("easterTitle");
         const textoModal = document.getElementById("easterText");
         const mediaModal = document.getElementById("easterMedia");
@@ -3052,7 +3067,7 @@ if(document.readyState === "loading"){
         if (typeof desbloquear === "function") desbloquear("achEgg");
         if (videoId) {
             const video = document.createElement("iframe");
-            video.title = "Nirvana - Smells Like Teen Spirit";
+            video.title = mediaTitle;
             video.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&playsinline=1`;
             video.allow = "autoplay; encrypted-media; picture-in-picture";
             video.referrerPolicy = "strict-origin-when-cross-origin";
@@ -3072,7 +3087,7 @@ if(document.readyState === "loading"){
                 window.ligarRadio();
             }
         }
-        easterEggTimer = setTimeout(fecharEasterEgg, 10000);
+        if (!videoId) easterEggTimer = setTimeout(fecharEasterEgg, 10000);
     }
 
     function fecharEasterEgg() {
@@ -3114,13 +3129,13 @@ if(document.readyState === "loading"){
 
         if (typeof desbloquear === "function") desbloquear("achCodes");
         const easterEggs = {
-            nirvana: ["NEVERMIND.EXE", "Você encontrou o sinal de 1991. 🎸", 0, "hTWKbfoikeg"],
-            rockwave: ["ROCKWAVE.EXE", "Sinal encontrado: um segredo da RockWave. 🤘", 0],
+            nirvana: ["NEVERMIND.EXE", "Você encontrou o sinal de 1991. 🎸", 0, "hTWKbfoikeg", "Nirvana - Smells Like Teen Spirit"],
+            rockwave: ["ROCKWAVE.EXE", "Psychosocial, do Slipknot, no volume máximo. 🤘", 0, "5abamRO41fE", "Slipknot - Psychosocial (Official Video)"],
             headbang: ["HEADBANG.EXE", "Você encontrou um sinal ainda mais fundo no RockWave. 🤘", 0],
             feedback: ["FEEDBACK.EXE", "Sinal oculto encontrado. Aumente o volume e siga o ruído. 🎚️", 0]
         };
-        const [titulo, mensagem, atrasoMusica, videoId] = easterEggs[codigo] || [];
-        if (titulo) mostrarEasterEgg(titulo, mensagem, atrasoMusica, videoId);
+        const [titulo, mensagem, atrasoMusica, videoId, mediaTitle] = easterEggs[codigo] || [];
+        if (titulo) mostrarEasterEgg(titulo, mensagem, atrasoMusica, videoId, mediaTitle);
     }
 
     document.addEventListener("keydown", event => {
