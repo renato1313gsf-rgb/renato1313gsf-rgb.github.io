@@ -896,21 +896,21 @@
 .band-members{color:#aaa;line-height:1.8;}
 @media(max-width:650px){.band-builder-form{grid-template-columns:1fr;}}
 
-        .rock-globe-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;margin:8px auto 32px;perspective:1000px}
-        .rock-globe{width:min(430px,80vw);aspect-ratio:1;border-radius:50%;position:relative;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 28% 22%,#65c8f0 0%,#237db0 20%,#0b426e 48%,#031629 76%,#01050b 100%);box-shadow:inset -42px -25px 60px #000e,inset 14px 10px 28px #b9efff66,0 22px 45px #000b,0 0 0 2px #4c9dc544,0 0 65px #1679bd33;transform:rotateX(7deg);animation:globeFloat 6s ease-in-out infinite}
-        .rock-globe::before{content:"";position:absolute;inset:0;border-radius:50%;z-index:4;pointer-events:none;background:linear-gradient(110deg,transparent 25%,#fff1 42%,#fff5 48%,#fff1 54%,transparent 72%),radial-gradient(ellipse at 75% 50%,transparent 35%,#0009 100%);box-shadow:inset 8px 5px 18px #d5f5ff55,inset -24px -10px 35px #000b}
-        .rock-globe::after{content:"";position:absolute;inset:-2%;border-radius:50%;z-index:5;pointer-events:none;border:1px solid #7bd8ff66;box-shadow:0 0 18px #42baff22}
-        .globe-grid{position:absolute;inset:-5%;z-index:1;border-radius:50%;background:repeating-linear-gradient(0deg,transparent 0 29px,#a7e8ff2b 30px 31px);pointer-events:none}
-        .globe-grid::before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(ellipse at 50% 50%,transparent 0 27px,#a7e8ff2a 28px 29px);transform:scaleX(.48)}
-        .globe-land{position:absolute;width:100%;height:100%;inset:0;z-index:2;color:#76d28a;filter:drop-shadow(2px 3px 2px #00150b) drop-shadow(0 0 8px #1b9b5b66);pointer-events:none;animation:globeDrift 28s ease-in-out infinite alternate;transform-origin:center}
-        .globe-glow{position:absolute;inset:0;z-index:3;border-radius:50%;background:linear-gradient(115deg,transparent 35%,#fff2 49%,transparent 63%);pointer-events:none}
-        .globe-pin{position:absolute;z-index:6;width:17px;height:17px;border-radius:50%;border:2px solid #fff;background:#c90000;box-shadow:0 0 0 5px #ff222233,0 0 18px #ff3434;transform:translate(-50%,-50%);cursor:pointer;padding:0;transition:transform .2s,background .2s}
-        .globe-pin:hover,.globe-pin:focus-visible{background:#fff;transform:translate(-50%,-50%) scale(1.35);outline:2px solid #fff;outline-offset:4px}
-        .globe-pin[aria-pressed="true"]{background:#fff;box-shadow:0 0 0 7px #ff333344,0 0 24px #fff}
-        .globe-pin::after{content:"";position:absolute;inset:-8px;border:1px solid #ff666688;border-radius:50%;animation:pinPulse 2s ease-out infinite}
+        .rock-globe-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;margin:8px auto 32px;perspective:1600px;perspective-origin:center center}
+        .rock-globe{--globe-x:7deg;--globe-y:0deg;width:min(430px,80vw);aspect-ratio:1;border-radius:50%;position:relative;overflow:hidden;isolation:isolate;background:radial-gradient(circle at 30% 25%,rgba(189,236,255,.98) 0%,rgba(104,200,255,.72) 10%,rgba(26,99,172,.82) 24%,rgba(10,39,62,.92) 52%,rgba(1,8,16,1) 100%);border:1px solid rgba(124,208,255,.56);box-shadow:inset -42px -25px 60px rgba(0,0,0,.8),inset 22px 18px 34px rgba(216,244,255,.24),0 30px 70px rgba(0,0,0,.62),0 0 0 2px rgba(79,155,200,.35),0 0 90px rgba(32,110,190,.21);transform-style:preserve-3d;transform:rotateX(var(--globe-x)) rotateY(var(--globe-y));animation:globeFloat 7s ease-in-out infinite;cursor:grab;touch-action:none}
+        .rock-globe::before{content:"";position:absolute;inset:8%;border-radius:50%;z-index:4;pointer-events:none;background:linear-gradient(110deg,transparent 24%,rgba(255,255,255,.12) 41%,rgba(255,255,255,.28) 47%,rgba(255,255,255,.12) 54%,transparent 70%),radial-gradient(circle at 72% 52%,rgba(255,255,255,.18),transparent 32%);box-shadow:inset 12px 10px 24px rgba(210,237,255,.25),inset -24px -14px 28px rgba(1,7,17,.7);transform:translateZ(18px)}
+        .rock-globe::after{content:"";position:absolute;inset:-3%;border-radius:50%;z-index:5;pointer-events:none;border:1px solid rgba(123,216,255,.7);box-shadow:0 0 28px rgba(67,170,255,.2),inset 0 0 18px rgba(123,216,255,.12);transform:translateZ(24px)}
+        .globe-grid{position:absolute;inset:-5%;z-index:1;border-radius:50%;background:repeating-linear-gradient(0deg,transparent 0 31px,rgba(167,232,255,.14) 31px 32px),repeating-linear-gradient(90deg,transparent 0 31px,rgba(167,232,255,.08) 31px 32px);transform:rotateX(72deg) translateZ(10px) scale(1.08);opacity:.72;pointer-events:none}
+        .globe-grid::before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(ellipse at 50% 50%,transparent 0 27px,rgba(167,232,255,.17) 28px 29px);transform:scaleX(.48)}
+        .globe-land{position:absolute;width:104%;height:104%;left:-2%;top:-2%;z-index:2;color:#7ad39a;opacity:.95;filter:drop-shadow(2px 3px 2px rgba(0,0,0,.45)) drop-shadow(0 0 18px rgba(25,162,91,.5));pointer-events:none;animation:globeDrift 28s ease-in-out infinite alternate;transform:translateZ(26px) scale(1.04);transform-origin:center}
+        .globe-glow{position:absolute;inset:0;z-index:3;border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(11,214,255,.18),rgba(8,12,20,0) 58%);pointer-events:none;transform:translateZ(22px)}
+        .globe-pin{position:absolute;z-index:6;width:17px;height:17px;border-radius:50%;border:2px solid #fff;background:#c90000;box-shadow:0 0 0 5px rgba(255,34,34,.2),0 0 18px rgba(255,52,52,.8),0 0 22px rgba(255,52,52,.35);transform:translate3d(-50%,-50%,32px);cursor:pointer;padding:0;transition:transform .2s,background .2s,box-shadow .2s}
+        .globe-pin:hover,.globe-pin:focus-visible{background:#fff;transform:translate3d(-50%,-50%,32px) scale(1.35);outline:2px solid #fff;outline-offset:4px}
+        .globe-pin[aria-pressed="true"]{background:#fff;box-shadow:0 0 0 7px rgba(255,51,51,.26),0 0 24px rgba(255,255,255,.7)}
+        .globe-pin::after{content:"";position:absolute;inset:-8px;border:1px solid rgba(255,102,102,.55);border-radius:50%;animation:pinPulse 2s ease-out infinite}
         .globe-caption{font:900 10px/1 Arial,sans-serif;letter-spacing:4px;color:#888;text-align:center}
-        @keyframes globeFloat{0%,100%{transform:rotateX(7deg) translateY(0)}50%{transform:rotateX(7deg) translateY(-8px)}}
-        @keyframes globeDrift{from{transform:translateX(-8px) scale(1.03)}to{transform:translateX(8px) scale(1.03)}}
+        @keyframes globeFloat{0%,100%{transform:rotateX(var(--globe-x)) rotateY(var(--globe-y)) translateY(0)}50%{transform:rotateX(var(--globe-x)) rotateY(var(--globe-y)) translateY(-8px)}}
+        @keyframes globeDrift{from{transform:translateX(-8px) scale(1.03) translateZ(26px)}to{transform:translateX(8px) scale(1.03) translateZ(26px)}}
         @keyframes pinPulse{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.8);opacity:0}}
         .rock-region-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:24px 0}
         .rock-region{background:linear-gradient(145deg,#171717,#080808);color:#ddd;border:1px solid #333;padding:14px 12px;cursor:pointer;font:700 14px Arial,sans-serif;transition:.2s;box-shadow:inset 0 1px #ffffff08,0 5px 0 #000}
@@ -1101,6 +1101,8 @@
             --globe-y:0deg;
             cursor:grab;
             touch-action:none;
+            transform-style:preserve-3d;
+            will-change:transform;
         }
         .rock-globe.dragging{
             cursor:grabbing;
